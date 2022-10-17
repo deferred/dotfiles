@@ -1,0 +1,11 @@
+source ~/.vimrc
+
+map w [w
+map e ]w
+map b [b
+
+set norelativenumber
+
+set NERDTree
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'

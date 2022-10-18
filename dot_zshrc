@@ -80,6 +80,7 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
   git
   history
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh

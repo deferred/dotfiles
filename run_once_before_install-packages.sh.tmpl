@@ -4,8 +4,14 @@
 brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap 'homebrew/cask-fonts'
 tap "homebrew/core"
+
 brew "git"
+
 cask "iterm2"
+
+cask "font-jetbrains-mono"
+cask "font-meslo-lg-nerd-font"
 EOF
 {{ end -}}

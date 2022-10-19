@@ -8,10 +8,14 @@ tap 'homebrew/cask-fonts'
 tap "homebrew/core"
 
 brew "git"
+brew "fzf"
 
 cask "iterm2"
 
 cask "font-jetbrains-mono"
 cask "font-meslo-lg-nerd-font"
 EOF
+
+$(brew --prefix)/opt/fzf/install
+
 {{ end -}}

@@ -10,6 +10,7 @@ tap "homebrew/core"
 brew "fzf"
 brew "git"
 brew "midnight-commander"
+brew "thefuck"
 
 cask "iterm2"
 cask "karabiner-elements"
@@ -19,5 +20,5 @@ cask "font-meslo-lg-nerd-font"
 EOF
 
 $(brew --prefix)/opt/fzf/install
-
+eval $(thefuck --alias)
 {{ end -}}

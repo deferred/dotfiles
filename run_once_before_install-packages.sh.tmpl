@@ -19,6 +19,6 @@ cask "font-jetbrains-mono"
 cask "font-meslo-lg-nerd-font"
 EOF
 
-$(brew --prefix)/opt/fzf/install
-eval $(thefuck --alias)
+$(brew --prefix)/opt/fzf/install --all
+grep -q "eval $(thefuck --alias)" "${HOME}/.zshrc" || echo "eval $(thefuck --alias)" >> "${HOME}/.zshrc"
 {{ end -}}

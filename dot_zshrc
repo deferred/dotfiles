@@ -112,9 +112,18 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Remove command lines from the history list when the first character on the line is a space, or when one of the expanded aliases contains a leading space. 
+# Only normal aliases (not global or suffix aliases) have this behaviour.
+# Note that the command lingers in the internal history until the next command is entered before it vanishes, allowing you to briefly reuse or edit the line.
+# If you want to make it vanish right away without entering another command, type a space and press return.  
+setopt HIST_IGNORE_SPACE
+
+# powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# thefuck
 eval $(thefuck --alias)

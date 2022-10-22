@@ -50,7 +50,7 @@ $(brew --prefix)/opt/fzf/install --all
 grep -q "eval $(thefuck --alias)" "${HOME}/.zshrc" || echo "eval $(thefuck --alias)" >> "${HOME}/.zshrc"
 
 # null-dev/firefox-profile-switcher-connector
-sudo mkdir -p "/Library/Application Support/Mozilla/NativeMessagingHosts"
-sudo ln -sf "/$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json
+mkdir -p "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
+ln -sf "$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json
 
 {{ end -}}

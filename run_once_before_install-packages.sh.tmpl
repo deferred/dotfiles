@@ -52,12 +52,6 @@ mas "Telegram", id: 747648890
 mas "WhatsApp", id: 1147396723
 EOF
 
-# fzf
-$(brew --prefix)/opt/fzf/install --all
-
-# thefuck
-grep -q "eval $(thefuck --alias)" "${HOME}/.zshrc" || echo "eval $(thefuck --alias)" >> "${HOME}/.zshrc"
-
 # null-dev/firefox-profile-switcher-connector
 mkdir -p "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
 ln -sf "$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json

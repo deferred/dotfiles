@@ -82,7 +82,9 @@ ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  fzf
   history
+  thefuck
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-vi-mode
@@ -126,8 +128,3 @@ setopt HIST_IGNORE_SPACE
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# thefuck
-eval $(thefuck --alias)

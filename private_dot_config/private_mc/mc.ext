@@ -478,8 +478,10 @@ shell/i/.svg
 	Open=/usr/lib/mc/ext.d/image.sh open svg
 
 include/image
-	Open=/usr/lib/mc/ext.d/image.sh open ALL_FORMATS
-	View=%view{ascii} /usr/lib/mc/ext.d/image.sh view ALL_FORMATS
+        Open=(open %s)
+        View=(open %s)
+	#Open=/usr/lib/mc/ext.d/image.sh open ALL_FORMATS
+	#View=%view{ascii} /usr/lib/mc/ext.d/image.sh view ALL_FORMATS
 
 
 ### Sound files ###
@@ -568,8 +570,10 @@ type/WebM
     Include=video
 
 include/video
-	Open=/usr/lib/mc/ext.d/video.sh open ALL_FORMATS
-	View=%view{ascii} /usr/lib/mc/ext.d/video.sh view ALL_FORMATS
+	Open=(open %s)
+	View=(open %s)
+	#Open=/usr/lib/mc/ext.d/video.sh open ALL_FORMATS
+	#View=%view{ascii} /usr/lib/mc/ext.d/video.sh view ALL_FORMATS
 
 
 ### Documents ###
@@ -823,8 +827,8 @@ type/^Parity\ Archive\ Volume\ Set
 
 # Default target for anything not described above
 default/*
-	Open=
-	View=
+	Open=(open %s)
+	View=(open %s)
 
 
 ### EOF ###

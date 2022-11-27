@@ -91,4 +91,5 @@ set ttyfast
 
 call plug#begin()
 Plug 'junegunn/fzf'
+Plug 'darfink/vim-plist'
 call plug#end()

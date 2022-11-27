@@ -1,6 +1,15 @@
+#!/usr/bin/env bash
+
+echo -e "$(</dev/stdin)"
+
+if ! grep -q "UseKeychain yes" "$HOME/.ssh/config"; then
+cat <<EOF
+
 Host *
     UseKeychain yes
 
 Match exec "ping -q -c 1 -t 1 %h | grep '10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'"
    StrictHostKeyChecking no
    UserKnownHostsFile=/dev/null
+EOF
+fi

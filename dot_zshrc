@@ -85,6 +85,7 @@ plugins=(
   git
   fzf
   history
+  kubectl
   thefuck
   zsh-autosuggestions
   zsh-syntax-highlighting

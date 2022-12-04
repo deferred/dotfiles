@@ -88,6 +88,7 @@ plugins=(
   history
   httpie
   kubectl
+  rsync
   thefuck
   zoxide
   zsh-autosuggestions

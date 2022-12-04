@@ -87,6 +87,7 @@ plugins=(
   history
   kubectl
   thefuck
+  zoxide
   zsh-autosuggestions
   zsh-syntax-highlighting
 #  zsh-vi-mode
@@ -134,5 +135,3 @@ setopt HIST_IGNORE_SPACE
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# zoxide
-eval "$(zoxide init zsh)"

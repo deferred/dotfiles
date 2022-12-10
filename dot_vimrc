@@ -81,7 +81,13 @@ set ttimeout
 set ttimeoutlen=1
 set ttyfast
 
+" vim-plug
 call plug#begin()
-Plug 'junegunn/fzf'
 Plug 'darfink/vim-plist'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'junegunn/fzf'
 call plug#end()
+
+" Dracula theme
+colorscheme dracula
+

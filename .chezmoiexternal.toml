@@ -32,3 +32,11 @@
     url = "https://github.com/romkatv/powerlevel10k/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
+
+[".config/nnn/plugins"]
+    type = "archive"
+    url = "https://github.com/jarun/nnn/archive/master.tar.gz"
+    stripComponents = 2
+    include = ["*/plugins/**"]
+    refreshPeriod = "168h"
+

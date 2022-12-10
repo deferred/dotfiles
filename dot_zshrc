@@ -185,5 +185,6 @@ n ()
 
 export NNN_PLUG='z:autojump'
 
-alias nnn="n -eH"
+alias n="n -eH"
+alias nnn="n"
 

@@ -183,4 +183,7 @@ n ()
     fi
 }
 
+export NNN_PLUG='z:autojump'
+
 alias nnn="n -e"
+

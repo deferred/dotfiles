@@ -89,5 +89,10 @@ Plug 'junegunn/fzf'
 call plug#end()
 
 " Dracula theme
+" Fix for grey background 
+" https://github.com/dracula/vim/issues/65
+" https://github.com/dracula/vim/issues/96
+let g:dracula_colorterm = 0
+let g:dracula_italic = 0
 colorscheme dracula
 

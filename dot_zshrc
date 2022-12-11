@@ -73,7 +73,7 @@ DISABLE_AUTO_TITLE="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Always starting with insert mode for each command line
-ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+# ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/

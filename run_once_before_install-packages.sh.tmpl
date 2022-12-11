@@ -64,6 +64,9 @@ mas "Telegram", id: 747648890
 mas "WhatsApp", id: 1147396723
 EOF
 
+# Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
 # null-dev/firefox-profile-switcher-connector
 mkdir -p "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
 ln -sf "$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json

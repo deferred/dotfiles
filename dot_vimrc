@@ -89,7 +89,7 @@ Plug 'junegunn/fzf'
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
-" Dracula theme
+" dracula/vim
 " Fix for grey background 
 " https://github.com/dracula/vim/issues/65
 " https://github.com/dracula/vim/issues/96
@@ -97,6 +97,7 @@ let g:dracula_colorterm = 0
 let g:dracula_italic = 0
 colorscheme dracula
 
+" vim-airline/vim-airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 

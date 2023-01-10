@@ -67,6 +67,9 @@ EOF
 # Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
+# vim
+vim +'PlugInstall --sync' +qa
+
 # null-dev/firefox-profile-switcher-connector
 mkdir -p "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
 ln -sf "$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json

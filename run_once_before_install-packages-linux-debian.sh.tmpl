@@ -1,0 +1,35 @@
+{{- if eq .osid "linux-debian" -}}
+
+#!/bin/bash
+
+sudo apt-get update
+
+packagelist=(
+# bat
+  btop 
+# cpufetch
+# duf
+  exa 
+  fzf 
+  git 
+  htop
+  httpie
+  iperf3 
+  mc
+  ncdu
+# neofetch
+  nnn
+  rsync
+# speedtest-cli
+  telnet
+  thefuck
+  tldr
+  wget
+# zoxide
+)
+
+sudo apt-get install -y ${packagelist[@]}
+
+vim +'PlugInstall --sync' +qa
+
+{{ end -}}

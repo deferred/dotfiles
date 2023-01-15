@@ -1,8 +1,8 @@
-alias l="exa -lah"
-alias la="exa -lah"
-alias ll="exa -lh"
+alias l="exa -lahg"
+alias la="exa -lahg"
+alias ll="exa -lhg"
 alias ls="exa"
-alias lsa="exa -lah"
+alias lsa="exa -lahg"
 
 alias tree="exa --tree"
 

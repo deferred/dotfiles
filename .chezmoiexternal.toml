@@ -34,3 +34,9 @@
     include = ["*/plugins/**"]
     refreshPeriod = "168h"
 
+[".config/btop/themes"]
+    type = "archive"
+    url = "https://github.com/aristocratos/btop/archive/main.tar.gz"
+    stripComponents = 2
+    include = ["*/themes/**"]
+    refreshPeriod = "168h"

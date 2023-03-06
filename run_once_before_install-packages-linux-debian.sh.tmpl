@@ -1,5 +1,5 @@
-{{ if eq .chezmoi.os "linux" }}
-{{ if eq .chezmoi.osRelease.id "debian" }}
+{{- if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.osRelease.id "debian" -}}
 
 #!/bin/bash
 
@@ -36,4 +36,4 @@ sudo apt-get install -y ${packagelist[@]}
 vim +'PlugInstall --sync' +qa
 
 {{ end -}}
-{{ end }}
+{{ end -}}

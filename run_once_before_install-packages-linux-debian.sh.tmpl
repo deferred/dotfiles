@@ -33,6 +33,10 @@ packagelist=(
 
 sudo apt-get install -y ${packagelist[@]}
 
+# Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# vim
 vim +'PlugInstall --sync' +qa
 
 {{ end -}}

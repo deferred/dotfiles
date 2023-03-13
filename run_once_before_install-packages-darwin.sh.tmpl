@@ -75,12 +75,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # vim
 vim +'PlugInstall --sync' +qa
 
-# cron
-if ! crontab -l | grep -q '* * * * * ~/.local/bin/cron/mount'; then
-  (crontab -l 2>/dev/null || true; echo '* * * * * ~/.local/bin/cron/mount') | crontab -
-fi
-
-
 # null-dev/firefox-profile-switcher-connector
 mkdir -p "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
 ln -sf "$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json

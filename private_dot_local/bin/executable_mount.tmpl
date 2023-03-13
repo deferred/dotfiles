@@ -3,7 +3,6 @@
 home_ssids=({{range .wifi.home.ssids}} {{.}} {{end}})
 connected_ssid=$(/Sy*/L*/Priv*/Apple8*/V*/C*/R*/airport -I | sed -n "s/^.*SSID: \(.*\)$/\1/p")
 
-
 if [[ "${home_ssids[*]} " =~ "${connected_ssid}" ]]; then
     user=$(id -un)
     host={{ .nas.hostname }}

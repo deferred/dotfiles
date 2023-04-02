@@ -89,6 +89,9 @@ set ttimeout
 set ttimeoutlen=1
 set ttyfast
 
+" Enable 24-bit RGB color.
+set termguicolors
+
 " vim-plug
 call plug#begin()
 Plug 'darfink/vim-plist'
@@ -98,11 +101,6 @@ Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " dracula/vim
-" Fix for grey background 
-" https://github.com/dracula/vim/issues/65
-" https://github.com/dracula/vim/issues/96
-let g:dracula_colorterm = 0
-let g:dracula_italic = 0
 colorscheme dracula
 
 " vim-airline/vim-airline

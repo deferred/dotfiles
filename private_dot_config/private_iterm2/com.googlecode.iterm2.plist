@@ -1122,6 +1122,8 @@
 			<false/>
 			<key>Shortcut</key>
 			<string></string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Silence Bell</key>
 			<false/>
 			<key>Space</key>
@@ -1161,7 +1163,7 @@
 		</dict>
 	</array>
 	<key>OpenArrangementAtStartup</key>
-	<true/>
+	<false/>
 	<key>OpenNoWindowsAtStartup</key>
 	<false/>
 	<key>PMPrintingExpandedStateForPrint2</key>

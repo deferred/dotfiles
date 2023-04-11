@@ -2,6 +2,8 @@
 .config/Transmission\ Remote\ GUI/
 .config/iterm2/
 .config/karabiner/
+.config/skhd
+.config/yabai
 Library/
 .ideavimrc
 {{- end }}

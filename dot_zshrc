@@ -91,6 +91,7 @@ plugins=(
   httpie
   kubectl
   thefuck
+  tmux
   zoxide
   zsh-autosuggestions
   zsh-syntax-highlighting

@@ -9,6 +9,12 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
+[".config/tmux/plugins/tpm"]
+    type = "archive"
+    url = "https://github.com/tmux-plugins/tpm/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
+
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"

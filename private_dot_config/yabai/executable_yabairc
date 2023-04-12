@@ -9,6 +9,10 @@ yabai -m signal --add event=space_changed action="yabai -m window --focus \$(yab
 # focus window after active display changes
 yabai -m signal --add event=display_changed action="yabai -m window --focus \$(yabai -m query --windows --space | yq '(.[] | select(."has-fullscreen-zoom"==true).id) // .[-1].id')"
 
+# make all non-resizable windows float
+# https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905
+yabai -m signal --add event=window_created action='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".\"can-resize\" or .\"is-floating\"" || yabai -m window $YABAI_WINDOW_ID --toggle float'
+
 # default layout (can be bsp, stack or float)
 yabai -m config layout bsp
 
@@ -74,7 +78,6 @@ setup_spaces
 # yabai -m signal --add event=display_removed action="sudo yabai --load-sa"
 
 # turn off yabai for some apps
-yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 

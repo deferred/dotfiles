@@ -36,46 +36,11 @@ yabai -m config mouse_action2 resize
 # when window is dropped in center of another window, swap them (on edges it will split it)
 yabai -m config mouse_drop_action swap
 
-function setup_spaces {
-    for _ in $(yabai -m query --spaces | jq '.[].index | select(. > 8)'); do
-        yabai -m space --destroy 9
-    done
-    
-    # create spaces till there are 8
-    while [ $(yabai -m query --spaces | jq length) -lt 8 ]; do
-        yabai -m space --create
-    done
-    
-    for i in "web 1 l" "terminal 2 l" "code 3 l" "random 4 l" "slack 5 s" "email 6 s" "teams 7 s" "telegram 8 s"; do
-        # convert the "tuple" into the param args $1 $2...
-        set -- $i 
-        local space_label="$1"
-        local space_idx="$2"
-        local display_size="$3"
+YABAI_NUM_SPACES=8
+~/.config/yabai/setup-spaces.sh "$YABAI_NUM_SPACES"
 
-        # set labels to corresponding spaces
-        yabai -m space "$space_idx" --label "$space_label"
-
-        # get display indices
-        local display_idx=
-        if [ "$display_size" = "l" ]; then
-            display_idx=$(yabai -m query --displays | jq 'max_by(.frame.w).index') 
-        else
-            display_idx=$(yabai -m query --displays | jq 'min_by(.frame.w).index') 
-        fi
-        
-        echo "sending space $space_label with index $space_idx to display $display_idx"
-        # send spaces to corresponding displays
-        yabai -m space "$space_idx" --display "$display_idx"
-    done
-
-
-}
-
-setup_spaces
-
-# yabai -m signal --add event=display_added action="sudo yabai --load-sa"
-# yabai -m signal --add event=display_removed action="sudo yabai --load-sa"
+#yabai -m signal --add event=display_added action="brew services restart yabai"
+#yabai -m signal --add event=display_removed action="brew services restart yabai"
 
 # turn off yabai for some apps
 yabai -m rule --add app="^Calculator$" manage=off

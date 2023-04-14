@@ -37,10 +37,15 @@ yabai -m config mouse_action2 resize
 yabai -m config mouse_drop_action swap
 
 YABAI_NUM_SPACES=8
+#
+# setup spaces
 ~/.config/yabai/setup-spaces.sh "$YABAI_NUM_SPACES"
 
-#yabai -m signal --add event=display_added action="brew services restart yabai"
-#yabai -m signal --add event=display_removed action="brew services restart yabai"
+# redistribute spaces when display added
+yabai -m signal --add event=display_added action="~/.config/yabai/setup-spaces.sh $YABAI_NUM_SPACES"
+#
+# redistribute spaces when display removed
+yabai -m signal --add event=display_removed action="~/.config/yabai/setup-spaces.sh $YABAI_NUM_SPACES"
 
 # turn off yabai for some apps
 yabai -m rule --add app="^Calculator$" manage=off

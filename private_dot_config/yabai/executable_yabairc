@@ -71,12 +71,12 @@ yabai -m signal --add \
 yabai -m signal --add \
     event=application_activated \
     app="^Microsoft Teams$" \
-    action='${HOME}/.config/yabai/defeat-teams.sh'
+    action='~/.config/yabai/defeat-teams.sh'
 
 yabai -m signal --add \
       event=window_focused \
       app="^Microsoft Teams$" \
-      action='${HOME}/.config/yabai/defeat-teams.sh'
+      action='~/.config/yabai/defeat-teams.sh'
 
 # turn on window borders only when there are multiple windows on space
 # https://github.com/koekeishiya/yabai/issues/767#issuecomment-752793868

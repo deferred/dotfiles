@@ -52,5 +52,6 @@ function setup_spaces {
     distribute_spaces_between_displays
 }
 
+echo "running $(basename "$0")"
 setup_spaces $@
 

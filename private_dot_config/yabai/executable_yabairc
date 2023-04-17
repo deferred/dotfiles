@@ -34,12 +34,6 @@ yabai -m config mouse_action2 resize
 # when window is dropped in center of another window, swap them (on edges it will split it)
 yabai -m config mouse_drop_action swap
 
-# configure window borders
-yabai -m config window_border_hidpi on
-yabai -m config window_border_width 2
-yabai -m config active_window_border_color 0xFFFF79C6
-
-
 # setup spaces
 ~/.config/yabai/setup-spaces.sh "$YABAI_NUM_SPACES"
 
@@ -88,6 +82,14 @@ yabai -m signal --add \
 # https://github.com/koekeishiya/yabai/issues/767#issuecomment-752793868
 yabai -m signal --add \
     event=application_front_switched \
+    action="~/.config/yabai/control-borders.sh"
+
+yabai -m signal --add \
+    event=window_created \
+    action="~/.config/yabai/control-borders.sh"
+
+yabai -m signal --add \
+    event=window_destroyed \
     action="~/.config/yabai/control-borders.sh"
 
 

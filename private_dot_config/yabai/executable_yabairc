@@ -54,12 +54,12 @@ yabai -m signal --add \
 # focus window after active space or display changes
 # https://github.com/koekeishiya/yabai/issues/719#issuecomment-728140216
 yabai -m signal --add \
-    event=space_changed \
-    action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
+    event=display_changed \
+    action='~/.config/yabai/control-focus.sh'
 
 yabai -m signal --add \
-    event=display_changed \
-    action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
+    event=space_changed \
+    action='~/.config/yabai/control-focus.sh'
 
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905

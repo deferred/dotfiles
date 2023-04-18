@@ -9,7 +9,6 @@ sudo yabai --load-sa
 # config
 
 
-YABAI_NUM_SPACES=8
 
 # set default layout (can be bsp, stack or float)
 yabai -m config layout bsp
@@ -35,20 +34,22 @@ yabai -m config mouse_action2 resize
 yabai -m config mouse_drop_action swap
 
 # setup spaces
+YABAI_NUM_SPACES=8
 ~/.config/yabai/setup-spaces.sh "$YABAI_NUM_SPACES"
 
 
 # signals
 
 
-# redistribute spaces when a display is added or removed
+# restart yabai when a display is added or removed so rules kick in
+# https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks#quickly-restart-the-yabai-launch-agent
 yabai -m signal --add \
     event=display_added \
-    action="~/.config/yabai/setup-spaces.sh $YABAI_NUM_SPACES"
+    action="launchctl kickstart -k \"gui/${UID}/homebrew.mxcl.yabai\""
 
 yabai -m signal --add \
     event=display_removed \
-    action="~/.config/yabai/setup-spaces.sh $YABAI_NUM_SPACES"
+    action="launchctl kickstart -k \"gui/${UID}/homebrew.mxcl.yabai\""
 
 # focus window after active space or display changes
 # https://github.com/koekeishiya/yabai/issues/719#issuecomment-728140216

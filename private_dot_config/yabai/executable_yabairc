@@ -9,7 +9,6 @@ sudo yabai --load-sa
 # config
 
 
-
 # set default layout (can be bsp, stack or float)
 yabai -m config layout bsp
 
@@ -51,8 +50,10 @@ yabai -m signal --add \
     event=display_removed \
     action="launchctl kickstart -k \"gui/${UID}/homebrew.mxcl.yabai\""
 
-# focus window after active space or display changes
+# control focus after active space or display changes
+# focus windows on space or display, do not allow Microsoft Teams Nofitication or popup steal focus
 # https://github.com/koekeishiya/yabai/issues/719#issuecomment-728140216
+# https://github.com/koekeishiya/yabai/issues/74#issuecomment-767904356
 yabai -m signal --add \
     event=display_changed \
     action='~/.config/yabai/control-focus.sh'
@@ -61,23 +62,17 @@ yabai -m signal --add \
     event=space_changed \
     action='~/.config/yabai/control-focus.sh'
 
+# minimize Microsoft Teams popup
+yabai -m signal --add \
+    event=window_created \
+    app="^Microsoft Teams$" \
+    action='~/.config/yabai/minimize-teams-popup.sh'
+ 
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905
 yabai -m signal --add \
     event=window_created \
     action='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".\"can-resize\" or .\"is-floating\"" || yabai -m window $YABAI_WINDOW_ID --toggle float'
-
-# prevent Mictosoft Teams from stealing focus
-# https://github.com/koekeishiya/yabai/issues/74#issuecomment-767904356
-yabai -m signal --add \
-    event=application_activated \
-    app="^Microsoft Teams$" \
-    action='~/.config/yabai/defeat-teams.sh'
-
-yabai -m signal --add \
-      event=window_focused \
-      app="^Microsoft Teams$" \
-      action='~/.config/yabai/defeat-teams.sh'
 
 # turn on window borders only when there are multiple windows on space
 # https://github.com/koekeishiya/yabai/issues/767#issuecomment-752793868

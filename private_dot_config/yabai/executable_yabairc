@@ -50,8 +50,8 @@ yabai -m signal --add \
     event=display_removed \
     action="launchctl kickstart -k \"gui/${UID}/homebrew.mxcl.yabai\""
 
-# control focus after active space or display changes
-# focus windows on space or display, do not allow Microsoft Teams Nofitication or popup steal focus
+# control focus after space or display changes
+# focus windows on space or display, do not allow Microsoft Teams nofitication and popup steal focus
 # https://github.com/koekeishiya/yabai/issues/719#issuecomment-728140216
 # https://github.com/koekeishiya/yabai/issues/74#issuecomment-767904356
 yabai -m signal --add \
@@ -77,7 +77,7 @@ yabai -m signal --add \
 # turn on window borders only when there are multiple windows on space
 # https://github.com/koekeishiya/yabai/issues/767#issuecomment-752793868
 yabai -m signal --add \
-    event=application_front_switched \
+    event=space_changed \
     action="~/.config/yabai/control-borders.sh"
 
 yabai -m signal --add \

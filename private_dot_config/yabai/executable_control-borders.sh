@@ -6,7 +6,8 @@ function control_window_borders {
         echo "turning window border on"
         yabai -m config window_border on
         yabai -m config window_border_hidpi on
-        yabai -m config active_window_border_color "0xFFF8F8F2"
+        # blue
+        yabai -m config active_window_border_color "0xFF1987FF"
         # transparent
         yabai -m config normal_window_border_color "0x00FFFFFF"
     else

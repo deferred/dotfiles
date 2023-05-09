@@ -45,3 +45,6 @@ vim.opt.updatetime = 50
 -- Show vertical column at this number of symbols.
 -- vim.opt.colorcolumn = "120"
 
+-- Get rid of default mode indicator
+-- https://github.com/vim-airline/vim-airline/wiki/FAQ#how-do-i-get-rid-of-the-default-mode-indicator
+vim.opt.showmode = false

@@ -63,10 +63,6 @@ yabai -m signal --add \
     action='~/.config/yabai/control-focus.sh'
 
 yabai -m signal --add \
-    event=window_created \
-    action='~/.config/yabai/control-focus.sh'
-
-yabai -m signal --add \
     event=window_destroyed \
     action='~/.config/yabai/control-focus.sh'
 

@@ -50,26 +50,6 @@ yabai -m signal --add \
     event=display_removed \
     action="yabai --restart-service"
 
-# control focus after display, space or window changes
-# focus windows on space or display, do not allow Microsoft Teams nofitication and popup steal focus
-# https://github.com/koekeishiya/yabai/issues/719#issuecomment-728140216
-# https://github.com/koekeishiya/yabai/issues/74#issuecomment-767904356
-yabai -m signal --add \
-    event=display_changed \
-    action='~/.config/yabai/control-focus.sh'
-
-yabai -m signal --add \
-    event=space_changed \
-    action='~/.config/yabai/control-focus.sh'
-
-yabai -m signal --add \
-    event=window_created \
-    action='~/.config/yabai/control-focus.sh'
-
-yabai -m signal --add \
-    event=window_destroyed \
-    action='~/.config/yabai/control-focus.sh'
-
  
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905

@@ -63,14 +63,13 @@ yabai -m signal --add \
     action='~/.config/yabai/control-focus.sh'
 
 yabai -m signal --add \
+    event=window_created \
+    action='~/.config/yabai/control-focus.sh'
+
+yabai -m signal --add \
     event=window_destroyed \
     action='~/.config/yabai/control-focus.sh'
 
-# minimize Microsoft Teams popup
-yabai -m signal --add \
-    event=window_created \
-    app="^Microsoft Teams$" \
-    action='~/.config/yabai/minimize-teams-popup.sh'
  
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905

@@ -34,7 +34,7 @@
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     context                 # user@hostname
-    dir_joined              # current directory
+    dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -882,8 +882,8 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
-  typeset -g POWERLEVEL9K_CONTEXT_PREFIX=''
-  typeset -g POWERLEVEL9K_CONTEXT_SUFFIX=':'
+  # typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%fwith '
+  typeset -g POWERLEVEL9K_CONTEXT_SUFFIX=' %fin'
 
   ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
   # Python virtual environment color.

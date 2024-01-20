@@ -67,5 +67,25 @@ sudo apt-get install -y ${packagelist[@]}
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
+# lazygit
+translate_arch() {
+  local input=$(dpkg --print-architecture)
+
+  if [ "$input" == "amd64" ]; then
+    echo "x86_64"
+  elif [ "$input" == "armhf" ]; then
+    echo "armv6"
+  else
+    echo "Unknown input"
+  fi
+}
+# https://github.com/jesseduffield/lazygit#ubuntu
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_$(translate_arch).tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+rm lazygit.tar.gz lazygit
+
+
 {{ end -}}
 {{ end -}}

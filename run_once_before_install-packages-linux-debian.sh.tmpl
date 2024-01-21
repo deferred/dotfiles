@@ -64,6 +64,11 @@ sudo apt-get install -y ${packagelist[@]}
 # oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
+# bat
+# https://github.com/sharkdp/bat#on-ubuntu-using-apt
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
+
 # lazygit
 translate_arch() {
   local input=$(dpkg --print-architecture)

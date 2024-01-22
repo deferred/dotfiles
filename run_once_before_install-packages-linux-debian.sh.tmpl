@@ -65,6 +65,7 @@ sudo apt-get install -y ${packagelist[@]}
 sudo snap install --beta nvim --classic
 
 # oh my zsh
+# https://github.com/ohmyzsh/ohmyzsh#unattended-install
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # bat
@@ -73,9 +74,10 @@ mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
 
 # nvim
-ln -sf  /snap/bin/nvim /usr/local/bin
+ln -sf /snap/bin/nvim /usr/local/bin
 
 # lazygit
+# https://github.com/jesseduffield/lazygit#ubuntu
 translate_arch() {
   local input=$(dpkg --print-architecture)
 
@@ -87,13 +89,16 @@ translate_arch() {
     echo "Unknown input"
   fi
 }
-# https://github.com/jesseduffield/lazygit#ubuntu
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_$(translate_arch).tar.gz"
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 rm lazygit.tar.gz lazygit
 
+# rust
+# https://www.rust-lang.org/tools/install
+# https://github.com/rust-lang/rustup/issues/297#issuecomment-444818896
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 {{ end -}}
 {{ end -}}

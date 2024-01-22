@@ -79,14 +79,12 @@ ln -sf /snap/bin/nvim /usr/local/bin
 # lazygit
 # https://github.com/jesseduffield/lazygit#ubuntu
 translate_arch() {
-  local input=$(dpkg --print-architecture)
+  local arch=$(dpkg --print-architecture)
 
-  if [ "$input" == "amd64" ]; then
-    echo "x86_64"
-  elif [ "$input" == "armhf" ]; then
+  if [ "$arch" == "armhf" ]; then
     echo "armv6"
   else
-    echo "Unknown input"
+    echo "x86_64"
   fi
 }
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')

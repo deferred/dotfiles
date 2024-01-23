@@ -94,6 +94,7 @@ plugins=(
   httpie
   kubectl
   nvm
+  rust
   thefuck
   tmux
   zoxide

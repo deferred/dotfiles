@@ -93,6 +93,7 @@ plugins=(
   history
   httpie
   kubectl
+  nvm
   thefuck
   tmux
   zoxide

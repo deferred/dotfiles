@@ -5,24 +5,25 @@
 
 # setup apt repos
 sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg dirmngr lsb-release
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
 
 # docker
 # https://docs.docker.com/engine/install/debian/#install-using-the-repository
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor | sudo tee /etc/apt/keyrings/docker.gpg > /dev/null
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # speedtest
-# https://pimylifeup.com/raspberry-pi-internet-speed-monitor/
-curl -L https://packagecloud.io/ookla/speedtest-cli/gpgkey | sudo gpg --dearmor | sudo tee /usr/share/keyrings/speedtestcli-archive-keyring.gpg >/dev/null
+sudo curl -fsSL https://packagecloud.io/ookla/speedtest-cli/gpgkey -o /etc/apt/keyrings/speedtest.asc
+sudo chmod a+r /etc/apt/keyrings/speedtest.asc
 echo \
-  "deb [signed-by=/usr/share/keyrings/speedtestcli-archive-keyring.gpg] https://packagecloud.io/ookla/speedtest-cli/debian/ $(lsb_release -cs) main" | \
-  sudo tee  /etc/apt/sources.list.d/speedtest.list
+  "deb [signed-by=/etc/apt/keyrings/speedtest.asc] https://packagecloud.io/ookla/speedtest-cli/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") main" | \
+  sudo tee /etc/apt/sources.list.d/speedtest.list > /dev/null
 
 sudo apt-get update
 

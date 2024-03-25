@@ -81,7 +81,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
 
-# nvim
+# neovim
 git clone --depth 1 --branch stable https://github.com/neovim/neovim.git /tmp/neovim
 ( cd /tmp/neovim \
   && make CMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -101,6 +101,7 @@ rm lazygit.tar.gz lazygit
 # https://www.rust-lang.org/tools/install
 # https://github.com/rust-lang/rustup/issues/297#issuecomment-444818896
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env" 
 
 # node
 # https://github.com/nvm-sh/nvm#usage

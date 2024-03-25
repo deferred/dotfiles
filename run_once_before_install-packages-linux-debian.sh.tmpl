@@ -82,7 +82,7 @@ mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
 
 # nvim
-git clone --depth 1 --branch stable git@github.com:neovim/neovim.git /tmp/neovim
+git clone --depth 1 --branch stable https://github.com/neovim/neovim.git /tmp/neovim
 ( cd /tmp/neovim \
   && make CMAKE_BUILD_TYPE=RelWithDebInfo \
   && sudo make install 

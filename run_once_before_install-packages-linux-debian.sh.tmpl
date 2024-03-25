@@ -1,5 +1,5 @@
 {{- if eq .chezmoi.os "linux" -}}
-{{- if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "raspbian") -}}
+{{- if eq .chezmoi.osRelease.id "debian" -}}
 
 #!/bin/bash
 

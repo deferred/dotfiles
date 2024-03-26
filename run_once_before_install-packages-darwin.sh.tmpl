@@ -92,7 +92,9 @@ mas "WhatsApp", id: 1147396723
 EOF
 
 # Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+if ! [ -d ~/.oh-my-zsh ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
 
 # neovim
 nvim +'PackerSync' +qa

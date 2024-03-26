@@ -2,6 +2,8 @@
 {{- if eq .chezmoi.osRelease.id "debian" -}}
 
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 # setup apt repos
 sudo apt-get update

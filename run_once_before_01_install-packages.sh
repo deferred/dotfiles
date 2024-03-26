@@ -12,10 +12,10 @@ if ! [ -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# node
-# https://github.com/nvm-sh/nvm#usage
-. ~/.nvm/nvm.sh
-nvm install node
+# nodejs 
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf install nodejs latest
+asdf global nodejs latest
 
 # lunarvim
 if ! exists lvim; then

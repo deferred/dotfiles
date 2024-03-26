@@ -11,27 +11,34 @@ exists() {
 
 # setup apt repos
 sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
 
-# docker
-# https://docs.docker.com/engine/install/debian/#install-using-the-repository
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+if ! [ -d /etc/apt/keyrings ]; then
+  sudo apt-get install ca-certificates curl
+  sudo install -m 0755 -d /etc/apt/keyrings
 
-# speedtest
-sudo curl -fsSL https://packagecloud.io/ookla/speedtest-cli/gpgkey -o /etc/apt/keyrings/speedtest.asc
-sudo chmod a+r /etc/apt/keyrings/speedtest.asc
-echo \
-  "deb [signed-by=/etc/apt/keyrings/speedtest.asc] https://packagecloud.io/ookla/speedtest-cli/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") main" | \
-  sudo tee /etc/apt/sources.list.d/speedtest.list > /dev/null
+  # docker
+  # https://docs.docker.com/engine/install/debian/#install-using-the-repository
+  if ! exists docker; then
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  fi
+  
+  # speedtest
+  if ! exists speedtest; then
+    sudo curl -fsSL https://packagecloud.io/ookla/speedtest-cli/gpgkey -o /etc/apt/keyrings/speedtest.asc
+    sudo chmod a+r /etc/apt/keyrings/speedtest.asc
+    echo \
+      "deb [signed-by=/etc/apt/keyrings/speedtest.asc] https://packagecloud.io/ookla/speedtest-cli/debian \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") main" | \
+      sudo tee /etc/apt/sources.list.d/speedtest.list > /dev/null
+  fi
 
-sudo apt-get update
+  sudo apt-get update
+fi
 
 packagelist=(
   bat

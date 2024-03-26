@@ -39,6 +39,7 @@ packagelist=(
   docker-compose-plugin
   duf
   exa 
+  fd
   fzf
   git 
   htop
@@ -73,14 +74,19 @@ packagelist=(
 
 sudo apt-get install -y ${packagelist[@]}
 
+mkdir -p ~/.local/bin
+
 # ohmyzsh
 # https://github.com/ohmyzsh/ohmyzsh#unattended-install
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # bat
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
-mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
+
+# fd
+# https://github.com/sharkdp/fd?tab=readme-ov-file#on-debian
+ln -sf $(which fdfind) ~/.local/bin/fd
 
 # neovim
 if ! [ -x "$(command -v nvim)" ]; then

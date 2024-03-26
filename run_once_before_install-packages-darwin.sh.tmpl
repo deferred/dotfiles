@@ -1,6 +1,8 @@
 {{- if eq .chezmoi.os "darwin" -}}
 
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 tap "homebrew/bundle"

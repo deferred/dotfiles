@@ -91,11 +91,6 @@ mas "Vimari", id: 1480933944
 mas "WhatsApp", id: 1147396723
 EOF
 
-# Oh My Zsh
-if ! [ -d ~/.oh-my-zsh ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi
-
 # neovim
 nvim +'PackerSync' +qa
 

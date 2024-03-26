@@ -110,5 +110,11 @@ if ! exists lazygit; then
   rm lazygit.tar.gz lazygit
 fi
 
+# rust
+# https://www.rust-lang.org/tools/install
+# https://github.com/rust-lang/rustup/issues/297#issuecomment-444818896
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
+
 {{ end -}}
 {{ end -}}

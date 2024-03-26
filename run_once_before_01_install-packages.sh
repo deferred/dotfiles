@@ -12,12 +12,6 @@ if ! [ -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# rust
-# https://www.rust-lang.org/tools/install
-# https://github.com/rust-lang/rustup/issues/297#issuecomment-444818896
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-. "$HOME/.cargo/env"
-
 # node
 # https://github.com/nvm-sh/nvm#usage
 . ~/.nvm/nvm.sh

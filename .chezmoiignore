@@ -9,9 +9,7 @@ Library/
 .ideavimrc
 {{- end }}
 
-
-{{- if eq .chezmoi.os "linux" -}}
-{{- if eq .chezmoi.osRelease.id "debian" -}}
+{{- if ne .chezmoi.os "linux" -}}
 .oh-my-zsh/custom/snap.zsh
 {{- end }}
-{{- end }}
+

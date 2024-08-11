@@ -89,6 +89,7 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
   docker
   git
+  fluxcd
   fzf
   history
   httpie

@@ -87,15 +87,12 @@ DISABLE_AUTO_TITLE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  asdf
   docker
   git
   fzf
   history
   httpie
   kubectl
-  nvm
-  rust
   thefuck
   tmux
   zoxide
@@ -142,3 +139,4 @@ setopt HIST_IGNORE_SPACE
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"

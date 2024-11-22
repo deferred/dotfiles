@@ -8,8 +8,3 @@
 Library/
 .ideavimrc
 {{- end }}
-
-{{- if ne .chezmoi.os "linux" -}}
-.oh-my-zsh/custom/snap.zsh
-{{- end }}
-

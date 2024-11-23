@@ -83,22 +83,11 @@ packagelist=(
   gettext
   ninja-build 
   unzip
-
-  # asdf-nodejs
-  dirmngr
-  gpg
-  gawk
 )
 
 sudo apt-get install -y ${packagelist[@]}
 
 mkdir -p ~/.local/bin
-
-# asdf
-# https://asdf-vm.com/guide/getting-started.html#_2-download-asdf
-if ! exists asdf; then
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
-fi
 
 # bat
 # https://github.com/sharkdp/bat#on-ubuntu-using-apt
@@ -127,12 +116,6 @@ if ! exists lazygit; then
   sudo install lazygit /usr/local/bin
   rm lazygit.tar.gz lazygit
 fi
-
-# rust
-# https://www.rust-lang.org/tools/install
-# https://github.com/rust-lang/rustup/issues/297#issuecomment-444818896
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-. "$HOME/.cargo/env"
 
 {{ end -}}
 {{ end -}}

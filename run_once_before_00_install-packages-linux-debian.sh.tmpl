@@ -58,6 +58,7 @@ ln -sf /usr/bin/batcat ~/.local/bin/bat
 ln -sf $(which fdfind) ~/.local/bin/fd
 
 # neovim
+# https://github.com/neovim/neovim/blob/master/BUILD.md
 if ! exists nvim; then
   git clone --depth 1 --branch stable https://github.com/neovim/neovim.git /tmp/neovim
   ( cd /tmp/neovim \

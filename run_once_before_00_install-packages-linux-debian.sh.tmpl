@@ -9,25 +9,7 @@ exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# setup apt repos
 sudo apt-get update
-
-if ! [ -d /etc/apt/keyrings ]; then
-  sudo apt-get install ca-certificates curl
-  sudo install -m 0755 -d /etc/apt/keyrings
-
-  # speedtest
-  if ! exists speedtest; then
-    sudo curl -fsSL https://packagecloud.io/ookla/speedtest-cli/gpgkey -o /etc/apt/keyrings/speedtest.asc
-    sudo chmod a+r /etc/apt/keyrings/speedtest.asc
-    echo \
-      "deb [signed-by=/etc/apt/keyrings/speedtest.asc] https://packagecloud.io/ookla/speedtest-cli/debian \
-      $(. /etc/os-release && echo "$VERSION_CODENAME") main" | \
-      sudo tee /etc/apt/sources.list.d/speedtest.list > /dev/null
-  fi
-
-  sudo apt-get update
-fi
 
 packagelist=(
   bat
@@ -52,7 +34,6 @@ packagelist=(
   python3
   ripgrep
   rsync
-  speedtest
   telnet
   thefuck
   tldr

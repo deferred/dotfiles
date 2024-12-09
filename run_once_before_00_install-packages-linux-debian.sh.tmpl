@@ -70,9 +70,28 @@ fi
 
 # lazygit
 # https://github.com/jesseduffield/lazygit#ubuntu
+translate_arch() {
+  local arch=$(dpkg --print-architecture)
+
+  case "$arch" in
+    armhf)
+      echo "armv6"
+      ;;
+    arm64)
+      echo "arm64"
+      ;;
+    amd64)
+      echo "x86_64"
+      ;;
+    *)
+      echo "Error: Unknown architecture '$arch'" >&2
+      exit 1
+      ;;
+  esac
+}
 if ! exists lazygit; then
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_$(dpkg --print-architecture).tar.gz"
+  curl --fail -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_$(dpkg --print-architecture).tar.gz"
   tar xf lazygit.tar.gz lazygit
   sudo install lazygit /usr/local/bin
   rm lazygit.tar.gz lazygit

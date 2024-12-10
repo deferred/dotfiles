@@ -34,7 +34,6 @@ packagelist=(
   tldr
   tmux
   wget
-  zoxide
   zsh
 
   # neovim
@@ -97,6 +96,11 @@ if ! exists lazygit; then
   tar xf lazygit.tar.gz lazygit
   sudo install lazygit /usr/local/bin
   rm lazygit.tar.gz lazygit
+fi
+
+# zoxide
+if ! exists zoxide; then
+  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
 {{ end -}}

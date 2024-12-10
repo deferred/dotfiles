@@ -140,8 +140,6 @@ setopt HIST_IGNORE_SPACE
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-
 n ()
 {
     # Block nesting of nnn in subshells

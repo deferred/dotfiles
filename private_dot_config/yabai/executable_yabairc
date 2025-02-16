@@ -68,10 +68,10 @@ yabai -m signal --add \
 
 # minimize Microsoft Teams popup
 yabai -m signal --add \
-    event=window_created \
+    event=window_title_changed \
     app="^Microsoft Teams$" \
     action='~/.config/yabai/minimize-teams-popup.sh'
- 
+
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905
 yabai -m signal --add \

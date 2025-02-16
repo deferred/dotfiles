@@ -80,20 +80,17 @@ yabai -m signal --add \
 
 # turn on window borders only when there are multiple windows on space
 # https://github.com/koekeishiya/yabai/issues/767#issuecomment-752793868
-yabai -m signal --add \
-    event=space_changed \
-    action="~/.config/yabai/control-borders.sh"
-
-yabai -m signal --add \
-    event=window_created \
-    action="~/.config/yabai/control-borders.sh"
-
-yabai -m signal --add \
-    event=window_destroyed \
-    action="~/.config/yabai/control-borders.sh"
-
-
-# rules
+# yabai -m signal --add \
+#     event=space_changed \
+#     action="~/.config/yabai/control-borders.sh"
+# 
+# yabai -m signal --add \
+#     event=window_created \
+#     action="~/.config/yabai/control-borders.sh"
+# 
+# yabai -m signal --add \
+#     event=window_destroyed \
+#     action="~/.config/yabai/control-borders.sh"
 
 ###############################################################
 #                           RULES                           #

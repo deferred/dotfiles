@@ -13,11 +13,16 @@ control_focus() {
   #  2) select(...)          : Select only those items whose "title" does NOT contain "Microsoft Teams".
   #  3) [0].id               : Take the first matching item ([0]) and extract its "id".
   #  4) // ""                : If there is no item (no matching window), default to an empty string.
-  window_id="$(
-    jq -r '
-      map(select(.title | contains("Microsoft Teams") | not))[0].id // ""
-    ' <<< "$windows"
-  )"
+window_id="$(
+  jq -r '
+    map(
+      select(
+        (.title | contains("Microsoft Teams") | not)
+        and (.title | contains("Slack") | not)
+      )
+    )[0].id // ""
+  ' <<< "$windows"
+)"
 
   # If a valid window ID was found, focus it
   if [[ -n "$window_id" ]]; then

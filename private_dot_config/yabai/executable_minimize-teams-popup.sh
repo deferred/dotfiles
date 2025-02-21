@@ -8,8 +8,7 @@ minimize_teams_popup() {
 
   is_teams_popup_window="$(yabai -m query --windows --window "${window_id}" \
       | jq '.app == "Microsoft Teams"
-            and .frame.w == 304
-            and .frame.h == 247
+            and (.frame.w == 304 or .frame.w == 192)
             and .["is-minimized"] == false')"
 
   if [[ "${is_teams_popup_window}" == "true" ]]; then

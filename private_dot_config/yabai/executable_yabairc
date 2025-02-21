@@ -83,11 +83,11 @@ yabai -m signal --add \
 # yabai -m signal --add \
 #     event=space_changed \
 #     action="~/.config/yabai/control-borders.sh"
-# 
+#
 # yabai -m signal --add \
 #     event=window_created \
 #     action="~/.config/yabai/control-borders.sh"
-# 
+#
 # yabai -m signal --add \
 #     event=window_destroyed \
 #     action="~/.config/yabai/control-borders.sh"
@@ -106,6 +106,7 @@ yabai -m rule --add app="^Safari$" space=^1
 yabai -m rule --add app="^Firefox$" space=^1
 yabai -m rule --add app="^iTerm2$" space=2
 yabai -m rule --add app="^PyCharm$" space=3
+yabai -m rule --add app="^GoLand$" space=3
 yabai -m rule --add app="^Insomnia$" space=4
 yabai -m rule --add app="^Obsidian$" space=^4
 yabai -m rule --add app="^Slack$" space=5
@@ -113,4 +114,5 @@ yabai -m rule --add app="^Spark$" space=^6
 yabai -m rule --add app="^Microsoft Outlook$" space=6
 yabai -m rule --add app="^Microsoft Teams$" space=7
 yabai -m rule --add app="^Telegram$" space=8
+yabai -m rule --add app="^Spotify$" space=^8
 

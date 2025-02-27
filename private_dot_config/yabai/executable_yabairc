@@ -118,3 +118,13 @@ yabai -m rule --add app="^Spotify$" space=^8
 ###############################################################
 # setup spaces
 ~/.config/yabai/setup-spaces.sh "$YABAI_NUM_SPACES"
+
+# options=(
+# 	style=round
+# 	width=8.0
+# 	hidpi=on
+#     active_color="glow(0xCCFFDAB9)"
+# )
+# 
+# borders "${options[@]}" &
+

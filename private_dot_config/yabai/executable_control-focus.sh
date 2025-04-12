@@ -10,10 +10,12 @@ control_focus() {
   # Extract the first window ID whose title does NOT contain "Microsoft Teams"
   local window_id
   window_id="$(
-    jq -r '
+    jq '
       map(
         select(
-          .app != "Microsoft Teams" and .app != "Slack"
+          .app != "Microsoft Teams" and
+          .app != "Slack" and
+          .["is-hidden"] == false
         )
       )[0].id // ""
     ' <<< "$windows"

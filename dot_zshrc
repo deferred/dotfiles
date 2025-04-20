@@ -9,7 +9,7 @@ fi
 export PATH=$HOME/.local/bin:$PATH
 
 # Set editor to Neovim
-export EDITOR='nvim'
+export EDITOR='astro'
 
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"

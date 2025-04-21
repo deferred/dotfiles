@@ -6,7 +6,7 @@
 return {
   "AstroNvim/astrocommunity",
   -- colorscheme
-  { import = "astrocommunity.colorscheme.dracula-nvim" },
+  { import = "astrocommunity.colorscheme.catppuccin" },
   -- pack
   { import = "astrocommunity.pack.ansible" },
   { import = "astrocommunity.pack.bash" },

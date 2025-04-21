@@ -1,3 +1,3 @@
 
-alias nvim="NVIM_APPNAME=astronvim nvim"
+alias nvim="NVIM_APPNAME=astronvim \nvim"
 

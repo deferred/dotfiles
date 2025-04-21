@@ -12,3 +12,5 @@ nnoremap <SPACE> <Nop>
 let mapleader=" "
 
 set easymotion
+
+Plug 'tpope/vim-surround'

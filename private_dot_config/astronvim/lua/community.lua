@@ -24,5 +24,7 @@ return {
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
+  -- workflow
+  { import = "astrocommunity.workflow.hardtime-nvim" },
   -- import/override with your plugins folder
 }

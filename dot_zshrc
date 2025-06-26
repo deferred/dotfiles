@@ -105,6 +105,7 @@ plugins=(
   kubectl
   thefuck
   tmux
+  uv
   zoxide
   zsh-autosuggestions
   zsh-syntax-highlighting

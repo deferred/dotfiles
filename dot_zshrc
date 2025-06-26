@@ -93,6 +93,7 @@ ZVM_INIT_MODE=sourcing
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   zsh-vi-mode
+  1password
   brew
   docker
   git

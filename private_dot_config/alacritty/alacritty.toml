@@ -162,6 +162,13 @@ chars = "\u0002z"
 key = "Z"
 mods = "Command"
 
+# tmux: fixing ^H to work with tmux panes
+# https://github.com/christoomey/vim-tmux-navigator/issues/421#issuecomment-2613993818
+[[keyboard.bindings]]
+chars = "\u001B[104;5u"
+key = "H"
+mods = "Control"
+
 [window]
 decorations = "buttonless"
 

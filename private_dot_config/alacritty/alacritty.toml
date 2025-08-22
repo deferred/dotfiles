@@ -69,13 +69,13 @@ mods = "Command"
 # tmux: previous window
 [[keyboard.bindings]]
 chars = "\u0002p"
-key = "["
+key = 33               # left bracket [
 mods = "Command|Shift"
 
 # tmux: next window
 [[keyboard.bindings]]
 chars = "\u0002n"
-key = "]"
+key = 30               # right bracket ]
 mods = "Command|Shift"
 
 # tmux: switch to window 1

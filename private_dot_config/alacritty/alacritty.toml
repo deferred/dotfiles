@@ -1,0 +1,177 @@
+[general]
+import = ["~/.config/alacritty/dracula.toml"]
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 15.0
+
+[font.bold]
+family = "JetBrainsMonoNL Nerd Font"
+style = "Heavy"
+
+[font.bold_italic]
+family = "JetBrainsMonoNL Nerd Font"
+style = "Heavy Italic"
+
+[font.italic]
+family = "JetBrainsMonoNL Nerd Font"
+style = "Medium Italic"
+
+[font.normal]
+family = "JetBrainsMonoNL Nerd Font"
+style = "Medium"
+
+# tmux: enter copy mode and search up
+[[keyboard.bindings]]
+chars = "\u0002[?"
+key = "F"
+mods = "Command|Shift"
+
+# tmux: command prompt
+[[keyboard.bindings]]
+chars = "\u0002:"
+key = "Semicolon"
+mods = "Command"
+
+# tmux: sesh session picker with fuzzy finding
+[[keyboard.bindings]]
+chars = "\u0002T"
+key = "K"
+mods = "Command"
+
+# tmux: switch to last session (via sesh)
+[[keyboard.bindings]]
+chars = "\u0002L"
+key = "L"
+mods = "Command|Shift"
+
+# tmux: switch to last window
+[[keyboard.bindings]]
+chars = "\u0002l"
+key = "L"
+mods = "Command"
+
+# tmux: create new window
+[[keyboard.bindings]]
+chars = "\u0002c"
+key = "T"
+mods = "Command"
+
+# tmux: next window
+[[keyboard.bindings]]
+chars = "\u0002n"
+key = "Tab"
+mods = "Control"
+
+# tmux: rename current window
+[[keyboard.bindings]]
+chars = "\u0002,"
+key = "Comma"
+mods = "Command"
+
+# tmux: previous window
+[[keyboard.bindings]]
+chars = "\u0002p"
+key = "["
+mods = "Command|Shift"
+
+# tmux: next window
+[[keyboard.bindings]]
+chars = "\u0002n"
+key = "]"
+mods = "Command|Shift"
+
+# tmux: switch to window 1
+[[keyboard.bindings]]
+chars = "\u00021"
+key = "Key1"
+mods = "Command"
+
+# tmux: switch to window 2
+[[keyboard.bindings]]
+chars = "\u00022"
+key = "Key2"
+mods = "Command"
+
+# tmux: switch to window 3
+[[keyboard.bindings]]
+chars = "\u00023"
+key = "Key3"
+mods = "Command"
+
+# tmux: switch to window 4
+[[keyboard.bindings]]
+chars = "\u00024"
+key = "Key4"
+mods = "Command"
+
+# tmux: switch to window 5
+[[keyboard.bindings]]
+chars = "\u00025"
+key = "Key5"
+mods = "Command"
+
+# tmux: switch to window 6
+[[keyboard.bindings]]
+chars = "\u00026"
+key = "Key6"
+mods = "Command"
+
+# tmux: switch to window 7
+[[keyboard.bindings]]
+chars = "\u00027"
+key = "Key7"
+mods = "Command"
+
+# tmux: switch to window 8
+[[keyboard.bindings]]
+chars = "\u00028"
+key = "Key8"
+mods = "Command"
+
+# tmux: switch to window 9
+[[keyboard.bindings]]
+chars = "\u00029"
+key = "Key9"
+mods = "Command"
+
+# pane management
+# tmux: split window horizontally
+[[keyboard.bindings]]
+chars = "\u0002\""
+key = "E"
+mods = "Command"
+
+# tmux: split window vertically
+[[keyboard.bindings]]
+chars = "\u0002%"
+key = "E"
+mods = "Command|Shift"
+
+# tmux: switch to next pane layout
+[[keyboard.bindings]]
+chars = "\u0002 "
+key = "C"
+mods = "Command|Shift"
+
+# tmux: kill current pane
+[[keyboard.bindings]]
+chars = "\u0002x"
+key = "W"
+mods = "Command"
+
+# tmux: zoom/unzoom current pane
+[[keyboard.bindings]]
+chars = "\u0002z"
+key = "Z"
+mods = "Command"
+
+[window]
+decorations = "buttonless"
+
+[window.padding]
+x = 10
+y = 10

@@ -60,12 +60,6 @@ chars = "\u0002c"
 key = "T"
 mods = "Command"
 
-# tmux: next window
-[[keyboard.bindings]]
-chars = "\u0002n"
-key = "Tab"
-mods = "Control"
-
 # tmux: rename current window
 [[keyboard.bindings]]
 chars = "\u0002,"

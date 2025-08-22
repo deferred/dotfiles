@@ -14,6 +14,8 @@ return {
 		highlights = {
 			init = { -- this table overrides highlights in all themes
 				-- Normal = { bg = "#000000" },
+				TabLine = { bg = "#44475a" }, -- change tabline background
+				TabLineFill = { bg = "#44475a" }, -- fill area of tabline
 				StatusLine = { bg = "#44475a" }, -- change statusline background
 				StatusLineNC = { bg = "#282a36" }, -- non-current window statusline
 				WinBar = { bg = "NONE" }, -- remove breadcrumbs background

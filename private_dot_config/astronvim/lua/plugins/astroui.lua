@@ -12,10 +12,14 @@ return {
     colorscheme = "dracula",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
-      init = { -- this table overrides highlights in all themes
+      init = {                         -- this table overrides highlights in all themes
         -- Normal = { bg = "#000000" },
+        StatusLine = { bg = "#44475a" }, -- change statusline background
+        StatusLineNC = { bg = "#282a36" }, -- non-current window statusline
+        WinBar = { bg = "NONE" },      -- remove breadcrumbs background
+        WinBarNC = { bg = "NONE" },    -- remove non-current breadcrumbs background
       },
-      astrodark = { -- a table of overrides/changes when applying the astrotheme theme
+      astrodark = {                    -- a table of overrides/changes when applying the astrotheme theme
         -- Normal = { bg = "#000000" },
       },
     },

@@ -54,12 +54,6 @@ chars = "\u0002L"
 key = "L"
 mods = "Command"
 
-# tmux: switch to last window
-[[keyboard.bindings]]
-chars = "\u0002l"
-key = "L"
-mods = "Command|Shift"
-
 # tmux: create new window
 [[keyboard.bindings]]
 chars = "\u0002c"
@@ -174,6 +168,36 @@ mods = "Command|Shift"
 chars = "\u001B[104;5u"
 key = "H"
 mods = "Control"
+
+# vim: close buffer
+[[keyboard.bindings]]
+chars = ":bd\r"
+key = "W"
+mods = "Command|Shift"
+
+# vim: jump to next buffer
+[[keyboard.bindings]]
+chars = ":bn\r"
+key = 30               # right bracket ]
+mods = "Command|Shift"
+
+# vim: jump to previous buffer
+[[keyboard.bindings]]
+chars = ":bp\r"
+key = 33               # left bracket [
+mods = "Command|Shift"
+
+# vim: jump between last two buffers
+[[keyboard.bindings]]
+chars = "\u001E"
+key = "L"
+mods = "Command|Shift"
+
+# vim: save
+[[keyboard.bindings]]
+chars = ":w\r"
+key = "S"
+mods = "Command|Shift"
 
 [window]
 decorations = "buttonless"

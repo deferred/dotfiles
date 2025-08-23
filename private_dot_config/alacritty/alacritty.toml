@@ -24,11 +24,17 @@ style = "Medium Italic"
 family = "JetBrainsMonoNL Nerd Font"
 style = "Medium"
 
+# tmux: enter copy mode
+[[keyboard.bindings]]
+chars = "\u0002["
+key = "Y"
+mods = "Command"
+
 # tmux: enter copy mode and search up
 [[keyboard.bindings]]
 chars = "\u0002[?"
-key = "F"
-mods = "Command|Shift"
+key = "Slash"
+mods = "Command"
 
 # tmux: command prompt
 [[keyboard.bindings]]
@@ -46,13 +52,13 @@ mods = "Command"
 [[keyboard.bindings]]
 chars = "\u0002L"
 key = "L"
-mods = "Command|Shift"
+mods = "Command"
 
 # tmux: switch to last window
 [[keyboard.bindings]]
 chars = "\u0002l"
 key = "L"
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: create new window
 [[keyboard.bindings]]
@@ -70,13 +76,13 @@ mods = "Command"
 [[keyboard.bindings]]
 chars = "\u0002p"
 key = 33               # left bracket [
-mods = "Command|Shift"
+mods = "Command"
 
 # tmux: next window
 [[keyboard.bindings]]
 chars = "\u0002n"
 key = 30               # right bracket ]
-mods = "Command|Shift"
+mods = "Command"
 
 # tmux: switch to window 1
 [[keyboard.bindings]]
@@ -135,13 +141,13 @@ mods = "Command"
 # tmux: split window vertically
 [[keyboard.bindings]]
 chars = "\u0002%"
-key = "E"
-mods = "Command"
+key = "V"
+mods = "Command|Shift"
 
 # tmux: split window horizontally
 [[keyboard.bindings]]
 chars = "\u0002\""
-key = "E"
+key = "H"
 mods = "Command|Shift"
 
 # tmux: switch to next pane layout
@@ -160,7 +166,7 @@ mods = "Command"
 [[keyboard.bindings]]
 chars = "\u0002z"
 key = "Z"
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: fixing ^H to work with tmux panes
 # https://github.com/christoomey/vim-tmux-navigator/issues/421#issuecomment-2613993818

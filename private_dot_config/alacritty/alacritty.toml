@@ -78,6 +78,12 @@ chars = "\u0002n"
 key = 30               # right bracket ]
 mods = "Command"
 
+# tmux: swap window prompt
+[[keyboard.bindings]]
+chars = "\u0002\u0053"
+key = "S"
+mods = "Command"
+
 # tmux: switch to window 1
 [[keyboard.bindings]]
 chars = "\u00021"

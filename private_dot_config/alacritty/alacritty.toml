@@ -199,12 +199,6 @@ chars = "\u001E"
 key = "L"
 mods = "Command|Shift"
 
-# vim: save
-[[keyboard.bindings]]
-chars = ":w\r"
-key = "S"
-mods = "Command|Shift"
-
 [window]
 decorations = "buttonless"
 

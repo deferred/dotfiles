@@ -70,19 +70,19 @@ mods = "Command"
 [[keyboard.bindings]]
 chars = "\u0002p"
 key = 33               # left bracket [
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: next window
 [[keyboard.bindings]]
 chars = "\u0002n"
 key = 30               # right bracket ]
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: swap window prompt
 [[keyboard.bindings]]
 chars = "\u0002\u0053"
 key = "S"
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: switch to window 1
 [[keyboard.bindings]]
@@ -141,13 +141,13 @@ mods = "Command"
 # tmux: split window vertically
 [[keyboard.bindings]]
 chars = "\u0002%"
-key = "V"
+key = 42               # backslash \
 mods = "Command|Shift"
 
 # tmux: split window horizontally
 [[keyboard.bindings]]
 chars = "\u0002\""
-key = "H"
+key = 27               # minus -
 mods = "Command|Shift"
 
 # tmux: switch to next pane layout
@@ -175,29 +175,35 @@ chars = "\u001B[104;5u"
 key = "H"
 mods = "Control"
 
+# vim: save
+[[keyboard.bindings]]
+chars = ":w\r"
+key = "S"
+mods = "Command|Alt"
+
 # vim: close buffer
 [[keyboard.bindings]]
 chars = ":bd\r"
 key = "W"
-mods = "Command|Shift"
+mods = "Command|Alt"
 
 # vim: jump to next buffer
 [[keyboard.bindings]]
 chars = ":bn\r"
-key = 30               # right bracket ]
-mods = "Command|Shift"
+key = 30             # right bracket ]
+mods = "Command|Alt"
 
 # vim: jump to previous buffer
 [[keyboard.bindings]]
 chars = ":bp\r"
-key = 33               # left bracket [
-mods = "Command|Shift"
+key = 33             # left bracket [
+mods = "Command|Alt"
 
 # vim: jump between last two buffers
 [[keyboard.bindings]]
 chars = "\u001E"
 key = "L"
-mods = "Command|Shift"
+mods = "Command|Alt"
 
 [window]
 decorations = "buttonless"

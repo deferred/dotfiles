@@ -10,15 +10,15 @@ size = 15.0
 
 [font.bold]
 family = "JetBrainsMonoNL Nerd Font"
-style = "Heavy"
+style = "Bold"
 
 [font.bold_italic]
 family = "JetBrainsMonoNL Nerd Font"
-style = "Heavy Italic"
+style = "Bold Italic"
 
 [font.italic]
 family = "JetBrainsMonoNL Nerd Font"
-style = "Medium Italic"
+style = "Italic"
 
 [font.normal]
 family = "JetBrainsMonoNL Nerd Font"

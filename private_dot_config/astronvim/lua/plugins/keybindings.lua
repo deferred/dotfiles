@@ -11,7 +11,7 @@ return {
         ["<Leader>s"] = { "<cmd>w<cr>", desc = "Save" },
 
         -- Change window close from <leader>q to <leader>w
-        ["<Leader>w"] = { "<cmd>q<cr>", desc = "Close window" },
+        ["<Leader>w"] = { "<cmd>close<cr>", desc = "Close window" },
         ["<Leader>q"] = false, -- disable default quit mapping
       },
     },

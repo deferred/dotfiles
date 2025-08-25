@@ -1,0 +1,5 @@
+sort_order = ["config"]
+
+[[session]]
+name = "default"
+path = "~"

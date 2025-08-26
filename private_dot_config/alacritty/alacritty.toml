@@ -52,7 +52,7 @@ mods = "Command"
 [[keyboard.bindings]]
 chars = "\u0002L"
 key = "L"
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: create new window
 [[keyboard.bindings]]
@@ -88,7 +88,7 @@ mods = "Command|Shift"
 [[keyboard.bindings]]
 chars = "\u0002l"
 key = "L"
-mods = "Command|Shift"
+mods = "Command"
 
 # tmux: swap window prompt
 [[keyboard.bindings]]

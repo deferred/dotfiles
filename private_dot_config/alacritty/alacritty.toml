@@ -84,6 +84,12 @@ chars = "\u0002\u0053"
 key = "S"
 mods = "Command|Shift"
 
+# tmux: jump between last used windows
+[[keyboard.bindings]]
+chars = "\u0002l"
+key = "L"
+mods = "Command|Shift"
+
 # tmux: switch to window 1
 [[keyboard.bindings]]
 chars = "\u00021"

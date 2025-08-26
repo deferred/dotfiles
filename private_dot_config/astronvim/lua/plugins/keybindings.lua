@@ -20,8 +20,10 @@ return {
 				-- Change save from <leader>w to <leader>s
 				["<Leader>s"] = { "<cmd>w<cr>", desc = "Save" },
 
-				-- Change window close from <leader>q to <leader>w
-				["<Leader>w"] = { "<cmd>close<cr>", desc = "Close window" },
+				-- Buffer and window management
+				["<Leader>w"] = { "<cmd>bd<cr>", desc = "Close buffer" },
+				["<Leader>W"] = { "<cmd>bd!<cr>", desc = "Force close buffer" },
+				["<Leader>x"] = { "<cmd>close<cr>", desc = "Close window" },
 				["<Leader>q"] = false, -- disable default quit mapping
 			},
 		},

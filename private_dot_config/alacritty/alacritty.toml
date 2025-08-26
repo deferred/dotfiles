@@ -60,6 +60,12 @@ chars = "\u0002c"
 key = "T"
 mods = "Command"
 
+# tmux: close current window
+[[keyboard.bindings]]
+chars = "\u0002&"
+key = "W"
+mods = "Command"
+
 # tmux: rename current window
 [[keyboard.bindings]]
 chars = "\u0002,"
@@ -78,16 +84,16 @@ chars = "\u0002n"
 key = 30               # right bracket ]
 mods = "Command|Shift"
 
-# tmux: swap window prompt
-[[keyboard.bindings]]
-chars = "\u0002\u0053"
-key = "S"
-mods = "Command|Shift"
-
 # tmux: jump between last used windows
 [[keyboard.bindings]]
 chars = "\u0002l"
 key = "L"
+mods = "Command|Shift"
+
+# tmux: swap window prompt
+[[keyboard.bindings]]
+chars = "\u0002\u0053"
+key = "S"
 mods = "Command|Shift"
 
 # tmux: switch to window 1
@@ -156,17 +162,17 @@ chars = "\u0002\""
 key = 27               # minus -
 mods = "Command|Shift"
 
+# tmux: kill current pane
+[[keyboard.bindings]]
+chars = "\u0002x"
+key = "X"
+mods = "Command"
+
 # tmux: switch to next pane layout
 [[keyboard.bindings]]
 chars = "\u0002 "
 key = "C"
 mods = "Command|Shift"
-
-# tmux: kill current pane
-[[keyboard.bindings]]
-chars = "\u0002x"
-key = "W"
-mods = "Command"
 
 # tmux: zoom/unzoom current pane
 [[keyboard.bindings]]

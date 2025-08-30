@@ -220,8 +220,16 @@ mods = "Command|Alt"
 # vim: jump between last two buffers
 [[keyboard.bindings]]
 chars = "\u001E"
+
+
+
+# zsh: clear screen
+[[keyboard.bindings]]
+# map ctrl+alt+l to send a unique esc sequence (\u001b\u000c) to the shell
+# this is needed because many terminals don't distinguish alt from other modifiers by default
+chars = "\u001b\u000c"
 key = "L"
-mods = "Command|Alt"
+mods = "Control|Alt"
 
 [window]
 decorations = "buttonless"

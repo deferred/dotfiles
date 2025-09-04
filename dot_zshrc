@@ -95,6 +95,7 @@ plugins=(
   zsh-vi-mode
   1password
   brew
+  direnv
   docker
   git
   fluxcd

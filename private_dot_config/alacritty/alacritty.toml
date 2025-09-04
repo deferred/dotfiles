@@ -193,36 +193,6 @@ chars = "\u001B[104;5u"
 key = "H"
 mods = "Control"
 
-# vim: save
-[[keyboard.bindings]]
-chars = ":w\r"
-key = "S"
-mods = "Command|Alt"
-
-# vim: close buffer
-[[keyboard.bindings]]
-chars = ":bd\r"
-key = "W"
-mods = "Command|Alt"
-
-# vim: jump to next buffer
-[[keyboard.bindings]]
-chars = ":bn\r"
-key = 30             # right bracket ]
-mods = "Command|Alt"
-
-# vim: jump to previous buffer
-[[keyboard.bindings]]
-chars = ":bp\r"
-key = 33             # left bracket [
-mods = "Command|Alt"
-
-# vim: jump between last two buffers
-[[keyboard.bindings]]
-chars = "\u001E"
-
-
-
 # zsh: clear screen
 [[keyboard.bindings]]
 # map ctrl+alt+l to send a unique esc sequence (\u001b\u000c) to the shell

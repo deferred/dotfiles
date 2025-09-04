@@ -66,12 +66,6 @@ chars = "\u0002&"
 key = "W"
 mods = "Command"
 
-# tmux: rename current window
-[[keyboard.bindings]]
-chars = "\u0002,"
-key = "Comma"
-mods = "Command"
-
 # tmux: previous window
 [[keyboard.bindings]]
 chars = "\u0002p"

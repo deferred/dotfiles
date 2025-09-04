@@ -166,7 +166,7 @@ mods = "Command|Shift"
 [[keyboard.bindings]]
 chars = "\u0002x"
 key = "X"
-mods = "Command"
+mods = "Command|Shift"
 
 # tmux: switch to next pane layout
 [[keyboard.bindings]]

@@ -3,5 +3,6 @@
 .config/skhd
 .config/yabai
 Library/
+.config/linearmouse/
 .ideavimrc
 {{- end }}

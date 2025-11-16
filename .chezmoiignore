@@ -2,7 +2,6 @@
 .config/karabiner/
 .config/skhd
 .config/yabai
-.local/bin/mount-samba
 Library/
 .ideavimrc
 {{- end }}

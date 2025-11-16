@@ -64,8 +64,4 @@ cask "spotify"
 cask "font-jetbrains-mono-nerd-font"
 EOF
 
-# null-dev/firefox-profile-switcher-connector
-mkdir -p "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"
-ln -sf "$(readlink -f $(brew --prefix firefox-profile-switcher-connector))/ax.nd.profile_switcher_ff.json" "${HOME}/Library/Application Support/Mozilla/NativeMessagingHosts"/ax.nd.profile_switcher_ff.json
-
 {{ end -}}

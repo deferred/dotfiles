@@ -1,5 +1,3 @@
-{{- if eq .chezmoi.os "darwin" -}}
-
 #!/bin/bash
 set -euo pipefail
 IFS=$'\n\t'
@@ -13,9 +11,6 @@ if ! exists brew; then
 fi
 
 brew bundle --file=/dev/stdin <<EOF
-tap "koekeishiya/formulae"
-tap "teamookla/speedtest"
-
 brew "bat"
 brew "btop"
 brew "chezmoi"
@@ -37,30 +32,14 @@ brew "lazygit"
 brew "ncdu"
 brew "neovim"
 brew "nnn"
-brew "pam-reattach"
 brew "rclone"
 brew "ripgrep"
 brew "rsync"
-brew "sesh"
-brew "skhd"
-brew "speedtest"
 brew "thefuck"
 brew "tldr"
 brew "wget"
-brew "yabai"
 brew "yq"
 brew "zoxide"
 brew "zsh"
-
-cask "alacritty"
-cask "claude-code"
-cask "firefox"
-cask "karabiner-elements"
-cask "obsidian"
-cask "raycast"
-cask "spotify"
-
-cask "font-jetbrains-mono-nerd-font"
 EOF
 
-{{ end -}}

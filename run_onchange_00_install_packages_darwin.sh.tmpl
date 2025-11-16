@@ -1,0 +1,28 @@
+{{- if eq .chezmoi.os "darwin" -}}
+
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+brew bundle --file=/dev/stdin <<EOF
+tap "koekeishiya/formulae"
+tap "teamookla/speedtest"
+
+brew "pam-reattach"
+brew "sesh"
+brew "skhd"
+brew "speedtest"
+brew "yabai"
+
+cask "alacritty"
+cask "claude-code"
+cask "firefox"
+cask "karabiner-elements"
+cask "obsidian"
+cask "raycast"
+cask "spotify"
+
+cask "font-jetbrains-mono-nerd-font"
+EOF
+
+{{ end -}}

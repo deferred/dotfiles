@@ -44,6 +44,6 @@ brew "zsh"
 EOF
 
 # https://github.com/ohmyzsh/ohmyzsh#unattended-install
-if [ ! -d "${ZSH:-$HOME/.oh-my-zsh}" ]; then
+if [ ! -f "${ZSH:-$HOME/.oh-my-zsh}/oh-my-zsh.sh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi

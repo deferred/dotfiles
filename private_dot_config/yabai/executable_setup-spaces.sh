@@ -84,7 +84,7 @@ apply_app_spaces() {
     # could not reliably use yabai -m rule --list, because spaces in rules were changing randomly
     # so even if the rule in yabairc states that Telegram should be on space 8, call to yabai -m rule --list returned space 7 for some reason
     # so hardcoding values
-    apps=("Safari" "Firefox" "PyCharm" "GoLand" "Insomnia" "Obsidian" "Slack" "Spark" "Microsoft Outlook" "Microsoft Teams" "Telegram" "Spotify")
+    apps=("Safari" "Firefox" "PyCharm" "GoLand" "Obsidian" "Slack" "Spark" "Microsoft Outlook" "Microsoft Teams" "Telegram" "Spotify")
     spaces=("1" "1" "2" "3" "3" "4" "4" "5" "6" "6" "7" "8" "8")
 
     local windows

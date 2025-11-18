@@ -1,0 +1,33 @@
+{{- if eq .chezmoi.os "darwin" -}}
+
+#!/usr/bin/env bash
+
+###############################################################################
+# Dock                                                                        #
+###############################################################################
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+# Dock opening delay
+defaults write com.apple.dock autohide-delay -float 0.1
+
+# Animation time when hiding/showing the Dock
+defaults write com.apple.dock autohide-time-modifier -float 0.2
+
+# Don’t show recent applications in Dock
+defaults write com.apple.dock show-recents -bool false
+
+# Show only open applications in the Dock
+defaults write com.apple.dock static-only -bool true
+
+
+for app in \
+	"Dock" \
+	; \
+do \
+	killall "${app}" &> /dev/null
+done
+
+{{ end -}}
+

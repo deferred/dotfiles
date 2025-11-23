@@ -21,6 +21,8 @@ defaults write com.apple.dock show-recents -bool false
 # Show only open applications in the Dock
 defaults write com.apple.dock static-only -bool true
 
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
 
 for app in \
 	"Dock" \

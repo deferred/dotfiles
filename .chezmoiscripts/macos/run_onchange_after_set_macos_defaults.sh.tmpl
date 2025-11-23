@@ -24,6 +24,9 @@ defaults write com.apple.dock static-only -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
+# Click wallpaper to reveal Desktop only in Stage Manager, needed for yabai
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
 for app in \
 	"Dock" \
 	; \

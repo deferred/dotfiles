@@ -24,6 +24,9 @@ defaults write com.apple.dock show-recents -bool false
 # Show only open applications in the Dock
 defaults write com.apple.dock static-only -bool true
 
+# Set the icon size of Dock items
+defaults write com.apple.dock tilesize -int 64
+
 # Click wallpaper to reveal Desktop only in Stage Manager, needed for yabai
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 

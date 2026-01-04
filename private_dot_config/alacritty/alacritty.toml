@@ -195,6 +195,9 @@ chars = "\u001b\u000c"
 key = "L"
 mods = "Control|Alt"
 
+[terminal]
+osc52 = "OnlyCopy"
+
 [window]
 decorations = "buttonless"
 

@@ -15,6 +15,7 @@ return {
   { import = "astrocommunity.pack.diff-keybindings" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.pack.harper" },
   { import = "astrocommunity.pack.helm" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },

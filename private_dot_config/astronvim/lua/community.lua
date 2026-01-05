@@ -12,6 +12,7 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.chezmoi" },
   { import = "astrocommunity.pack.cmake" },
+  { import = "astrocommunity.pack.diff-keybindings" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.helm" },

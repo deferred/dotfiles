@@ -13,6 +13,7 @@ fi
 
 brew bundle --file=/dev/stdin <<EOF
 brew "bat"
+brew "bat-extras"
 brew "btop"
 brew "chezmoi"
 brew "curl"

@@ -146,6 +146,10 @@ source $ZSH/oh-my-zsh.sh
 # If you want to make it vanish right away without entering another command, type a space and press return.  
 setopt HIST_IGNORE_SPACE
 
+# If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not
+# the previous event).
+setopt HIST_IGNORE_ALL_DUPS
+
 # Oh My Zsh Docker plugin
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes

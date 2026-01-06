@@ -1,1 +1,0 @@
-alias jrnl=" jrnl"

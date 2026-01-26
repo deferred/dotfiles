@@ -180,6 +180,12 @@ chars = "\u0002!"
 key = "E"
 mods = "Command|Shift"
 
+# tmux: detach session
+[[keyboard.bindings]]
+chars = "\u0002d"
+key = "D"
+mods = "Command|Shift"
+
 # tmux: fixing ^H to work with tmux panes
 # https://github.com/christoomey/vim-tmux-navigator/issues/421#issuecomment-2613993818
 [[keyboard.bindings]]

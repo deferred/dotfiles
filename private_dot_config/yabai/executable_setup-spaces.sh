@@ -9,7 +9,8 @@ NUM_SPACES=${#YABAI_SPACE_LABELS[@]}
 
 destroy_excess_spaces() {
     echo "destroying excess spaces until there are $NUM_SPACES"
-    for _ in $(yabai -m query --spaces | jq ".[].index | select(. > $NUM_SPACES)"); do
+    for _ in $(yabai -m query --spaces | \
+        jq ".[].index | select(. > $NUM_SPACES)"); do
         echo "destroying space $((NUM_SPACES + 1))"
         yabai -m space --destroy "$((NUM_SPACES + 1))"
     done
@@ -54,7 +55,8 @@ distribute_spaces_between_displays() {
             local label="${YABAI_SPACE_LABELS[$label_idx]}"
 
             local current_display
-            current_display="$(yabai -m query --spaces --space "$label" | jq -r '.display')"
+            current_display="$(yabai -m query --spaces --space "$label" | \
+                jq -r '.display')"
 
             # only move the space if it's not already on the target display
             if [ "$current_display" -eq "$display_idx" ]; then
@@ -75,7 +77,8 @@ distribute_spaces_between_displays() {
         local label="${YABAI_SPACE_LABELS[$label_idx]}"
 
         local current_display
-        current_display="$(yabai -m query --spaces --space "$label" | jq -r '.display')"
+        current_display="$(yabai -m query --spaces --space "$label" | \
+            jq -r '.display')"
 
         if [ "$current_display" -eq "$smallest_display_idx" ]; then
             echo "space $label is already on display $smallest_display_idx, skipping"

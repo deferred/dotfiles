@@ -1,1 +1,10 @@
-YABAI_SPACE_LABELS=("browser" "terminal" "ide" "notes" "slack" "mail" "teams" "personal")
+YABAI_SPACE_LABELS=(
+    "browser"
+    "terminal"
+    "ide"
+    "notes"
+    "slack"
+    "mail"
+    "teams"
+    "personal"
+)

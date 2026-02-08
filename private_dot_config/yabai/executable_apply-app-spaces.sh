@@ -21,7 +21,8 @@ apply_app_spaces() {
     while IFS=$'\t' read -r app_regex target_space; do
         # find window IDs matching this app regex
         local ids
-        ids=$(echo "$windows" | jq -r --arg regex "$app_regex" '.[] | select(.app | test($regex)) | .id')
+        ids=$(echo "$windows" | jq -r --arg regex "$app_regex" \
+            '.[] | select(.app | test($regex)) | .id')
 
         for id in $ids; do
             echo "moving window $id (matching $app_regex) to space $target_space"

@@ -13,7 +13,7 @@ sudo yabai --load-sa
 ###############################################################
 
 # set default layout (can be bsp, stack or float)
-yabai -m config layout bsp
+yabai -m config layout stack
 
 # set padding to 8px
 yabai -m config top_padding 8
@@ -88,13 +88,9 @@ yabai -m signal --add \
 #                     SPACE-SPECIFIC CONFIG                  #
 ###############################################################
 
-# use stack layout for spaces where fullscreen-per-app makes more sense
-yabai -m config --space web layout stack
-yabai -m config --space code layout stack
-yabai -m config --space think layout stack
-yabai -m config --space tasks layout stack
-yabai -m config --space messaging layout stack
-yabai -m config --space mail layout stack
+# use bsp layout for spaces where side-by-side tiling makes more sense
+yabai -m config --space music layout bsp
+yabai -m config --space misc layout bsp
 
 ###############################################################
 #                           RULES                           #

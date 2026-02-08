@@ -85,6 +85,16 @@ yabai -m signal --add \
 ~/.config/yabai/setup-spaces.sh
 
 ###############################################################
+#                     SPACE-SPECIFIC CONFIG                  #
+###############################################################
+
+# use stack layout for spaces where fullscreen-per-app makes more sense
+yabai -m config --space ide layout stack
+yabai -m config --space notes layout stack
+yabai -m config --space mail layout stack
+yabai -m config --space personal layout stack
+
+###############################################################
 #                           RULES                           #
 ###############################################################
 
@@ -99,6 +109,7 @@ yabai -m rule --add app="^Firefox$" space=^browser
 yabai -m rule --add app="^Alacritty$" space=^terminal
 yabai -m rule --add app="^PyCharm$" space=ide
 yabai -m rule --add app="^GoLand$" space=ide
+yabai -m rule --add app="^Things$" space=^notes
 yabai -m rule --add app="^Obsidian$" space=^notes
 yabai -m rule --add app="^Slack$" space=slack
 yabai -m rule --add app="^Spark$" space=^mail

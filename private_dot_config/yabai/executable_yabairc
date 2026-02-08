@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# shellcheck source=spaces
+source "$(dirname "$0")/spaces"
+
 # load scripting addition for yabai to work correctly
 # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
@@ -36,16 +39,14 @@ yabai -m config mouse_drop_action swap
 #                          SIGNALS                          #
 ###############################################################
 
-YABAI_NUM_SPACES=8
-
 # setup spaces when display is added or removed
 yabai -m signal --add \
     event=display_added \
-    action="~/.config/yabai/setup-spaces.sh $YABAI_NUM_SPACES"
+    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/apply-app-spaces.sh"
 
 yabai -m signal --add \
     event=display_removed \
-    action="~/.config/yabai/setup-spaces.sh $YABAI_NUM_SPACES"
+    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/apply-app-spaces.sh"
 
 # control focus after display, space or window changes
 # focus windows on space or display, do not allow overlays to steal focus
@@ -75,19 +76,11 @@ yabai -m signal --add \
     event=window_created \
     action='yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".\"can-resize\" or .\"is-floating\"" || yabai -m window $YABAI_WINDOW_ID --toggle float'
 
-# turn on window borders only when there are multiple windows on space
-# https://github.com/koekeishiya/yabai/issues/767#issuecomment-752793868
-# yabai -m signal --add \
-#     event=space_changed \
-#     action="~/.config/yabai/control-borders.sh"
-#
-# yabai -m signal --add \
-#     event=window_created \
-#     action="~/.config/yabai/control-borders.sh"
-#
-# yabai -m signal --add \
-#     event=window_destroyed \
-#     action="~/.config/yabai/control-borders.sh"
+###############################################################
+#                          SCRIPTS                          #
+###############################################################
+# setup spaces (must run before rules so that labels are available)
+~/.config/yabai/setup-spaces.sh
 
 ###############################################################
 #                           RULES                           #
@@ -98,31 +91,19 @@ yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 
-# move some apps automatically to specific spaces
-yabai -m rule --add app="^Safari$" space=^1
-yabai -m rule --add app="^Firefox$" space=^1
-yabai -m rule --add app="^PyCharm$" space=3
-yabai -m rule --add app="^GoLand$" space=3
-yabai -m rule --add app="^Obsidian$" space=^4
-yabai -m rule --add app="^Slack$" space=5
-yabai -m rule --add app="^Spark$" space=^6
-yabai -m rule --add app="^Microsoft Outlook$" space=6
-yabai -m rule --add app="^Microsoft Teams$" space=7
-yabai -m rule --add app="^Telegram$" space=8
-yabai -m rule --add app="^Spotify$" space=^8
+# move some apps automatically to specific spaces (using labels from spaces)
+yabai -m rule --add app="^Safari$" space=^browser
+yabai -m rule --add app="^Firefox$" space=^browser
+yabai -m rule --add app="^PyCharm$" space=ide
+yabai -m rule --add app="^GoLand$" space=ide
+yabai -m rule --add app="^Obsidian$" space=^notes
+yabai -m rule --add app="^Slack$" space=slack
+yabai -m rule --add app="^Spark$" space=^mail
+yabai -m rule --add app="^Microsoft Outlook$" space=mail
+yabai -m rule --add app="^Microsoft Teams$" space=teams
+yabai -m rule --add app="^Telegram$" space=personal
+yabai -m rule --add app="^Spotify$" space=^personal
 
-###############################################################
-#                          SCRIPTS                          #
-###############################################################
-# setup spaces
-~/.config/yabai/setup-spaces.sh "$YABAI_NUM_SPACES"
-
-# options=(
-# 	style=round
-# 	width=8.0
-# 	hidpi=on
-#     active_color="glow(0xCCFFDAB9)"
-# )
-# 
-# borders "${options[@]}" &
+# move existing windows to their designated spaces (rules only apply to new windows)
+~/.config/yabai/apply-app-spaces.sh
 

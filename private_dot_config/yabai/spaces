@@ -1,10 +1,10 @@
 YABAI_SPACE_LABELS=(
     "web"
     "code"
-    "think"
-    "tasks"
+    "productivity"
+    "misc1"
     "messaging"
     "mail"
     "music"
-    "misc"
+    "misc2"
 )

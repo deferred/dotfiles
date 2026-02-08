@@ -55,6 +55,8 @@ distribute_spaces_between_displays() {
             else
                 echo "sending space $space_idx to display $display_idx"
                 yabai -m space "$space_idx" --display "$display_idx"
+                # refresh space info after move, as indices may have shifted
+                spaces_info="$(yabai -m query --spaces)"
             fi
             (( space_idx++ ))
         done
@@ -75,6 +77,8 @@ distribute_spaces_between_displays() {
         else
             echo "sending space $space_idx to display $smallest_display_idx"
             yabai -m space "$space_idx" --display "$smallest_display_idx"
+            # refresh space info after move, as indices may have shifted
+            spaces_info="$(yabai -m query --spaces)"
         fi
         (( space_idx++ ))
     done

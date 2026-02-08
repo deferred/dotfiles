@@ -4,8 +4,7 @@
 source "$(dirname "$0")/spaces"
 
 # load scripting addition for yabai to work correctly
-# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
-# #configure-scripting-addition
+# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
@@ -75,7 +74,9 @@ yabai -m signal --add \
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905
 yabai -m signal --add \
     event=window_created \
-    action='~/.config/yabai/float-unresizable.sh'
+    action='yabai -m query --windows --window $YABAI_WINDOW_ID | \
+        jq -er ".\"can-resize\" or .\"is-floating\"" || \
+        yabai -m window $YABAI_WINDOW_ID --toggle float'
 
 ###############################################################
 #                          SCRIPTS                          #

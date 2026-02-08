@@ -93,9 +93,10 @@ yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 
-# move some apps automatically to specific spaces (using labels from spaces)
+# move some apps automatically to specific spaces using labels
 yabai -m rule --add app="^Safari$" space=^browser
 yabai -m rule --add app="^Firefox$" space=^browser
+yabai -m rule --add app="^Alacritty$" space=^terminal
 yabai -m rule --add app="^PyCharm$" space=ide
 yabai -m rule --add app="^GoLand$" space=ide
 yabai -m rule --add app="^Obsidian$" space=^notes
@@ -106,6 +107,9 @@ yabai -m rule --add app="^Microsoft Teams$" space=teams
 yabai -m rule --add app="^Telegram$" space=personal
 yabai -m rule --add app="^Spotify$" space=^personal
 
-# move existing windows to their designated spaces (rules only apply to new windows)
+###############################################################
+#                          SCRIPTS                          #
+###############################################################
+# move existing windows to their designated spaces, because rules only apply to new windows
 ~/.config/yabai/apply-app-spaces.sh
 

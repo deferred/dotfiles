@@ -7,10 +7,10 @@ control_focus() {
   local windows
   windows="$(yabai -m query --windows --space)"
 
-  # Extract the first window ID whose title does NOT contain "Microsoft Teams"
+  # Extract the first visible window ID that is not Microsoft Teams or Slack
   local window_id
   window_id="$(
-    jq '
+    jq -r '
       map(
         select(
           .app != "Microsoft Teams" and

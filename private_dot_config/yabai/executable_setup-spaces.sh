@@ -81,31 +81,31 @@ distribute_spaces_between_displays() {
 }
 
 apply_app_spaces() {
-    # could not reliably use yabai -m rule --list, because spaces in rules were changing randomly
-    # so even if the rule in yabairc states that Telegram should be on space 8, call to yabai -m rule --list returned space 7 for some reason
-    # so hardcoding values
-    apps=("Safari" "Firefox" "PyCharm" "GoLand" "Obsidian" "Slack" "Spark" "Microsoft Outlook" "Microsoft Teams" "Telegram" "Spotify")
-    spaces=("1" "1" "2" "3" "3" "4" "4" "5" "6" "6" "7" "8" "8")
+    local rules
+    rules=$(yabai -m rule --list)
+
+    # extract rules that have a space assignment (space > 0)
+    local app_space_pairs
+    app_space_pairs=$(echo "$rules" | jq -r '.[] | select(.space > 0) | "\(.app)\t\(.space)"')
+
+    if [[ -z "$app_space_pairs" ]]; then
+        echo "warning: no app-space rules found, skipping window placement"
+        return
+    fi
 
     local windows
     windows=$(yabai -m query --windows)
 
-    # Loop through each app-space pair using array indices.
-    local count=${#apps[@]}
-    for (( i=0; i<count; i++ )); do
-        local app="${apps[$i]}"
-        local target_space="${spaces[$i]}"
-
-        # Use jq to select window IDs where the window's app name exactly matches the app.
+    while IFS=$'\t' read -r app_regex target_space; do
+        # find window IDs matching this app regex
         local ids
-        ids=$(echo "$windows" | jq -r --arg regex "^${app}\$" '.[] | select(.app | test($regex)) | .id')
+        ids=$(echo "$windows" | jq -r --arg regex "$app_regex" '.[] | select(.app | test($regex)) | .id')
 
-        # For every matching window, move it to the desired space.
         for id in $ids; do
-            echo "moving $app window $id to space $target_space"
+            echo "moving window $id (matching $app_regex) to space $target_space"
             yabai -m window "$id" --space "$target_space"
         done
-    done
+    done <<< "$app_space_pairs"
 }
 
 function setup_spaces {

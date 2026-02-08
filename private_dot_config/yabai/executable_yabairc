@@ -89,10 +89,12 @@ yabai -m signal --add \
 ###############################################################
 
 # use stack layout for spaces where fullscreen-per-app makes more sense
-yabai -m config --space ide layout stack
-yabai -m config --space notes layout stack
+yabai -m config --space web layout stack
+yabai -m config --space code layout stack
+yabai -m config --space think layout stack
+yabai -m config --space tasks layout stack
+yabai -m config --space messaging layout stack
 yabai -m config --space mail layout stack
-yabai -m config --space personal layout stack
 
 ###############################################################
 #                           RULES                           #
@@ -104,19 +106,19 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 
 # move some apps automatically to specific spaces using labels
-yabai -m rule --add app="^Safari$" space=^browser
-yabai -m rule --add app="^Firefox$" space=^browser
-yabai -m rule --add app="^Alacritty$" space=^terminal
-yabai -m rule --add app="^PyCharm$" space=ide
-yabai -m rule --add app="^GoLand$" space=ide
-yabai -m rule --add app="^Things$" space=^notes
-yabai -m rule --add app="^Obsidian$" space=^notes
-yabai -m rule --add app="^Slack$" space=slack
+yabai -m rule --add app="^Safari$" space=^web
+yabai -m rule --add app="^Firefox$" space=^web
+yabai -m rule --add app="^Alacritty$" space=^code
+yabai -m rule --add app="^PyCharm$" space=code
+yabai -m rule --add app="^GoLand$" space=code
+yabai -m rule --add app="^Obsidian$" space=^think
+yabai -m rule --add app="^Things$" space=^tasks
+yabai -m rule --add app="^Slack$" space=messaging
+yabai -m rule --add app="^Microsoft Teams$" space=messaging
+yabai -m rule --add app="^Telegram$" space=messaging
 yabai -m rule --add app="^Spark$" space=^mail
 yabai -m rule --add app="^Microsoft Outlook$" space=mail
-yabai -m rule --add app="^Microsoft Teams$" space=teams
-yabai -m rule --add app="^Telegram$" space=personal
-yabai -m rule --add app="^Spotify$" space=^personal
+yabai -m rule --add app="^Spotify$" space=^music
 
 ###############################################################
 #                          SCRIPTS                          #

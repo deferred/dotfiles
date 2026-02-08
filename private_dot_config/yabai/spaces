@@ -1,10 +1,10 @@
 YABAI_SPACE_LABELS=(
-    "browser"
-    "terminal"
-    "ide"
-    "notes"
-    "slack"
+    "web"
+    "code"
+    "think"
+    "tasks"
+    "messaging"
     "mail"
-    "teams"
-    "personal"
+    "music"
+    "misc"
 )

@@ -68,10 +68,12 @@ yabai -m signal --add \
         jq -er ".\"can-resize\" or .\"is-floating\"" || \
         yabai -m window $YABAI_WINDOW_ID --toggle float'
 
-# redirect focus away from sticky windows
-# sticky windows appear on every space and can steal focus
+# redirect focus away from Slack sticky windows
+# Slack creates sticky overlay windows that appear on every space and steal
+# focus, breaking stack.next/stack.prev navigation
 yabai -m signal --add \
     event=window_focused \
+    app="^Slack$" \
     action='is_sticky=$(yabai -m query --windows --window $YABAI_WINDOW_ID | \
                 jq -r ".\"is-sticky\""); \
         [ "$is_sticky" != "true" ] && exit 0; \

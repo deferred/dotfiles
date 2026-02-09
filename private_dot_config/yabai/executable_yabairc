@@ -92,7 +92,8 @@ yabai -m signal --add \
 
 # use bsp layout for spaces where side-by-side tiling makes more sense
 yabai -m config --space music layout bsp
-yabai -m config --space misc layout bsp
+yabai -m config --space misc1 layout bsp
+yabai -m config --space misc2 layout bsp
 
 ###############################################################
 #                           RULES                           #

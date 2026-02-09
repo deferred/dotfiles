@@ -64,11 +64,12 @@ yabai -m signal --add \
     event=window_destroyed \
     action='~/.config/yabai/control-focus.sh'
 
-# minimize Microsoft Teams popup
-yabai -m signal --add \
-    event=window_title_changed \
+# prevent Teams system dialogs from stealing focus
+# they become unmanaged floating windows
+yabai -m rule --add \
     app="^Microsoft Teams$" \
-    action='~/.config/yabai/minimize-teams-popup.sh'
+    subrole="AXSystemDialog" \
+    manage=off
 
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905

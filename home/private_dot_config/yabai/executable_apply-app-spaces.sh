@@ -2,6 +2,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# shellcheck source=lib/logging.sh
+source "$(dirname "$0")/lib/logging.sh"
+
 apply_app_spaces() {
     local rules
     rules=$(yabai -m rule --list)
@@ -11,7 +14,7 @@ apply_app_spaces() {
     app_space_pairs=$(echo "$rules" | jq -r '.[] | select(.space > 0) | "\(.app)\t\(.space)"')
 
     if [[ -z "$app_space_pairs" ]]; then
-        echo "warning: no app-space rules found, skipping window placement"
+        log_warn "no app-space rules found, skipping window placement"
         return
     fi
 
@@ -25,11 +28,11 @@ apply_app_spaces() {
             '.[] | select(.app | test($regex)) | .id')
 
         for id in $ids; do
-            echo "moving window $id (matching $app_regex) to space $target_space"
+            log_info "moving window $id (matching $app_regex) to space $target_space"
             yabai -m window "$id" --space "$target_space"
         done
     done <<< "$app_space_pairs"
 }
 
-echo "running $(basename "$0")"
+log_info "running apply-app-spaces"
 apply_app_spaces

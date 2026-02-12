@@ -13,17 +13,17 @@
 # ctrl - 9 : yabai -m space --focus 9
 #
 # jump between 2 most recent spaces
-alt - l : yabai -m space --focus recent
+ctrl + alt - l : yabai -m space --focus recent
 
 # change window focus within space (stack.next/prev fallback to directional for bsp)
-alt - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first || yabai -m window --focus south
-alt - e : yabai -m window --focus stack.prev || yabai -m window --focus stack.last || yabai -m window --focus north
-alt - h : yabai -m window --focus west
-alt - i : yabai -m window --focus east
+ctrl + alt - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first || yabai -m window --focus south
+ctrl + alt - e : yabai -m window --focus stack.prev || yabai -m window --focus stack.last || yabai -m window --focus north
+ctrl + alt - h : yabai -m window --focus west
+ctrl + alt - i : yabai -m window --focus east
 
 # change focus between external displays (left and right)
-alt - r : yabai -m display --focus west
-alt - d : yabai -m display --focus east
+ctrl + alt - r : yabai -m display --focus west
+ctrl + alt - d : yabai -m display --focus east
 
 # swap windows
 shift + alt - n : yabai -m window --swap south
@@ -73,22 +73,22 @@ shift + alt - 9 : yabai -m window --space 9;
 
 # application focus
 # homerow
-ctrl + alt - a : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Firefox") | .id' | head -1)" 2>/dev/null
-ctrl + alt - r : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Alacritty") | .id' | head -1)" 2>/dev/null
-ctrl + alt - s : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Things") | .id' | head -1)" 2>/dev/null
-ctrl + alt - d : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Telegram") | .id' | head -1)" 2>/dev/null
-ctrl + alt - h : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spark") | .id' | head -1)" 2>/dev/null
-ctrl + alt - n : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spotify") | .id' | head -1)" 2>/dev/null
+alt - a : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Firefox") | .id' | head -1)" 2>/dev/null
+alt - r : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Alacritty") | .id' | head -1)" 2>/dev/null
+alt - s : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Things") | .id' | head -1)" 2>/dev/null
+alt - d : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Telegram") | .id' | head -1)" 2>/dev/null
+alt - h : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spark") | .id' | head -1)" 2>/dev/null
+alt - n : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spotify") | .id' | head -1)" 2>/dev/null
 
 # upper row
-ctrl + alt - q : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Safari") | .id' | head -1)" 2>/dev/null
-ctrl + alt - w : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="PyCharm") | .id' | head -1)" 2>/dev/null
-ctrl + alt - f : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Obsidian") | .id' | head -1)" 2>/dev/null
-ctrl + alt - g : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Slack") | .id' | head -1)" 2>/dev/null
-ctrl + alt - j : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Microsoft Outlook") | .id' | head -1)" 2>/dev/null
+alt - q : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Safari") | .id' | head -1)" 2>/dev/null
+alt - w : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="PyCharm") | .id' | head -1)" 2>/dev/null
+alt - f : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Obsidian") | .id' | head -1)" 2>/dev/null
+alt - g : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Slack") | .id' | head -1)" 2>/dev/null
+alt - j : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Microsoft Outlook") | .id' | head -1)" 2>/dev/null
 
 # down row
-ctrl + alt - x : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="GoLand") | .id' | head -1)" 2>/dev/null
-ctrl + alt - c : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="1Password") | .id' | head -1)" 2>/dev/null
-ctrl + alt - b : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Microsoft Teams") | .id' | head -1)" 2>/dev/null
+alt - x : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="GoLand") | .id' | head -1)" 2>/dev/null
+alt - c : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="1Password") | .id' | head -1)" 2>/dev/null
+alt - b : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Microsoft Teams") | .id' | head -1)" 2>/dev/null
 

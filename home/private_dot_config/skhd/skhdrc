@@ -13,7 +13,7 @@
 # ctrl - 9 : yabai -m space --focus 9
 #
 # jump between 2 most recent spaces
-shift + alt - l : yabai -m space --focus recent
+alt - l : yabai -m space --focus recent
 
 # change window focus within space (stack.next/prev fallback to directional for bsp)
 alt - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first || yabai -m window --focus south

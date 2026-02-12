@@ -74,3 +74,24 @@ shift + alt - 9 : yabai -m window --space 9;
 # ctrl + alt - h : yabai -m window --warp west
 # ctrl + alt - l : yabai -m window --warp east
 
+# application focus
+# homerow
+ctrl + alt - a : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Firefox") | .id' | head -1)" 2>/dev/null
+ctrl + alt - r : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Alacritty") | .id' | head -1)" 2>/dev/null
+ctrl + alt - s : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Things") | .id' | head -1)" 2>/dev/null
+ctrl + alt - d : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Telegram") | .id' | head -1)" 2>/dev/null
+ctrl + alt - h : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spark") | .id' | head -1)" 2>/dev/null
+ctrl + alt - n : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spotify") | .id' | head -1)" 2>/dev/null
+
+# upper row
+ctrl + alt - q : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Safari") | .id' | head -1)" 2>/dev/null
+ctrl + alt - w : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="PyCharm") | .id' | head -1)" 2>/dev/null
+ctrl + alt - f : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Obsidian") | .id' | head -1)" 2>/dev/null
+ctrl + alt - g : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Slack") | .id' | head -1)" 2>/dev/null
+ctrl + alt - j : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Microsoft Outlook") | .id' | head -1)" 2>/dev/null
+
+# down row
+ctrl + alt - x : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="GoLand") | .id' | head -1)" 2>/dev/null
+ctrl + alt - c : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="1Password") | .id' | head -1)" 2>/dev/null
+ctrl + alt - b : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Microsoft Teams") | .id' | head -1)" 2>/dev/null
+

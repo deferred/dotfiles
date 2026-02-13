@@ -1,1 +1,1 @@
-eval "$(brew shellenv)"
+alias brew='sudo -Hu homebrew brew'

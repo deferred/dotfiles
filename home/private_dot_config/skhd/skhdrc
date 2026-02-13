@@ -76,9 +76,11 @@ shift + alt - 9 : yabai -m window --space 9;
 alt - a : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Firefox") | .id' | head -1)" 2>/dev/null
 alt - r : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Alacritty") | .id' | head -1)" 2>/dev/null
 alt - s : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Things") | .id' | head -1)" 2>/dev/null
+alt - t : yabai -m space --focus misc1  # no default app, focus space misc1
 alt - d : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Telegram") | .id' | head -1)" 2>/dev/null
 alt - h : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spark") | .id' | head -1)" 2>/dev/null
 alt - n : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Spotify") | .id' | head -1)" 2>/dev/null
+alt - e : yabai -m space --focus misc2  # no default app, focus space misc2
 
 # upper row
 alt - q : yabai -m window --focus "$(yabai -m query --windows | jq -r '.[] | select(.app=="Safari") | .id' | head -1)" 2>/dev/null

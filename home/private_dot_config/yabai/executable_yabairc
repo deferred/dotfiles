@@ -54,6 +54,13 @@ yabai -m rule --add \
     subrole="AXSystemDialog" \
     manage=off
 
+# auto-minimize Teams "Meeting compact view" popup when its title changes
+yabai -m signal --add \
+    event=window_title_changed \
+    app="^Microsoft Teams$" \
+    title="^Meeting compact view" \
+    action='yabai -m window $YABAI_WINDOW_ID --minimize'
+
 # prevent Slack system dialogs from stealing focus
 yabai -m rule --add \
     app="^Slack$" \

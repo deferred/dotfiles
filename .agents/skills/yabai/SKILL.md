@@ -1,11 +1,6 @@
 ---
 name: yabai
-description: Configure and manage yabai, the macOS tiling window manager. Covers yabairc configuration, window/space/display commands, rules, signals, skhd keybindings, and SIP requirements.
-license: MIT
-compatibility: opencode
-metadata:
-  category: system-tools
-  audience: macos-users
+description: Configure and use yabai, the macOS tiling window manager. Covers yabairc configuration, window/space/display commands, rules, signals, skhd keybindings, and SIP requirements. Use when creating or editing yabairc, writing skhd keybindings for yabai, troubleshooting window tiling, setting up app rules, querying yabai state, configuring multi-display/multi-space workflows, or running yabai commands to manage windows, spaces, and displays.
 ---
 
 # yabai - macOS Tiling Window Manager

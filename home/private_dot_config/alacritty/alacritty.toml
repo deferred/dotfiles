@@ -186,6 +186,12 @@ chars = "\u0002d"
 key = "D"
 mods = "Command|Shift"
 
+# tmux: reload config
+[[keyboard.bindings]]
+chars = "\u0002R"
+key = "R"
+mods = "Command|Shift"
+
 # tmux: fixing ^H to work with tmux panes
 # https://github.com/christoomey/vim-tmux-navigator/issues/421#issuecomment-2613993818
 [[keyboard.bindings]]

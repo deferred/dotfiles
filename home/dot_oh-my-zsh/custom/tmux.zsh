@@ -10,7 +10,7 @@ tsa() {
 
 ZSH_TMUX_CONFIG="$HOME/.config/tmux/tmux.conf"
 
-# bind ctrl+alt+l to clear the screen
-# uses the terminal convention where alt is sent as an esc prefix ('\e'), i.e. '\e^L' represents alt+ctrl+l
+# bind ctrl+shift+l to clear the screen
+# uses the terminal convention where the sequence is sent as '\e^L'
 bindkey '\e^L' clear-screen
 

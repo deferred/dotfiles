@@ -1,6 +1,6 @@
 ---
 name: chezmoi
-description: Manage dotfiles with chezmoi. Covers source state file naming conventions (dot_, private_, executable_, encrypted_, run_, modify_, create_, symlink_, exact_), Go template syntax (.tmpl), .chezmoiexternal.toml externals, .chezmoiignore rules, run scripts, encryption (age/GPG), password manager integrations, and chezmoi configuration. Use when creating, editing, or debugging chezmoi-managed dotfiles, templates, scripts, externals, or ignore rules.
+description: Manage dotfiles with chezmoi. Use when running chezmoi CLI commands, creating or editing chezmoi-managed files, debugging chezmoi issues, writing chezmoi templates, or working with chezmoi source state in any way.
 ---
 
 # chezmoi - Dotfiles Manager

@@ -48,24 +48,12 @@ yabai -m signal --add \
     event=display_removed \
     action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/apply-app-spaces.sh"
 
-# prevent Teams system dialogs from stealing focus
-yabai -m rule --add \
-    app="^Microsoft Teams$" \
-    subrole="AXSystemDialog" \
-    manage=off
-
 # auto-minimize Teams "Meeting compact view" popup when its title changes
 yabai -m signal --add \
     event=window_title_changed \
     app="^Microsoft Teams$" \
     title="^Meeting compact view" \
     action='yabai -m window $YABAI_WINDOW_ID --minimize'
-
-# prevent Slack system dialogs from stealing focus
-yabai -m rule --add \
-    app="^Slack$" \
-    subrole="AXSystemDialog" \
-    manage=off
 
 # make all non-resizable windows float
 # https://github.com/koekeishiya/yabai/issues/1317#issuecomment-1253626905
@@ -112,6 +100,8 @@ yabai -m config --space misc2 layout bsp
 yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
+yabai -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off
+yabai -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off
 
 # move some apps automatically to specific spaces using labels
 yabai -m rule --add app="^Safari$" space=^web

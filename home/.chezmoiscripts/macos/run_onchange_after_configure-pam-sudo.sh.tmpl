@@ -1,0 +1,16 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -e
+
+# hash: {{ include "/etc/pam.d/sudo" | sha256sum }}
+
+TMP=$(mktemp)
+trap 'rm -f "$TMP"' EXIT
+
+sed -e '/pam_reattach\.so/d' -e '/pam_tid\.so/d' /etc/pam.d/sudo |
+  sed -e '1a\
+auth     optional     /opt/homebrew/lib/pam/pam_reattach.so' -e '1a\
+auth sufficient pam_tid.so' > "$TMP"
+
+sudo cp "$TMP" /etc/pam.d/sudo
+{{ end -}}

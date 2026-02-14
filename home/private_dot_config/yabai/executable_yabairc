@@ -102,6 +102,7 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 yabai -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off
 yabai -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off
+yabai -m rule --add app="^1Password$" manage=off
 
 # move some apps automatically to specific spaces using labels
 yabai -m rule --add app="^Safari$" space=^web
@@ -111,7 +112,7 @@ yabai -m rule --add app="^PyCharm$" space=code
 yabai -m rule --add app="^GoLand$" space=code
 yabai -m rule --add app="^Obsidian$" space=^productivity
 yabai -m rule --add app="^Things$" space=^productivity
-yabai -m rule --add app="^1Password$" space=^productivity
+yabai -m rule --add app="^1Password$" title=" — 1Password$" manage=on space=^productivity
 yabai -m rule --add app="^Slack$" space=messaging
 yabai -m rule --add app="^Microsoft Teams$" space=messaging
 yabai -m rule --add app="^Telegram$" space=messaging

@@ -10,15 +10,6 @@
       "installedAt": "2026-02-10T17:08:06.214Z",
       "updatedAt": "2026-02-10T17:08:06.214Z"
     },
-    "code-reviewer": {
-      "source": "google-gemini/gemini-cli",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/google-gemini/gemini-cli.git",
-      "skillPath": ".gemini/skills/code-reviewer/SKILL.md",
-      "skillFolderHash": "e580e60f488d74811fbec80427183553295d7ceb",
-      "installedAt": "2026-02-10T17:23:57.503Z",
-      "updatedAt": "2026-02-10T17:23:57.503Z"
-    },
     "git-commit": {
       "source": "github/awesome-copilot",
       "sourceType": "github",

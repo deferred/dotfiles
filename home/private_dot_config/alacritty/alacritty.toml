@@ -206,6 +206,14 @@ chars = "\u001b\u000c"
 key = "L"
 mods = "Control|Shift"
 
+# tmux: shift+enter sends the same byte as enter (0x0d), making them
+# indistinguishable; send kitty keyboard protocol CSI u sequence instead
+# so apps like opencode can detect shift+enter
+[[keyboard.bindings]]
+chars = "\u001B[13;2u" # ESC [ 13<enter> ; 2<shift> u
+key = "Enter"
+mods = "Shift"
+
 [terminal]
 osc52 = "OnlyCopy"
 

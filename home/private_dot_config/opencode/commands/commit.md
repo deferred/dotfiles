@@ -1,7 +1,7 @@
 ---
 description: Git commit
 agent: build
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-sonnet-4-6
 ---
 
 Load the "git-commit" skill first, then follow its workflow to create a commit.

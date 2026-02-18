@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+# chezmoi modify script for opencode.json
+# Deep-merges managed fields into the existing file, preserving all machine-local config.
+
+import json
+import sys
+
+
+def deep_merge(base, override):
+    """Recursively merge override into base. Override wins on conflicts."""
+    result = dict(base)
+    for key, value in override.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = value
+    return result
+
+
+try:
+    current = json.loads(sys.stdin.read() or "{}")
+except Exception:
+    current = {}
+
+# Fields managed by chezmoi — deeply merged, override wins on conflicts.
+# Machine-local keys (provider, unknown mcp servers, etc.) are preserved.
+managed = {
+    "$schema": "https://opencode.ai/config.json",
+    "model": "anthropic/claude-opus-4-6",
+    "plugin": ["opencode-gemini-auth"],
+    "mcp": {
+        "context7": {
+            "type": "local",
+            "command": ["npx", "-y", "@upstash/context7-mcp"],
+            "enabled": True,
+        }
+    },
+}
+
+print(json.dumps(deep_merge(current, managed), indent=2))

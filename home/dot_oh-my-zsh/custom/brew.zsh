@@ -1,3 +1,9 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-alias brew='sudo -Hu homebrew brew'
+brew() {
+  if [[ "$1" == "services" ]]; then
+    command brew "$@"
+  else
+    (cd /opt/homebrew && sudo -Hu homebrew brew "$@")
+  fi
+}

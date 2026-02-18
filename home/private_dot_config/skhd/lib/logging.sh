@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# shared logging utilities for yabai scripts
+# shared logging utilities for skhd scripts
 
 log() {
     local level="$1"

@@ -11,7 +11,7 @@ NUM_SPACES=${#YABAI_SPACE_LABELS[@]}
 
 destroy_excess_spaces() {
     log_info "destroying excess spaces until there are $NUM_SPACES"
-    for _ in $(yabai -m query --spaces | \
+    for _ in $(yabai -m query --spaces |
         jq ".[].index | select(. > $NUM_SPACES)"); do
         log_info "destroying space $((NUM_SPACES + 1))"
         yabai -m space --destroy "$((NUM_SPACES + 1))"
@@ -29,11 +29,33 @@ create_missing_spaces() {
 label_spaces() {
     log_info "labeling spaces"
     for i in "${!YABAI_SPACE_LABELS[@]}"; do
-        local index=$(( i + 1 ))
+        local index=$((i + 1))
         local label="${YABAI_SPACE_LABELS[$i]}"
         log_info "labeling space $index as $label"
         yabai -m space "$index" --label "$label"
     done
+}
+
+move_space_to_display() {
+    local label="$1"
+    local target_display="$2"
+
+    local current_display
+    current_display="$(yabai -m query --spaces --space "$label" | jq -r '.display')"
+
+    log_info "  space '$label': currently on display $current_display, target display $target_display"
+
+    # only move the space if it's not already on the target display
+    if [ "$current_display" -eq "$target_display" ]; then
+        log_info "    space '$label' already on display $target_display, skipping"
+    else
+        log_info "    moving space '$label' to display $target_display"
+        if yabai -m space "$label" --display "$target_display"; then
+            log_info "    successfully moved space '$label' to display $target_display"
+        else
+            log_error "    failed to move space '$label' to display $target_display"
+        fi
+    fi
 }
 
 distribute_spaces_between_displays() {
@@ -58,72 +80,32 @@ distribute_spaces_between_displays() {
         return 1
     fi
 
-    local spaces_per_display=$(( NUM_SPACES / num_displays ))
-
-    log_info "distributing $NUM_SPACES spaces so each display has ~$spaces_per_display spaces"
-
-    local label_idx=0
-    for display_idx in $(echo "$displays" | jq '.[].index'); do
-        local last_label_idx=$(( label_idx + spaces_per_display - 1 ))
-        log_info "assigning spaces to display $display_idx (labels $label_idx-$last_label_idx)"
-
-        while [ "$label_idx" -le "$last_label_idx" ]; do
-            local label="${YABAI_SPACE_LABELS[$label_idx]}"
-
-            local current_display
-            current_display="$(yabai -m query --spaces --space "$label" | \
-                jq -r '.display')"
-
-            log_info "  space '$label': currently on display $current_display, target display $display_idx"
-
-            # only move the space if it's not already on the target display
-            if [ "$current_display" -eq "$display_idx" ]; then
-                log_info "    space '$label' already on display $display_idx, skipping"
-            else
-                log_info "    moving space '$label' to display $display_idx"
-                if yabai -m space "$label" --display "$display_idx"; then
-                    log_info "    successfully moved space '$label' to display $display_idx"
-                else
-                    log_error "    failed to move space '$label' to display $display_idx"
-                fi
-            fi
-            label_idx=$((label_idx + 1))
-        done
-    done
-
-    # send excess spaces to the smallest display (last in the sorted list)
+    local spaces_per_display=$((NUM_SPACES / num_displays))
     local smallest_display_idx
     smallest_display_idx="$(echo "$displays" | jq '.[-1].index')"
 
-    if [ "$label_idx" -lt "$NUM_SPACES" ]; then
-        log_info "assigning remaining spaces to smallest display $smallest_display_idx"
-    fi
+    log_info "distributing $NUM_SPACES spaces so each display has ~$spaces_per_display spaces"
 
-    while [ "$label_idx" -lt "$NUM_SPACES" ]; do
-        local label="${YABAI_SPACE_LABELS[$label_idx]}"
+    # build an assignments array: map each space index to its target display
+    # first (spaces_per_display * num_displays) spaces are spread evenly;
+    # any remainder goes to the smallest display
+    local -a assignments=()
+    for display_idx in $(echo "$displays" | jq '.[].index'); do
+        for ((j = 0; j < spaces_per_display; j++)); do
+            assignments+=("$display_idx")
+        done
+    done
+    while [ "${#assignments[@]}" -lt "$NUM_SPACES" ]; do
+        assignments+=("$smallest_display_idx")
+    done
 
-        local current_display
-        current_display="$(yabai -m query --spaces --space "$label" | \
-            jq -r '.display')"
-
-            log_info "  space '$label': currently on display $current_display, target display $smallest_display_idx"
-
-        if [ "$current_display" -eq "$smallest_display_idx" ]; then
-            log_info "    space '$label' already on display $smallest_display_idx, skipping"
-        else
-            log_info "    moving space '$label' to display $smallest_display_idx"
-            if yabai -m space "$label" --display "$smallest_display_idx"; then
-                log_info "    successfully moved space '$label' to display $smallest_display_idx"
-            else
-                log_error "    failed to move space '$label' to display $smallest_display_idx"
-            fi
-        fi
-        label_idx=$((label_idx + 1))
+    # move each space to its assigned display
+    for i in "${!assignments[@]}"; do
+        move_space_to_display "${YABAI_SPACE_LABELS[$i]}" "${assignments[$i]}"
     done
 
     # validate final state
     log_info "validating final space distribution..."
-    local validation_failed=0
     for i in "${!YABAI_SPACE_LABELS[@]}"; do
         local label="${YABAI_SPACE_LABELS[$i]}"
         local space_info

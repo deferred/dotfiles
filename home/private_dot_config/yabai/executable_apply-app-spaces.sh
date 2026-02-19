@@ -29,9 +29,10 @@ apply_app_spaces() {
 
         for id in $ids; do
             log_info "moving window $id (matching $app_regex) to space $target_space"
-            yabai -m window "$id" --space "$target_space"
+            yabai -m window "$id" --space "$target_space" ||
+                log_warn "failed to move window $id to space $target_space, skipping"
         done
-    done <<< "$app_space_pairs"
+    done <<<"$app_space_pairs"
 }
 
 log_info "running apply-app-spaces"

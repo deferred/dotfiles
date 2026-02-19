@@ -63,6 +63,15 @@ yabai -m signal --add \
         jq -er ".\"can-resize\" or .\"is-floating\"" || \
         yabai -m window $YABAI_WINDOW_ID --toggle float'
 
+# move 1Password main window to productivity space
+# popups are non-resizable and handled by a generic signal
+yabai -m signal --add \
+    event=window_created \
+    app="^1Password$" \
+    action='yabai -m query --windows --window $YABAI_WINDOW_ID | \
+        jq -er ".\"can-resize\"" >/dev/null 2>&1 && \
+        yabai -m window $YABAI_WINDOW_ID --space productivity'
+
 # redirect focus away from Slack sticky windows
 # Slack creates sticky overlay windows that appear on every space and steal
 # focus, breaking stack.next/stack.prev navigation
@@ -102,8 +111,6 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Steam$" manage=off
 yabai -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off
 yabai -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off
-yabai -m rule --add app="^1Password$" manage=off
-
 # move some apps automatically to specific spaces using labels
 yabai -m rule --add app="^Safari$" space=^web
 yabai -m rule --add app="^Firefox$" space=^web
@@ -112,7 +119,6 @@ yabai -m rule --add app="^PyCharm$" space=code
 yabai -m rule --add app="^GoLand$" space=code
 yabai -m rule --add app="^Obsidian$" space=^productivity
 yabai -m rule --add app="^Things$" space=^productivity
-yabai -m rule --add app="^1Password$" title!="^(Quick Access|1Password$)" manage=on space=^productivity
 yabai -m rule --add app="^Slack$" space=messaging
 yabai -m rule --add app="^Microsoft Teams$" space=messaging
 yabai -m rule --add app="^Telegram$" space=messaging

@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-# shellcheck source=spaces
-source "$(dirname "$0")/spaces"
-
 # load scripting addition for yabai to work correctly
 # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
+
+# create, label and distribute spaces across displays
+# must run before rules and space-specific config so that labels are available
+~/.config/yabai/setup-spaces.sh
 
 ###############################################################
 #                          CONFIG                           #
@@ -34,6 +35,37 @@ yabai -m config mouse_action2 resize
 
 # when window is dropped in center of another window, swap them (on edges it will split it)
 yabai -m config mouse_drop_action swap
+
+# use bsp layout for spaces where side-by-side tiling makes more sense
+yabai -m config --space music layout bsp
+yabai -m config --space misc1 layout bsp
+yabai -m config --space misc2 layout bsp
+
+###############################################################
+#                           RULES                           #
+###############################################################
+
+# turn off yabai for some apps
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Karabiner-Elements$" manage=off
+yabai -m rule --add app="^Steam$" manage=off
+yabai -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off
+yabai -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off
+
+# move some apps automatically to specific spaces using labels
+yabai -m rule --add app="^Safari$" space=^web
+yabai -m rule --add app="^Firefox$" space=^web
+yabai -m rule --add app="^Alacritty$" space=^code
+yabai -m rule --add app="^PyCharm$" space=code
+yabai -m rule --add app="^GoLand$" space=code
+yabai -m rule --add app="^Obsidian$" space=^productivity
+yabai -m rule --add app="^Things$" space=^productivity
+yabai -m rule --add app="^Slack$" space=messaging
+yabai -m rule --add app="^Microsoft Teams$" space=messaging
+yabai -m rule --add app="^Telegram$" space=messaging
+yabai -m rule --add app="^Spark$" space=^mail
+yabai -m rule --add app="^Microsoft Outlook$" space=mail
+yabai -m rule --add app="^Spotify$" space=^music
 
 ###############################################################
 #                          SIGNALS                          #
@@ -86,49 +118,5 @@ yabai -m signal --add \
         [ -n "$target" ] && [ "$target" != "null" ] && \
             yabai -m window --focus "$target"'
 
-###############################################################
-#                          SCRIPTS                          #
-###############################################################
-# must run before rules so that labels are available
-~/.config/yabai/setup-spaces.sh
-
-###############################################################
-#                     SPACE-SPECIFIC CONFIG                  #
-###############################################################
-
-# use bsp layout for spaces where side-by-side tiling makes more sense
-yabai -m config --space music layout bsp
-yabai -m config --space misc1 layout bsp
-yabai -m config --space misc2 layout bsp
-
-###############################################################
-#                           RULES                           #
-###############################################################
-
-# turn off yabai for some apps
-yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Karabiner-Elements$" manage=off
-yabai -m rule --add app="^Steam$" manage=off
-yabai -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off
-yabai -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off
-# move some apps automatically to specific spaces using labels
-yabai -m rule --add app="^Safari$" space=^web
-yabai -m rule --add app="^Firefox$" space=^web
-yabai -m rule --add app="^Alacritty$" space=^code
-yabai -m rule --add app="^PyCharm$" space=code
-yabai -m rule --add app="^GoLand$" space=code
-yabai -m rule --add app="^Obsidian$" space=^productivity
-yabai -m rule --add app="^Things$" space=^productivity
-yabai -m rule --add app="^Slack$" space=messaging
-yabai -m rule --add app="^Microsoft Teams$" space=messaging
-yabai -m rule --add app="^Telegram$" space=messaging
-yabai -m rule --add app="^Spark$" space=^mail
-yabai -m rule --add app="^Microsoft Outlook$" space=mail
-yabai -m rule --add app="^Spotify$" space=^music
-
-###############################################################
-#                          SCRIPTS                          #
-###############################################################
 # move existing windows to their designated spaces, because rules only apply to new windows
 ~/.config/yabai/apply-app-spaces.sh
-

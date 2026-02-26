@@ -101,7 +101,7 @@ yabai -m signal --add \
     event=window_created \
     app="^1Password$" \
     action='yabai -m query --windows --window $YABAI_WINDOW_ID | \
-        jq -er ".\"can-resize\"" >/dev/null 2>&1 && \
+        jq -er ".\"can-resize\" and (.\"is-floating\" | not)" >/dev/null 2>&1 && \
         yabai -m window $YABAI_WINDOW_ID --space productivity'
 
 # redirect focus away from Slack sticky windows

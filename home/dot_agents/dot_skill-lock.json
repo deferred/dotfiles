@@ -27,6 +27,15 @@
       "skillFolderHash": "a01fbe3fa7f17f64173bd4fdcfecea86a3fd664c",
       "installedAt": "2026-02-10T17:26:32.293Z",
       "updatedAt": "2026-02-10T17:26:32.293Z"
+    },
+    "mermaid-visualizer": {
+      "source": "axtonliu/axton-obsidian-visual-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/axtonliu/axton-obsidian-visual-skills.git",
+      "skillPath": "mermaid-visualizer/SKILL.md",
+      "skillFolderHash": "55a0115c2bc2c6b21d71b5d3a2be09d33fbe91d1",
+      "installedAt": "2026-02-25T11:04:15.884Z",
+      "updatedAt": "2026-02-25T11:04:15.884Z"
     }
   },
   "dismissed": {
@@ -35,6 +44,7 @@
   "lastSelectedAgents": [
     "amp",
     "codex",
+    "cursor",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",

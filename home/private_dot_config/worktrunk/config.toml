@@ -10,4 +10,7 @@ zoxide = "zoxide add {{ worktree_path }}"
 tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\") && tmux has-session -t \"${_wt_repo}/{{ branch | sanitize }}\" 2>/dev/null || tmux new-session -d -s \"${_wt_repo}/{{ branch | sanitize }}\" -c '{{ worktree_path }}' && tmux switch-client -t \"${_wt_repo}/{{ branch | sanitize }}\" || true"
 
 [pre-remove]
-tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\") && tmux switch-client -t \"${_wt_repo}/{{ default_branch }}\" 2>/dev/null; tmux kill-session -t \"${_wt_repo}/{{ branch | sanitize }}\" 2>/dev/null || true"
+tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\"); _wt_source=\"${_wt_repo}/{{ branch | sanitize }}\"; _wt_target=\"${_wt_repo}/{{ default_branch }}\"; tmux has-session -t \"${_wt_target}\" 2>/dev/null || tmux new-session -d -s \"${_wt_target}\" -c '{{ repo_path }}'; tmux set-option -gq @wt_remove_source \"${_wt_source}\"; tmux set-option -gq @wt_remove_target \"${_wt_target}\"; [ -n \"$TMUX\" ] && tmux switch-client -t \"${_wt_target}\" 2>/dev/null || true"
+
+[post-remove]
+tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\"); _wt_source=\"${_wt_repo}/{{ branch | sanitize }}\"; tmux kill-session -t \"${_wt_source}\" 2>/dev/null || { tmux set-option -gu @wt_remove_source; tmux set-option -gu @wt_remove_target; } || true"

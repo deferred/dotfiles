@@ -5,3 +5,4 @@ copy = "wt step copy-ignored"
 
 [post-create]
 zoxide = "zoxide add {{ worktree_path }}"
+tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\") && tmux ls 2>/dev/null && tmux new-session -d -s \"${_wt_repo}/{{ branch | sanitize }}\" -c '{{ worktree_path }}' && tmux switch-client -t \"${_wt_repo}/{{ branch | sanitize }}\" || true"

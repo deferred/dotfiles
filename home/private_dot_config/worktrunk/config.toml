@@ -1,0 +1,2 @@
+[post-create]
+zoxide = "zoxide add {{ worktree_path }}"

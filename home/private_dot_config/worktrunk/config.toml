@@ -7,10 +7,74 @@ copy = "wt step copy-ignored"
 zoxide = "zoxide add {{ worktree_path }}"
 
 [post-switch]
-tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\") && tmux has-session -t \"${_wt_repo}/{{ branch | sanitize }}\" 2>/dev/null || tmux new-session -d -s \"${_wt_repo}/{{ branch | sanitize }}\" -c '{{ worktree_path }}' && tmux switch-client -t \"${_wt_repo}/{{ branch | sanitize }}\" || true"
+# ensure a tmux session exists for the current worktree branch, then switch the client to it
+tmux = """
+# derive a repo prefix for tmux session names
+_wt_repo=$(basename "$(dirname '{{ repo_path }}')") &&
+
+# check whether the branch session already exists
+tmux has-session -t "${_wt_repo}/{{ branch | sanitize }}" 2>/dev/null ||
+
+# create the branch session in detached mode starting in the worktree path if it does not exist
+tmux new-session -d -s "${_wt_repo}/{{ branch | sanitize }}" -c '{{ worktree_path }}' &&
+
+# move the current tmux client into the branch session
+tmux switch-client -t "${_wt_repo}/{{ branch | sanitize }}" ||
+
+# never fail the hook just because tmux switching was not possible
+true
+"""
 
 [pre-remove]
-tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\"); _wt_source=\"${_wt_repo}/{{ branch | sanitize }}\"; tmux set-option -gq @wt_remove_source \"${_wt_source}\"; tmux set-option -gu @wt_remove_target; if [ -n \"$TMUX\" ] && [ \"$(tmux display-message -p '#S' 2>/dev/null || true)\" = \"${_wt_source}\" ]; then _wt_target=\"${_wt_repo}/{{ default_branch }}\"; tmux has-session -t \"${_wt_target}\" 2>/dev/null || tmux new-session -d -s \"${_wt_target}\" -c '{{ repo_path }}'; tmux set-option -gq @wt_remove_target \"${_wt_target}\"; tmux switch-client -t \"${_wt_target}\" 2>/dev/null || true; fi"
+# if the session being removed is active, switch the client to a safe fallback session first
+tmux = """
+# derive a repo prefix for tmux session names
+_wt_repo=$(basename "$(dirname '{{ repo_path }}')");
+
+# build the tmux session name for the branch that is about to be removed
+_wt_source="${_wt_repo}/{{ branch | sanitize }}";
+
+# record the source session name in a tmux user option for later cleanup logic
+tmux set-option -gq @wt_remove_source "${_wt_source}";
+
+# clear any previous fallback target session value
+tmux set-option -gu @wt_remove_target;
+
+# only do the handoff when running inside tmux and currently attached to the source session
+if [ -n "$TMUX" ] && [ "$(tmux display-message -p '#S' 2>/dev/null || true)" = "${_wt_source}" ]; then
+
+  # build the fallback session name using the repo prefix and default branch
+  _wt_target="${_wt_repo}/{{ default_branch }}";
+
+  # reuse the fallback session if it exists
+  tmux has-session -t "${_wt_target}" 2>/dev/null ||
+
+  # otherwise create the fallback session in detached mode at the main repo path
+  tmux new-session -d -s "${_wt_target}" -c '{{ repo_path }}';
+
+  # record the fallback target session for any later hook logic
+  tmux set-option -gq @wt_remove_target "${_wt_target}";
+
+  # switch the current tmux client away from the session that is being removed
+  tmux switch-client -t "${_wt_target}" 2>/dev/null || true;
+fi
+"""
 
 [post-remove]
-tmux = "_wt_repo=$(basename \"$(dirname '{{ repo_path }}')\"); _wt_source=\"${_wt_repo}/{{ branch | sanitize }}\"; tmux kill-session -t \"${_wt_source}\" 2>/dev/null || { tmux set-option -gu @wt_remove_source; tmux set-option -gu @wt_remove_target; } || true"
+# remove the tmux session for the deleted branch and clear stored tmux metadata on failure
+tmux = """
+# derive a repo prefix for tmux session names from the parent directory of the repo path
+_wt_repo=$(basename "$(dirname '{{ repo_path }}')");
+
+# build the tmux session name for the branch that was removed
+_wt_source="${_wt_repo}/{{ branch | sanitize }}";
+
+# kill the tmux session for the removed branch if it still exists
+tmux kill-session -t "${_wt_source}" 2>/dev/null ||
+
+# if that fails, clear the stored source and target tmux user options instead
+{ tmux set-option -gu @wt_remove_source; tmux set-option -gu @wt_remove_target; } ||
+
+# never fail the hook just because tmux cleanup was not needed or did not work
+true
+"""

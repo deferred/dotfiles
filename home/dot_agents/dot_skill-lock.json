@@ -20,13 +20,13 @@
       "updatedAt": "2026-02-10T17:25:06.054Z"
     },
     "skill-creator": {
-      "source": "anthropics/skills",
+      "source": "anthropics/claude-plugins-official",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/anthropics/skills.git",
-      "skillPath": "skills/skill-creator/SKILL.md",
-      "skillFolderHash": "a01fbe3fa7f17f64173bd4fdcfecea86a3fd664c",
+      "sourceUrl": "https://github.com/anthropics/claude-plugins-official.git",
+      "skillPath": "plugins/skill-creator/skills/skill-creator/SKILL.md",
+      "skillFolderHash": "5c26c1472b98de33a48074ba5d3efe3a727b8e37",
       "installedAt": "2026-02-10T17:26:32.293Z",
-      "updatedAt": "2026-02-10T17:26:32.293Z"
+      "updatedAt": "2026-03-08T12:40:30.820Z"
     },
     "mermaid-visualizer": {
       "source": "axtonliu/axton-obsidian-visual-skills",
@@ -43,6 +43,7 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "cline",
     "codex",
     "cursor",
     "gemini-cli",

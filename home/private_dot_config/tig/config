@@ -1,2 +1,1 @@
 bind main T !@git tag %(prompt) %(commit)
-

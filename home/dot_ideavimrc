@@ -9,4 +9,3 @@ let g:NERDTreeMapActivateNode='l'
 let g:NERDTreeMapJumpParent='h'
 
 Plug 'tpope/vim-surround'
-

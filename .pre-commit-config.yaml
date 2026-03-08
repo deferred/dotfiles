@@ -1,4 +1,4 @@
-exclude: \.tmpl$
+exclude: (^home/dot_agents/skills/skill-creator/)|(^home/dot_p10k\.zsh$)|\.tmpl$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

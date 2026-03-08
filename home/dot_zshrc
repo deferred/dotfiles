@@ -140,10 +140,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Remove command lines from the history list when the first character on the line is a space, or when one of the expanded aliases contains a leading space. 
+# Remove command lines from the history list when the first character on the line is a space, or when one of the expanded aliases contains a leading space.
 # Only normal aliases (not global or suffix aliases) have this behaviour.
 # Note that the command lingers in the internal history until the next command is entered before it vanishes, allowing you to briefly reuse or edit the line.
-# If you want to make it vanish right away without entering another command, type a space and press return.  
+# If you want to make it vanish right away without entering another command, type a space and press return.
 setopt HIST_IGNORE_SPACE
 
 # If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not
@@ -153,4 +153,3 @@ setopt HIST_IGNORE_ALL_DUPS
 # Oh My Zsh Docker plugin
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
-

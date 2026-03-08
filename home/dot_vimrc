@@ -75,4 +75,3 @@ set ttyfast
 
 " Enable 24-bit RGB color.
 set termguicolors
-

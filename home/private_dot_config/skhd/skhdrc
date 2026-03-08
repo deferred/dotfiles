@@ -93,4 +93,3 @@ alt - j : ~/.config/skhd/focus-app.sh "Microsoft Outlook"
 alt - x : ~/.config/skhd/focus-app.sh GoLand
 alt - c : ~/.config/skhd/focus-app.sh Obsidian
 alt - b : ~/.config/skhd/focus-app.sh "Microsoft Teams"
-

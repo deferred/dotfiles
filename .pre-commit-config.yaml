@@ -15,17 +15,21 @@ repos:
   - repo: meta
     hooks:
       - id: check-hooks-apply
+        name: check hooks apply
       - id: check-useless-excludes
+        name: check useless excludes
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0
     hooks:
       - id: gitleaks
+        name: detect secrets
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
       - id: shellcheck
+        name: shellcheck
         args:
           - -x
         files: ^(home/\.chezmoiscripts/.*\.sh|home/private_dot_config/.*\.sh|home/private_dot_config/(.*/)?executable_[^/]+)$
@@ -34,12 +38,14 @@ repos:
     rev: v3.12.0-2
     hooks:
       - id: shfmt
+        name: format shell
         files: ^(home/\.chezmoiscripts/.*\.sh|home/private_dot_config/.*\.sh|home/private_dot_config/(.*/)?executable_[^/]+)$
 
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v2.4.0
     hooks:
       - id: stylua-github
+        name: format lua
         args:
           - --config-path
           - home/private_dot_config/astronvim/dot_stylua.toml
@@ -49,6 +55,7 @@ repos:
     rev: v0.1.43
     hooks:
       - id: rumdl-fmt
+        name: format markdown
         args:
           - --config
           - .rumdl.toml

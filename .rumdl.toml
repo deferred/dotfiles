@@ -1,6 +1,6 @@
 [global]
 flavor = "gfm"
-exclude = [".git"]
+exclude = [".git", "home/dot_agents/skills/skill-creator/**", "home/private_dot_config/astronvim/README.md"]
 respect_gitignore = true
 
 [per-file-ignores]

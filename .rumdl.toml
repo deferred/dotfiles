@@ -1,0 +1,9 @@
+[global]
+flavor = "gfm"
+exclude = [".git"]
+respect_gitignore = true
+
+[per-file-ignores]
+"home/private_dot_config/opencode/commands/*.md" = ["MD041"]
+"home/dot_agents/skills/**/*.md" = ["MD013", "MD031", "MD032", "MD040"]
+".agents/skills/**/*.md" = ["MD013", "MD031", "MD032", "MD040"]

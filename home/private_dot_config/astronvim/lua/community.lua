@@ -28,6 +28,8 @@ return {
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
+  -- search
+  { import = "astrocommunity.search.nvim-spectre" },
   -- workflow
   { import = "astrocommunity.workflow.hardtime-nvim" },
   -- import/override with your plugins folder

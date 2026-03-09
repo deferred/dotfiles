@@ -32,14 +32,15 @@ repos:
         name: shellcheck
         args:
           - -x
-        files: ^(home/\.chezmoiscripts/.*\.sh|home/private_dot_config/.*\.sh|home/private_dot_config/(.*/)?executable_[^/]+)$
+        files: ^(home/.*\.(sh|bash|zsh)|home/.*/executable_[^/.]+|home/executable_[^/.]+)$
+        exclude: ^home/dot_oh-my-zsh/custom/
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.12.0-2
     hooks:
       - id: shfmt
         name: format shell
-        files: ^(home/\.chezmoiscripts/.*\.sh|home/private_dot_config/.*\.sh|home/private_dot_config/(.*/)?executable_[^/]+)$
+        files: ^(home/.*\.(sh|bash|zsh)|home/.*/executable_[^/.]+|home/executable_[^/.]+)$
 
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v2.4.0

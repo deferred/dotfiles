@@ -45,12 +45,11 @@ repos:
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v2.4.0
     hooks:
-      - id: stylua-github
+      - id: stylua-system
         name: format lua
         args:
           - --config-path
           - home/private_dot_config/astronvim/dot_stylua.toml
-        files: ^home/private_dot_config/astronvim/.*\.lua$
 
   - repo: https://github.com/rvben/rumdl-pre-commit
     rev: v0.1.43

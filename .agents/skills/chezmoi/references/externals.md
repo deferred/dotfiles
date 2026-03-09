@@ -1,6 +1,9 @@
 # Externals
 
-Externals pull files and archives from URLs as if they were part of the source state. Declared in `.chezmoiexternal.toml` (or `.chezmoiexternal.yaml`/`.json`) or in files under `.chezmoiexternals/`.
+Externals pull files and archives from URLs as if they were part of
+the source state. Declared in `.chezmoiexternal.toml` (or
+`.chezmoiexternal.yaml`/`.json`) or in files under
+`.chezmoiexternals/`.
 
 ## Types
 
@@ -64,7 +67,8 @@ Extract a single file from an archive:
 ```toml
 [".local/bin/age"]
     type = "archive-file"
-    url = "https://github.com/FiloSottile/age/releases/download/v1.1.1/age-v1.1.1-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+    url = "https://github.com/FiloSottile/age/releases/download/v1.1.1/"
+        + "age-v1.1.1-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
     path = "age/age"
     executable = true
 ```
@@ -97,7 +101,8 @@ URLs support Go template syntax:
 ```toml
 [".local/bin/tool"]
     type = "archive-file"
-    url = "https://github.com/org/tool/releases/download/v1.0/tool-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+    url = "https://github.com/org/tool/releases/download/v1.0/"
+        + "tool-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
     path = "tool"
 ```
 
@@ -114,9 +119,11 @@ URLs support Go template syntax:
 
 ## Multiple External Files
 
-Organize additional externals in `.chezmoiexternals/` directory. Files are read in lexical order alongside `.chezmoiexternal.<format>`:
+Organize additional externals in `.chezmoiexternals/` directory.
+Files are read in lexical order alongside
+`.chezmoiexternal.<format>`:
 
-```
+```text
 .chezmoiexternals/
 ├── editors.toml
 ├── shell-plugins.toml

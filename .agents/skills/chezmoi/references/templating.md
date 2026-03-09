@@ -18,7 +18,9 @@ Go `text/template` syntax, extended with [sprig](https://masterminds.github.io/s
 
 # conditionals
 {{ if eq .chezmoi.os "darwin" }}mac{{ end }}
-{{ if eq .chezmoi.os "darwin" }}mac{{ else if eq .chezmoi.os "linux" }}linux{{ else }}other{{ end }}
+{{ if eq .chezmoi.os "darwin" }}mac
+{{ else if eq .chezmoi.os "linux" }}linux
+{{ else }}other{{ end }}
 
 # range
 {{ range .list }}{{ . }}{{ end }}
@@ -87,10 +89,12 @@ Defined in config `[data]` section or `.chezmoidata.*` files. Accessed directly:
 {{ $email := promptStringOnce . "email" "What is your email" }}
 {{ $personal := promptBoolOnce . "personal" "Is this a personal machine" }}
 {{ $age := promptIntOnce . "age" "Enter age" }}
-{{ $choice := promptChoiceOnce . "editor" "Preferred editor" (list "vim" "emacs" "code") }}
+{{ $choice := promptChoiceOnce . "editor" "Preferred editor"
+    (list "vim" "emacs" "code") }}
 ```
 
-`promptStringOnce` only prompts if value not already set — safe to re-run `chezmoi init`.
+`promptStringOnce` only prompts if value not already set — safe to
+re-run `chezmoi init`.
 
 ### Command execution
 
@@ -106,7 +110,8 @@ Defined in config `[data]` section or `.chezmoidata.*` files. Accessed directly:
 {{ glob "/path/to/*.conf" }}                   # glob for files
 {{ include "filename" }}                       # include source file contents
 {{ joinPath .chezmoi.homeDir ".config" "app" }}  # join path segments
-{{ lookPath "binary" }}                        # find binary in PATH (empty if not found)
+{{ lookPath "binary" }}                        # find binary in PATH
+                                              # (empty if not found)
 ```
 
 ### Environment
@@ -185,7 +190,8 @@ Defined in config `[data]` section or `.chezmoidata.*` files. Accessed directly:
 ```gohtml
 {{ if eq .chezmoi.os "darwin" }}mac{{ end }}
 {{ if ne .chezmoi.os "windows" }}unix{{ end }}
-{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}linux-amd64{{ end }}
+{{ if and (eq .chezmoi.os "linux")
+         (eq .chezmoi.arch "amd64") }}linux-amd64{{ end }}
 {{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") }}unix-like{{ end }}
 {{ if not (lookPath "brew") }}# brew not installed{{ end }}
 ```
@@ -194,7 +200,7 @@ Defined in config `[data]` section or `.chezmoidata.*` files. Accessed directly:
 
 Create reusable template fragments in `.chezmoitemplates/`:
 
-```
+```text
 .chezmoitemplates/
 ├── header              # no .tmpl suffix needed here
 ├── ssh-config-block

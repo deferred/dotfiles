@@ -2,7 +2,8 @@
 
 ## Location
 
-`~/.config/chezmoi/chezmoi.<format>` where format is `toml`, `yaml`, `json`, or `jsonc`.
+`~/.config/chezmoi/chezmoi.<format>` where format is `toml`, `yaml`,
+`json`, or `jsonc`.
 
 Override with `--config` and `--config-format` flags.
 
@@ -128,7 +129,8 @@ Pre/post hooks for chezmoi commands:
     args = ["chezmoi", "apply complete"]
 ```
 
-Hook points: `read-source-state`, `apply`, `init`, `add`, `edit`, `update`, `diff`, `status`, `verify`
+Hook points: `read-source-state`, `apply`, `init`, `add`, `edit`,
+`update`, `diff`, `status`, `verify`
 
 ### [interpreters]
 
@@ -178,7 +180,11 @@ Map file extensions to interpreters for scripts:
 
 ### Password manager sections
 
-Each password manager has its own config section: `[onepassword]`, `[bitwarden]`, `[bitwardenSecrets]`, `[lastpass]`, `[pass]`, `[gopass]`, `[keepassxc]`, `[keeper]`, `[vault]`, `[dashlane]`, `[doppler]`, `[awsSecretsManager]`, `[azureKeyVault]`, `[pinentry]`, `[secret]`, and more.
+Each password manager has its own config section:
+`[onepassword]`, `[bitwarden]`, `[bitwardenSecrets]`, `[lastpass]`,
+`[pass]`, `[gopass]`, `[keepassxc]`, `[keeper]`, `[vault]`,
+`[dashlane]`, `[doppler]`, `[awsSecretsManager]`, `[azureKeyVault]`,
+`[pinentry]`, `[secret]`, and more.
 
 Typically configure `command` and `args` for each.
 
@@ -217,7 +223,8 @@ encryption = "age"
 
 ## Config Template (.chezmoi.toml.tmpl)
 
-Place in source root. Processed during `chezmoi init` to generate machine-specific config:
+Place in source root. Processed during `chezmoi init` to generate
+machine-specific config:
 
 ```gohtml
 {{ $email := promptStringOnce . "email" "Email address" -}}
@@ -235,4 +242,5 @@ sourceDir = "~/.local/share/chezmoi"
 {{ end -}}
 ```
 
-Using `promptStringOnce`/`promptBoolOnce` means values are cached after first run — safe to re-run `chezmoi init`.
+Using `promptStringOnce`/`promptBoolOnce` means values are cached
+after first run — safe to re-run `chezmoi init`.

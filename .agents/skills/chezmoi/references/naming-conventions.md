@@ -2,7 +2,8 @@
 
 ## Prefix Ordering by Target Type
 
-Prefixes must appear in the specified order. Each target type allows a specific set:
+Prefixes must appear in the specified order. Each target type allows
+a specific set:
 
 | Target Type | Prefix Order |
 |---|---|
@@ -48,7 +49,7 @@ Prefixes must appear in the specified order. Each target type allows a specific 
 
 ### Files
 
-```
+```text
 dot_bashrc                                    → ~/.bashrc
 private_dot_ssh/                              → ~/.ssh/ (0700)
 private_dot_config/                           → ~/.config/ (0700)
@@ -58,14 +59,15 @@ empty_dot_gitkeep                             → ~/.gitkeep (kept even if empty
 executable_dot_local/bin/myscript             → ~/.local/bin/myscript (+x)
 private_readonly_executable_dot_local/bin/sec → ~/.local/bin/sec (0500)
 create_dot_gitconfig                          → ~/.gitconfig (only if missing)
-symlink_dot_vim                               → ~/.vim (symlink, contents = target path)
+symlink_dot_vim                               → ~/.vim
+                                              (symlink, contents = target path)
 remove_dot_old_config                         → removes ~/.old_config
 literal_dot_file                              → .file (literal_ stops parsing)
 ```
 
 ### Directories
 
-```
+```text
 dot_config/                → ~/.config/
 exact_dot_config/app/      → ~/.config/app/ (removes unmanaged files)
 private_dot_ssh/           → ~/.ssh/ (0700)
@@ -74,7 +76,7 @@ external_dot_oh-my-zsh/    → ~/.oh-my-zsh/ (children not attr-parsed)
 
 ### Scripts
 
-```
+```text
 run_install.sh                         → runs every apply
 run_before_install.sh                  → runs before apply, every time
 run_after_configure.sh                 → runs after apply, every time
@@ -87,7 +89,7 @@ run_onchange_after_defaults.sh.tmpl    → re-runs after, when content changes, 
 
 ### Templates
 
-```
+```text
 dot_gitconfig.tmpl                     → ~/.gitconfig (templated)
 private_dot_env.tmpl                   → ~/.env (private + templated)
 encrypted_dot_secrets.tmpl             → ~/.secrets (encrypted + templated)
@@ -95,7 +97,8 @@ encrypted_dot_secrets.tmpl             → ~/.secrets (encrypted + templated)
 
 ## Modify Scripts
 
-Modify scripts receive current file contents on stdin and output new contents on stdout:
+Modify scripts receive current file contents on stdin and output new
+contents on stdout:
 
 ```bash
 #!/bin/bash

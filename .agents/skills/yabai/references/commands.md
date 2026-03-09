@@ -93,7 +93,8 @@ yabai -m window --move rel:<dx>:<dy>
 
 # Resize window
 yabai -m window --resize <handle>:<dx>:<dy>
-# Handles: top, left, bottom, right, top_left, top_right, bottom_left, bottom_right, abs
+# Handles: top, left, bottom, right, top_left, top_right,
+# bottom_left, bottom_right, abs
 
 # Set split ratio for this window's parent
 yabai -m window --ratio abs:<ratio>
@@ -296,7 +297,8 @@ Signals execute actions in response to events.
 
 ```bash
 # Add a signal
-yabai -m signal --add event=<event> [app=<regex>] [title=<regex>] [label=<label>] action=<command>
+yabai -m signal --add event=<event> [app=<regex>] [title=<regex>]
+    [label=<label>] action=<command>
 
 # List all signals
 yabai -m signal --list

@@ -30,8 +30,11 @@ Use this skill when:
 
 ### Layouts
 
-- **`bsp`** - Binary space partitioning. Windows are automatically tiled by recursively splitting the screen. This is the primary tiling mode.
-- **`stack`** - Windows occupy the same region and are stacked. Cycle through them with `--focus stack.next` / `stack.prev`.
+- **`bsp`** - Binary space partitioning. Windows are automatically
+  tiled by recursively splitting the screen. This is the primary
+  tiling mode.
+- **`stack`** - Windows occupy the same region and are stacked. Cycle
+  through them with `--focus stack.next` / `stack.prev`.
 - **`float`** - No automatic tiling. Windows are positioned freely.
 
 ### SIP (System Integrity Protection)
@@ -40,11 +43,14 @@ Features are split by SIP requirement:
 
 **Without SIP changes (works out of the box):**
 
-- BSP/stack/float tiling, focus/swap/warp, window opacity, rules, signals, querying, mouse actions, padding/gaps
+- BSP/stack/float tiling, focus/swap/warp, window opacity, rules,
+  signals, querying, mouse actions, padding/gaps
 
 **Requires SIP partially disabled + scripting addition:**
 
-- Creating/destroying spaces, moving spaces between displays, `sticky` windows, moving windows to specific spaces, some focus behaviors across spaces
+- Creating/destroying spaces, moving spaces between displays,
+  `sticky` windows, moving windows to specific spaces, some focus
+  behaviors across spaces
 
 Load the scripting addition in yabairc:
 

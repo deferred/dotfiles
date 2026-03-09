@@ -23,7 +23,8 @@ chezmoi add --recursive ~/.config/app  # add directory recursively
 chezmoi add --exact --recursive ~/.vim # add with exact_ prefix (remove unmanaged)
 ```
 
-**Flags**: `--encrypt`, `--template`, `--recursive`, `--exact`, `--follow` (follow symlinks)
+**Flags**: `--encrypt`, `--template`, `--recursive`, `--exact`,
+`--follow` (follow symlinks)
 
 ## Inspection
 
@@ -133,4 +134,5 @@ chezmoi chattr +create ~/.local/state/app/config
 
 ### Entry types for --include / --exclude
 
-`all`, `always`, `dirs`, `encrypted`, `externals`, `files`, `remove`, `scripts`, `symlinks`, `templates`
+`all`, `always`, `dirs`, `encrypted`, `externals`, `files`,
+`remove`, `scripts`, `symlinks`, `templates`

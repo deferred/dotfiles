@@ -7,11 +7,15 @@ description: Manage dotfiles with chezmoi. Use when running chezmoi CLI commands
 
 ## Core Model
 
-chezmoi uses a **source state** (git repo at `~/.local/share/chezmoi`) that is computed into a **target state** and applied to the **destination** (`$HOME`). File metadata (permissions, encryption, template behavior) is encoded in source file names via prefixes and suffixes.
+chezmoi uses a **source state** (git repo at
+`~/.local/share/chezmoi`) that is computed into a **target state** and
+applied to the **destination** (`$HOME`). File metadata
+(permissions, encryption, template behavior) is encoded in source file
+names via prefixes and suffixes.
 
 ## Source Directory Structure
 
-```
+```text
 ~/.local/share/chezmoi/           # source directory (git repo)
 ├── .chezmoi.toml.tmpl            # config template (prompts during init)
 ├── .chezmoidata.toml              # custom template data
@@ -61,7 +65,8 @@ For full prefix ordering rules by target type, see [naming-conventions.md](refer
 
 ## Templates
 
-Files with `.tmpl` suffix or inside `.chezmoitemplates/` are processed as Go `text/template` with sprig functions.
+Files with `.tmpl` suffix or inside `.chezmoitemplates/` are
+processed as Go `text/template` with sprig functions.
 
 ```gohtml
 {{- if eq .chezmoi.os "darwin" }}
@@ -71,7 +76,8 @@ export BROWSER="xdg-open"
 {{- end }}
 ```
 
-Key variables: `.chezmoi.os`, `.chezmoi.arch`, `.chezmoi.hostname`, `.chezmoi.username`, `.chezmoi.homeDir`
+Key variables: `.chezmoi.os`, `.chezmoi.arch`,
+`.chezmoi.hostname`, `.chezmoi.username`, `.chezmoi.homeDir`
 
 Custom data defined in `[data]` config section or `.chezmoidata.*` files.
 
@@ -96,7 +102,7 @@ Types: `file`, `archive`, `archive-file`, `git-repo`. For all options, see [exte
 
 Name scripts with `run_` prefix plus optional frequency and phase modifiers:
 
-```
+```text
 run_before_install.sh              # every apply, before other changes
 run_once_after_setup.sh            # once ever, after changes
 run_onchange_before_brew.sh.tmpl   # when content changes, before, templated
@@ -115,7 +121,7 @@ brew install ripgrep
 
 Gitignore-style patterns with template support for conditional ignoring:
 
-```
+```text
 README.md
 {{ if ne .chezmoi.os "darwin" }}
 .config/karabiner
@@ -159,12 +165,18 @@ chezmoi re-add                   # sync destination changes back to source
 chezmoi chattr +executable file  # change source attributes
 ```
 
-For all commands, see [commands.md](references/commands.md). For config file reference, see [configuration.md](references/configuration.md).
+For all commands, see [commands.md](references/commands.md). For
+config file reference, see
+[configuration.md](references/configuration.md).
 
 ## Reference Files
 
-- [Naming Conventions](references/naming-conventions.md) - Prefix ordering rules by target type, complete examples
-- [Templating](references/templating.md) - Go template syntax, built-in variables, sprig functions, password managers
+- [Naming Conventions](references/naming-conventions.md) - Prefix
+  ordering rules by target type, complete examples
+- [Templating](references/templating.md) - Go template syntax,
+  built-in variables, sprig functions, password managers
 - [Commands](references/commands.md) - All chezmoi commands with usage
-- [Configuration](references/configuration.md) - Config file structure, all sections and variables
-- [Externals](references/externals.md) - `.chezmoiexternal.toml` types, options, examples
+- [Configuration](references/configuration.md) - Config file
+  structure, all sections and variables
+- [Externals](references/externals.md) - `.chezmoiexternal.toml`
+  types, options, examples

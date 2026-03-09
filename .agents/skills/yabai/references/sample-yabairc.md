@@ -73,7 +73,8 @@ yabai -m rule --add app="^Logi Options" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 
 # Finder dialogs float, main windows tile
-yabai -m rule --add app="^Finder$" title="^(Copy|Connect|Move|Info|Preferences)$" manage=off
+yabai -m rule --add app="^Finder$" \
+    title="^(Copy|Connect|Move|Info|Preferences)$" manage=off
 
 # Activity Monitor floats
 yabai -m rule --add app="^Activity Monitor$" manage=off

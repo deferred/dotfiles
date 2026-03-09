@@ -13,11 +13,12 @@ Config file: `~/.config/skhd/skhdrc`
 
 ## skhd Syntax
 
-```
+```text
 <modifier> - <key> : <command>
 ```
 
-Modifiers: `alt`, `shift`, `cmd`, `ctrl`, `fn`, `hyper` (cmd+alt+shift+ctrl), `meh` (alt+shift+ctrl)
+Modifiers: `alt`, `shift`, `cmd`, `ctrl`, `fn`, `hyper`
+(`cmd+alt+shift+ctrl`), `meh` (`alt+shift+ctrl`)
 
 Combine with `+`: `shift + alt - h`
 
@@ -179,7 +180,8 @@ ctrl + alt - k : yabai -m window --grid 2:2:1:1:1:1
 
 ## Tips
 
-- Use `||` to chain fallback commands: `yabai -m window --focus next || yabai -m window --focus first`
+- Use `||` to chain fallback commands:
+  `yabai -m window --focus next || yabai -m window --focus first`
 - skhd supports modes for modal keybindings (vim-style leader keys)
 - Reload skhd config: `skhd --reload`
 - Test a command before binding: run it directly in terminal first

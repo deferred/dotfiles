@@ -1,9 +1,8 @@
 ---
 description: Git commit
-agent: build
+agent: general
+subtask: true
 ---
-
-# Git commit
 
 Load the "git-commit" skill first, then follow its workflow to create a commit.
 

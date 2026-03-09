@@ -6,3 +6,7 @@ exclude = [
   "home/private_dot_config/astronvim/README.md",
 ]
 respect_gitignore = true
+
+[per-file-ignores]
+"home/private_dot_config/opencode/commands/create-skill.md" = ["MD041"]
+"home/private_dot_config/opencode/commands/commit.md" = ["MD041"]

@@ -22,7 +22,7 @@ style = "Italic"
 
 [font.normal]
 family = "JetBrainsMonoNL Nerd Font"
-style = "Medium"
+style = "Regular"
 
 # tmux: enter copy mode
 [[keyboard.bindings]]

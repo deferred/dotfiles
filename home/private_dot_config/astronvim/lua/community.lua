@@ -29,7 +29,7 @@ return {
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
   -- search
-  { import = "astrocommunity.search.nvim-spectre" },
+  { import = "astrocommunity.search.grug-far-nvim" },
   -- workflow
   { import = "astrocommunity.workflow.hardtime-nvim" },
   -- import/override with your plugins folder

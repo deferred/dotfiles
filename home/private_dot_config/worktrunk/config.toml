@@ -19,7 +19,7 @@ tmux has-session -t "${_wt_repo}/{{ branch | sanitize }}" 2>/dev/null ||
 tmux new-session -d -s "${_wt_repo}/{{ branch | sanitize }}" -c '{{ worktree_path }}' &&
 
 # move the current tmux client into the branch session
-tmux switch-client -t "${_wt_repo}/{{ branch | sanitize }}" ||
+# tmux switch-client -t "${_wt_repo}/{{ branch | sanitize }}" ||
 
 # never fail the hook just because tmux switching was not possible
 true

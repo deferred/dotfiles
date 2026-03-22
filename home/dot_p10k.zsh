@@ -31,9 +31,9 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
+    dir                     # current directory
     context                 # user at host
     # os_icon               # os identifier
-    dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -908,12 +908,12 @@
   # Default context color (no privileges, no SSH).
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=4
 
-  # Context format when running with privileges: bold user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%F{1}%n%f at %F{3}%m%f in'
-  # Context format when in SSH without privileges: user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%F{6}%n%f at %F{3}%m%f in'
-  # Default context format (no privileges, no SSH): user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%F{6}%n%f at %F{3}%m%f in'
+  # Context format when running with privileges.
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='as %B%F{1}%n%f at %F{3}%m%f'
+  # Context format when in SSH without privileges.
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='as %F{6}%n%f at %F{3}%m%f'
+  # Default context format (no privileges, no SSH).
+  typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_TEMPLATE='as %F{6}%n%f at %F{3}%m%f'
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.

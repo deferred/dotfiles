@@ -60,6 +60,12 @@ chars = "\u0002c"
 key = "T"
 mods = "Command"
 
+# tmux: tmux-fzf-links picker
+[[keyboard.bindings]]
+chars = "\u0002u"
+key = "U"
+mods = "Command"
+
 # tmux: close current window
 [[keyboard.bindings]]
 chars = "\u0002&"

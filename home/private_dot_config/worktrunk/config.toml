@@ -1,10 +1,10 @@
 worktree-path = "../{{ branch | sanitize }}"
 
+[pre-start]
+zoxide = "zoxide add {{ worktree_path }}"
+
 [post-start]
 copy = "wt step copy-ignored"
-
-[post-create]
-zoxide = "zoxide add {{ worktree_path }}"
 
 [post-switch]
 # ensure a tmux session exists for the current worktree branch, then switch the client to it

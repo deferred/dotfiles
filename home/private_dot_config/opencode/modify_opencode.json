@@ -26,7 +26,6 @@ except Exception:
 # Machine-local keys (provider, unknown mcp servers, etc.) are preserved.
 managed = {
     "$schema": "https://opencode.ai/config.json",
-    "plugin": ["opencode-gemini-auth"],
     "mcp": {
         "context7": {
             "type": "local",
@@ -34,6 +33,10 @@ managed = {
             "enabled": True,
         }
     },
+    "permission": {
+        "websearch": "allow",
+    },
+    "plugin": ["opencode-gemini-auth"],
 }
 
 print(json.dumps(deep_merge(current, managed), indent=2))

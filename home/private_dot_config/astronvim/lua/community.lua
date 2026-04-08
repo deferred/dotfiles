@@ -28,6 +28,8 @@ return {
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
+  -- motion
+  { import = "astrocommunity.motion.nvim-spider" },
   -- search
   { import = "astrocommunity.search.grug-far-nvim" },
   -- workflow

@@ -29,6 +29,7 @@ return {
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
   -- motion
+  { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.nvim-spider" },
   -- search
   { import = "astrocommunity.search.grug-far-nvim" },

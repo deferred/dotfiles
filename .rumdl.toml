@@ -1,5 +1,6 @@
 [global]
 flavor = "gfm"
+disable = ["MD041"]
 exclude = [
   ".git",
   "home/dot_agents/skills",
@@ -10,7 +11,3 @@ respect_gitignore = true
 
 [MD013]
 line-length = 120
-
-[per-file-ignores]
-"home/private_dot_config/opencode/commands/create-skill.md" = ["MD041"]
-"home/private_dot_config/opencode/commands/commit.md" = ["MD041"]

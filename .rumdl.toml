@@ -4,6 +4,7 @@ exclude = [
   ".git",
   "home/dot_agents/skills",
   "home/private_dot_config/astronvim/README.md",
+  "home/private_dot_config/opencode/commands/opsx-*.md",
 ]
 respect_gitignore = true
 

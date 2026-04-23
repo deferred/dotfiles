@@ -11,10 +11,17 @@ NUM_SPACES=${#YABAI_SPACE_LABELS[@]}
 
 destroy_excess_spaces() {
 	log_info "destroying excess spaces until there are $NUM_SPACES"
-	for _ in $(yabai -m query --spaces |
-		jq ".[].index | select(. > $NUM_SPACES)"); do
-		log_info "destroying space $((NUM_SPACES + 1))"
-		yabai -m space --destroy "$((NUM_SPACES + 1))"
+	local labels_json
+	labels_json="$(printf '%s\n' "${YABAI_SPACE_LABELS[@]}" | jq -R . | jq -s .)"
+
+	for index in $(yabai -m query --spaces |
+		jq -r --argjson labels "$labels_json" '
+			map(select(.label as $label | $labels | index($label) | not))
+			| sort_by(-.index)
+			| .[].index
+		'); do
+		log_info "destroying unmanaged space $index"
+		yabai -m space --destroy "$index"
 	done
 }
 
@@ -117,10 +124,10 @@ distribute_spaces_between_displays() {
 }
 
 setup_spaces() {
-	destroy_excess_spaces
 	create_missing_spaces
 	label_spaces
 	distribute_spaces_between_displays
+	destroy_excess_spaces
 }
 
 log_info "running setup-spaces"

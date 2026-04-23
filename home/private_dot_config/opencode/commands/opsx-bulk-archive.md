@@ -1,5 +1,7 @@
 ---
 description: Archive multiple completed changes at once
+agent: general
+subtask: true
 ---
 
 Archive multiple completed changes in a single operation.

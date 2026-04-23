@@ -1,5 +1,7 @@
 ---
 description: Archive a completed change in the experimental workflow
+agent: general
+subtask: true
 ---
 
 Archive a completed change in the experimental workflow.

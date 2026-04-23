@@ -1,5 +1,7 @@
 ---
 description: Sync delta specs from a change to main specs
+agent: general
+subtask: true
 ---
 
 Sync delta specs from a change to main specs.

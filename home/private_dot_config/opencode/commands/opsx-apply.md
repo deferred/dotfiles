@@ -1,5 +1,7 @@
 ---
 description: Implement tasks from an OpenSpec change (Experimental)
+agent: general
+subtask: true
 ---
 
 Implement tasks from an OpenSpec change.

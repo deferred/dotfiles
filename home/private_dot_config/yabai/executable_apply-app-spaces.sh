@@ -33,6 +33,10 @@ apply_app_spaces() {
 				log_warn "failed to move window $id to space $target_space, skipping"
 		done
 	done <<<"$app_space_pairs"
+
+	# 1Password main windows are assigned via a helper instead of a rule, so
+	# re-apply that placement here for startup and display add/remove reflows.
+	"$(dirname "$0")/move-1password-windows.sh"
 }
 
 log_info "running apply-app-spaces"

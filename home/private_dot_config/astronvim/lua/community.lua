@@ -31,6 +31,7 @@ return {
   -- motion
   { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.nvim-spider" },
+  { import = "astrocommunity.motion.nvim-surround" },
   -- search
   { import = "astrocommunity.search.grug-far-nvim" },
   -- workflow

@@ -1,0 +1,32 @@
+{{ if eq .chezmoi.os "darwin" -}}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.wifi-cycle-on-eth</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{ .chezmoi.homeDir }}/Library/Application Support/local.wifi-cycle-on-eth/wifi-cycle-on-eth.sh</string>
+  </array>
+
+  <key>WatchPaths</key>
+  <array>
+    <string>/Library/Preferences/SystemConfiguration</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>ThrottleInterval</key>
+  <integer>2</integer>
+
+  <key>StandardOutPath</key>
+  <string>{{ .chezmoi.homeDir }}/Library/Logs/local.wifi-cycle-on-eth/out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>{{ .chezmoi.homeDir }}/Library/Logs/local.wifi-cycle-on-eth/err.log</string>
+</dict>
+</plist>
+{{ end -}}

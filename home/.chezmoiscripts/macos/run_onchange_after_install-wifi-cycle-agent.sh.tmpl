@@ -1,0 +1,24 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+set -euo pipefail
+
+# Re-bootstrap the LaunchAgent whenever the plist content changes.
+# hash: {{ includeTemplate "Library/LaunchAgents/local.wifi-cycle-on-eth.plist.tmpl" . | sha256sum }}
+
+LABEL="local.wifi-cycle-on-eth"
+PLIST="$HOME/Library/LaunchAgents/${LABEL}.plist"
+TARGET="gui/$(id -u)/${LABEL}"
+
+if [ ! -f "$PLIST" ]; then
+  echo "Plist missing at $PLIST; skipping bootstrap." >&2
+  exit 0
+fi
+
+# Ensure log directory exists before launchd opens StandardOut/ErrorPath.
+mkdir -p "$HOME/Library/Logs/${LABEL}"
+
+launchctl bootout "$TARGET" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$PLIST"
+launchctl enable "$TARGET" 2>/dev/null || true
+
+{{ end -}}

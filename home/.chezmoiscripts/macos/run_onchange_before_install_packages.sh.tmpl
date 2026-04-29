@@ -6,17 +6,18 @@ set -euo pipefail
 IFS=$'\n\t'
 
 brew bundle --file=/dev/stdin <<EOF
-tap "koekeishiya/formulae"
-tap "teamookla/speedtest"
+tap "asmvik/formulae"
 tap "leohenon/tap"
+tap "teamookla/speedtest"
+
+brew "asmvik/formulae/skhd"
+brew "asmvik/formulae/yabai"
+brew "leohenon/tap/ocv"
+brew "teamookla/speedtest/speedtest"
 
 brew "opencode"
 brew "pam-reattach"
 brew "sesh"
-brew "koekeishiya/formulae/skhd"
-brew "koekeishiya/formulae/yabai"
-brew "leohenon/tap/ocv"
-brew "teamookla/speedtest/speedtest"
 
 cask "1password"
 cask "1password-cli"

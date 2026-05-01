@@ -6,10 +6,12 @@ set -euo pipefail
 IFS=$'\n\t'
 
 brew bundle --file=/dev/stdin <<EOF
+tap "anomalyco/tap"
 tap "asmvik/formulae"
 tap "leohenon/tap"
 tap "teamookla/speedtest"
 
+brew "anomalyco/tap/opencode"
 brew "asmvik/formulae/skhd"
 brew "asmvik/formulae/yabai"
 brew "leohenon/tap/ocv"

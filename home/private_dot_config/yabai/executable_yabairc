@@ -45,27 +45,9 @@ yabai -m config --space misc2 layout bsp
 #                           RULES                           #
 ###############################################################
 
-# turn off yabai for some apps
-yabai -m rule --add app="^Calculator$" manage=off
-yabai -m rule --add app="^Karabiner-Elements$" manage=off
-yabai -m rule --add app="^Steam$" manage=off
-yabai -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off
-yabai -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off
-
-# move some apps automatically to specific spaces using labels
-yabai -m rule --add app="^Safari$" space=^web
-yabai -m rule --add app="^Firefox$" space=^web
-yabai -m rule --add app="^Alacritty$" space=^code
-yabai -m rule --add app="^PyCharm$" space=code
-yabai -m rule --add app="^GoLand$" space=code
-yabai -m rule --add app="^Obsidian$" space=^productivity
-yabai -m rule --add app="^Things$" space=^productivity
-yabai -m rule --add app="^Slack$" space=messaging
-yabai -m rule --add app="^Microsoft Teams$" space=messaging
-yabai -m rule --add app="^Telegram$" space=messaging
-yabai -m rule --add app="^Spark$" space=^mail
-yabai -m rule --add app="^Microsoft Outlook$" space=mail
-yabai -m rule --add app="^Spotify$" space=^music
+# register rules (in a separate script so they can be re-registered
+# after display changes to re-resolve label-to-index mappings)
+~/.config/yabai/register-rules.sh
 
 ###############################################################
 #                          SIGNALS                          #
@@ -74,11 +56,11 @@ yabai -m rule --add app="^Spotify$" space=^music
 # setup spaces when display is added or removed
 yabai -m signal --add \
     event=display_added \
-    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/apply-app-spaces.sh"
+    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/register-rules.sh && ~/.config/yabai/apply-app-spaces.sh"
 
 yabai -m signal --add \
     event=display_removed \
-    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/apply-app-spaces.sh"
+    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/register-rules.sh && ~/.config/yabai/apply-app-spaces.sh"
 
 # auto-minimize Teams "Meeting compact view" popup when its title changes
 yabai -m signal --add \

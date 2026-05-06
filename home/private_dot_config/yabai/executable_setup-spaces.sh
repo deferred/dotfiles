@@ -123,10 +123,28 @@ distribute_spaces_between_displays() {
 	done
 }
 
+reorder_spaces() {
+	log_info "reordering spaces to match intended label order"
+	for i in "${!YABAI_SPACE_LABELS[@]}"; do
+		local target_index=$((i + 1))
+		local label="${YABAI_SPACE_LABELS[$i]}"
+		local current_index
+		current_index="$(yabai -m query --spaces --space "$label" | jq '.index')"
+
+		if [ "$current_index" -eq "$target_index" ]; then
+			log_info "  space '$label' already at index $target_index"
+		else
+			log_info "  moving space '$label' from index $current_index to $target_index"
+			yabai -m space "$label" --move "$target_index"
+		fi
+	done
+}
+
 setup_spaces() {
 	create_missing_spaces
 	label_spaces
 	distribute_spaces_between_displays
+	reorder_spaces
 	destroy_excess_spaces
 }
 

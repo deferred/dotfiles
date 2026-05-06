@@ -45,8 +45,7 @@ yabai -m config --space misc2 layout bsp
 #                           RULES                           #
 ###############################################################
 
-# register rules (in a separate script so they can be re-registered
-# after display changes to re-resolve label-to-index mappings)
+# register rules
 ~/.config/yabai/register-rules.sh
 
 ###############################################################

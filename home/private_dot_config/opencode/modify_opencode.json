@@ -36,7 +36,6 @@ managed = {
     "permission": {
         "websearch": "allow",
     },
-    "plugin": ["opencode-gemini-auth"],
 }
 
 print(json.dumps(deep_merge(current, managed), indent=2))

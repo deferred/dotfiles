@@ -194,3 +194,5 @@ http-client.private.env.json
 pyvenv.cfg
 .venv
 pip-selfcheck.json
+
+**/.claude/settings.local.json

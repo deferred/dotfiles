@@ -5,12 +5,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-brew bundle --file=/dev/stdin <<EOF
-tap "anomalyco/tap"
-tap "asmvik/formulae"
-tap "leohenon/tap"
-tap "teamookla/speedtest"
-
+BREWFILE=$(
+	cat <<'EOF'
 brew "anomalyco/tap/opencode"
 brew "asmvik/formulae/skhd"
 brew "asmvik/formulae/yabai"
@@ -35,5 +31,15 @@ cask "spotify"
 
 cask "font-jetbrains-mono-nerd-font"
 EOF
+)
+
+# trust each third-party tap referenced by a qualified brew line.
+# `|| true` keeps this safe on older Homebrew without `brew trust`.
+printf '%s\n' "$BREWFILE" \
+	| grep -oE 'brew "[^"]+/[^"]+/' \
+	| sed -E 's/brew "(.+)\/$/\1/' | sort -u \
+	| while read -r tap; do brew trust --tap "$tap" 2>/dev/null || true; done
+
+printf '%s\n' "$BREWFILE" | brew bundle --file=/dev/stdin
 
 {{ end -}}

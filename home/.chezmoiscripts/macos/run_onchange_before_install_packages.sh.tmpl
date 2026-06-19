@@ -42,4 +42,7 @@ printf '%s\n' "$BREWFILE" \
 
 printf '%s\n' "$BREWFILE" | brew bundle --file=/dev/stdin
 
+# pin yabai version
+brew pin yabai
+
 {{ end -}}

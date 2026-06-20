@@ -1,0 +1,7 @@
+[user]
+	name = Danil Krox
+	email = deferred@users.noreply.github.com
+[core]
+	autocrlf = input
+[diff "plist"]
+	textconv = plutil -convert xml1 -o -

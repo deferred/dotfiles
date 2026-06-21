@@ -47,6 +47,8 @@ printf '%s\n' "$BREWFILE" \
 printf '%s\n' "$BREWFILE" | brew bundle --file=/dev/stdin
 
 # pin yabai version
-brew pin yabai
+if ! brew list --pinned --formula | grep -qx 'yabai'; then
+	brew pin yabai
+fi
 
 {{ end -}}

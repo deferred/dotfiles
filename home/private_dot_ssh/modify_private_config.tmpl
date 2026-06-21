@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import sys
+
+
+current = sys.stdin.read()
+
+managed_block = '''Host *
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+'''
+
+{{ if eq .chezmoi.os "darwin" -}}
+if managed_block in current:
+    sys.stdout.write(current)
+else:
+    if current and not current.endswith("\n"):
+        current += "\n"
+    if current:
+        current += "\n"
+    sys.stdout.write(current + managed_block)
+{{ else -}}
+sys.stdout.write(current)
+{{ end -}}

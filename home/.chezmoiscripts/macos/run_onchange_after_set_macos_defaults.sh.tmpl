@@ -10,14 +10,28 @@
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
 ###############################################################################
-# Control Center                                                              #
+# Menu Bar                                                                    #
 ###############################################################################
 
-# Show the battery item in the menu bar
-defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool true
+# Show Bluetooth in the menu bar
+defaults -currentHost write com.apple.controlcenter Bluetooth -int 18
 
 # Show battery percentage in the menu bar
 defaults -currentHost write com.apple.controlcenter BatteryShowPercentage -bool true
+
+# Show Weather in the menu bar
+defaults write com.apple.weather menuBarEnabled -bool true
+
+# Hide the Spotlight icon from the menu bar
+defaults -currentHost write com.apple.Spotlight MenuItemHidden -int 1
+
+# Set menu bar item order
+defaults write com.apple.controlcenter "NSStatusItem Preferred Position Battery" -float 180
+defaults write com.apple.controlcenter "NSStatusItem Preferred Position Bluetooth" -float 256
+defaults write com.apple.controlcenter "NSStatusItem Preferred Position WiFi" -float 288
+defaults write com.apple.TextInputMenuAgent "NSStatusItem Preferred Position Item-0" -float 326
+defaults write com.apple.controlcenter "NSStatusItem Preferred Position FocusModes" -float 370
+defaults write com.apple.weather.menu "NSStatusItem Preferred Position Item-0" -float 408
 
 ###############################################################################
 # Dock                                                                        #
@@ -86,5 +100,7 @@ for app in \
 do \
 	killall "${app}" &> /dev/null
 done
+
+open -g "/System/Applications/Weather.app/Contents/Library/LoginItems/WeatherMenu.app" &> /dev/null
 
 {{ end -}}

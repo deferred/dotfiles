@@ -1,0 +1,15 @@
+customCommands:
+  - key: "t"
+    context: "commits"
+    description: "Revert with conventional commit message"
+    prompts:
+      - type: "input"
+        title: "Commit message"
+        key: "Message"
+        initialValue: 'revert: "{{.SelectedCommit.Name}}"'
+    command: >-
+      git revert --no-commit {{.SelectedCommit.Hash}} &&
+      git commit -m {{.Form.Message | quote}}
+    loadingText: "Reverting commit"
+    after:
+      checkForConflicts: true

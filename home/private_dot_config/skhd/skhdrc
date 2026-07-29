@@ -78,7 +78,7 @@ alt - r : ~/.config/skhd/focus-app.sh Alacritty
 alt - s : ~/.config/skhd/focus-app.sh Things
 alt - t : yabai -m space --focus misc1  # no default app, focus space misc1
 alt - d : ~/.config/skhd/focus-app.sh Telegram
-alt - h : ~/.config/skhd/focus-app.sh Spark
+alt - h : ~/.config/skhd/focus-app.sh "Spark Desktop"
 alt - n : ~/.config/skhd/focus-app.sh Spotify
 alt - e : yabai -m space --focus misc2  # no default app, focus space misc2
 

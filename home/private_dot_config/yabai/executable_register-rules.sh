@@ -38,7 +38,7 @@ register_rules() {
 	yabai -m rule --add app="^Microsoft Teams$" space=messaging
 	yabai -m rule --add app="^Telegram$" space=messaging
 	yabai -m rule --add app="^FaceTime$" space=messaging
-	yabai -m rule --add app="^Spark$" space=^mail
+	yabai -m rule --add app="^Spark Desktop$" space=^mail
 	yabai -m rule --add app="^Microsoft Outlook$" space=mail
 	yabai -m rule --add app="^Spotify$" space=^music
 }

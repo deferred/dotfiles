@@ -96,6 +96,12 @@ chars = "\u0002\u0053"
 key = "S"
 mods = "Command|Shift"
 
+# tmux: switch to default session
+[[keyboard.bindings]]
+chars = "\u00020"
+key = 29               # 0
+mods = "Command|Shift"
+
 # tmux: switch to window 1
 [[keyboard.bindings]]
 chars = "\u00021"

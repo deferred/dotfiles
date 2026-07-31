@@ -1,5 +1,5 @@
 sort_order = ["config"]
-blacklist = ["home"]
+blacklist = ["^home$"]
 
 [[session]]
 name = "home"

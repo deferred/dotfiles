@@ -96,10 +96,10 @@ chars = "\u0002\u0053"
 key = "S"
 mods = "Command|Shift"
 
-# tmux: switch to default session
+# tmux: switch to home session
 [[keyboard.bindings]]
-chars = "\u00020"
-key = 29               # 0
+chars = "\u0002h"
+key = "H"
 mods = "Command|Shift"
 
 # tmux: switch to window 1

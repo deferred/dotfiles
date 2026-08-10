@@ -1,5 +1,5 @@
 ---
-name: create-worktree
+name: git-create-worktree
 description: >
   Create a new git worktree using the Worktrunk CLI `wt`. Use this skill when the user asks to create a
   worktree, set up a new branch in a worktree, says "new worktree", "create worktree", "work on X in a

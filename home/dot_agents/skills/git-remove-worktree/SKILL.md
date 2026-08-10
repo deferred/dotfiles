@@ -1,5 +1,5 @@
 ---
-name: remove-worktree
+name: git-remove-worktree
 description: >
   Remove git worktrees using the Worktrunk CLI `wt`. Use this skill when the user asks to "remove a
   worktree", "delete a worktree", "clean up a worktree", "remove branch worktree", or wants to get rid

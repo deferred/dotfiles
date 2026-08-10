@@ -4,4 +4,4 @@ agent: general
 subtask: true
 ---
 
-Load the `remove-worktree` skill and execute its workflow exactly as written.
+Load the `git-remove-worktree` skill and execute its workflow exactly as written.

@@ -4,4 +4,4 @@ agent: general
 subtask: true
 ---
 
-Load the `create-worktree` skill and execute its workflow exactly as written.
+Load the `git-create-worktree` skill and execute its workflow exactly as written.

@@ -1,3 +1,16 @@
 alias fgco='git branch | fzf | xargs git checkout'
 alias gcaai='opencode run "/commit" > /dev/null 2>&1'
 alias gstam='git stash push -m'
+
+gclb() {
+  if (( $# < 1 || $# > 2 )); then
+    print 'usage: gclb <repository> [directory]'
+    return 2
+  fi
+
+  local repository=$1
+  local directory=${2:-${repository:t}}
+  directory=${directory%/.git}
+  directory=${directory%.git}
+  git clone --bare "$repository" "$directory/.git"
+}

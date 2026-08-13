@@ -1,5 +1,3 @@
-- Always use ASD-STE100 Simplified Technical English when writing any text in English
-
 # git
 
 - Always ask for approval before running `git push`

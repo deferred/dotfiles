@@ -3,8 +3,9 @@ YABAI_SPACE_LABELS=(
     "code"
     "productivity"
     "misc1"
+    "misc2"
     "messaging"
     "mail"
     "music"
-    "misc2"
+    "misc3"
 )

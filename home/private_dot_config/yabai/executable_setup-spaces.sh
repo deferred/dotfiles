@@ -72,9 +72,8 @@ distribute_spaces_between_displays() {
 	log_info "waiting 0.5s for display registration..."
 	sleep 0.5
 
-	# get displays sorted by width in descending order
 	local displays
-	displays="$(yabai -m query --displays | jq 'sort_by(-.frame.w)')"
+	displays="$(yabai -m query --displays)"
 
 	local num_displays
 	num_displays="$(echo "$displays" | jq 'length')"
@@ -87,28 +86,25 @@ distribute_spaces_between_displays() {
 		return 1
 	fi
 
-	local spaces_per_display=$((NUM_SPACES / num_displays))
-	local smallest_display_idx
-	smallest_display_idx="$(echo "$displays" | jq '.[-1].index')"
+	local first_display_idx
+	first_display_idx="$(echo "$displays" | jq -r 'map(.index) | sort | .[0]')"
+	local second_display_idx
+	if [ "$num_displays" -eq 1 ]; then
+		second_display_idx="$first_display_idx"
+	else
+		second_display_idx="$(echo "$displays" | jq -r 'map(.index) | sort | .[1]')"
+	fi
 
-	log_info "distributing $NUM_SPACES spaces so each display has ~$spaces_per_display spaces"
-
-	# build an assignments array: map each space index to its target display
-	# first (spaces_per_display * num_displays) spaces are spread evenly;
-	# any remainder goes to the smallest display
-	local -a assignments=()
-	for display_idx in $(echo "$displays" | jq '.[].index'); do
-		for ((j = 0; j < spaces_per_display; j++)); do
-			assignments+=("$display_idx")
-		done
-	done
-	while [ "${#assignments[@]}" -lt "$NUM_SPACES" ]; do
-		assignments+=("$smallest_display_idx")
-	done
+	log_info "assigning spaces 1-5 to display $first_display_idx"
+	log_info "assigning spaces 6-9 to display $second_display_idx"
 
 	# move each space to its assigned display
-	for i in "${!assignments[@]}"; do
-		move_space_to_display "${YABAI_SPACE_LABELS[$i]}" "${assignments[$i]}"
+	for i in "${!YABAI_SPACE_LABELS[@]}"; do
+		local target_display="$first_display_idx"
+		if [ "$i" -ge 5 ]; then
+			target_display="$second_display_idx"
+		fi
+		move_space_to_display "${YABAI_SPACE_LABELS[$i]}" "$target_display"
 	done
 
 	# validate final state

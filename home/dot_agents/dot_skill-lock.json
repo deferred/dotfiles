@@ -15,9 +15,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/anthropics/claude-plugins-official.git",
       "skillPath": "plugins/skill-creator/skills/skill-creator/SKILL.md",
-      "skillFolderHash": "5c26c1472b98de33a48074ba5d3efe3a727b8e37",
+      "skillFolderHash": "98a510d1cfef9f82c3b1eec200229ca68725e613",
       "installedAt": "2026-02-10T17:26:32.293Z",
-      "updatedAt": "2026-03-08T12:40:30.820Z"
+      "updatedAt": "2026-08-16T08:27:08.091Z"
     }
   },
   "dismissed": {

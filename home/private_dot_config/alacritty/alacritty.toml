@@ -198,12 +198,6 @@ chars = "\u0002!"
 key = "E"
 mods = "Command|Shift"
 
-# tmux-agent-sidebar: toggle sidebar in all windows
-[[keyboard.bindings]]
-chars = "\u0002E"
-key = "E"
-mods = "Command"
-
 # tmux: detach session
 [[keyboard.bindings]]
 chars = "\u0002d"

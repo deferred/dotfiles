@@ -3,5 +3,7 @@
 	email = deferred@users.noreply.github.com
 [core]
 	autocrlf = input
+{{ if eq .chezmoi.os "darwin" -}}
 [diff "plist"]
 	textconv = plutil -convert xml1 -o -
+{{ end -}}

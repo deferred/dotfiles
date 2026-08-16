@@ -1,3 +1,6 @@
 {
-  "vim_system_clipboard_register": true
+  "vim_system_clipboard_register": true,
+  "plugin": [
+    "@leohenon/opencode-vim-plugin"
+  ]
 }

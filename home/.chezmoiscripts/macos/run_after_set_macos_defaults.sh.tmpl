@@ -1,5 +1,3 @@
-{{- if eq .chezmoi.os "darwin" -}}
-
 #!/usr/bin/env bash
 
 ###############################################################################
@@ -102,5 +100,3 @@ do \
 done
 
 open -g "/System/Applications/Weather.app/Contents/Library/LoginItems/WeatherMenu.app" &> /dev/null
-
-{{ end -}}

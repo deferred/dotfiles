@@ -1,0 +1,27 @@
+# rumdl user-level configuration
+# Applied when no project configuration (.rumdl.toml, rumdl.toml,
+# .config/rumdl.toml, or pyproject.toml [tool.rumdl]) is found.
+
+[global]
+# List of file/directory patterns to exclude from linting
+exclude = [
+    # Common directories to exclude
+    ".git",
+    ".github",
+    "node_modules",
+    "vendor",
+    "dist",
+    "build",
+
+    # Specific files or patterns
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "**/openspec-*/**",
+    "**/opsx-*.md",
+]
+
+# Respect .gitignore files when scanning directories (default: true)
+respect-gitignore = true
+
+[MD013]
+line-length = 120

@@ -1,8 +1,12 @@
 {{- if ne .chezmoi.os "darwin" }}
+.agents/
+.claude/
 .config/karabiner/
+.config/opencode/
 Library/
 .config/linearmouse/
 .config/skhd/
 .config/yabai/
 .ideavimrc
+.oh-my-zsh/custom/opencode.zsh
 {{- end }}

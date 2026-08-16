@@ -48,6 +48,12 @@ chars = "\u0002T"
 key = "K"
 mods = "Command"
 
+# tmux: ccmux agent session picker
+[[keyboard.bindings]]
+chars = "\u0002P"
+key = "P"
+mods = "Command"
+
 # tmux: switch to last session (via sesh)
 [[keyboard.bindings]]
 chars = "\u0002L"

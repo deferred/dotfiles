@@ -1,0 +1,36 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["tomlkit"]
+# ///
+
+import sys
+
+from tomlkit import document, dumps, parse, table
+
+
+# Settings managed by chezmoi. All other values remain machine-local.
+MANAGED_SETTINGS: dict[str, dict[str, object]] = {
+    "global": {
+        "hide_env_diff": True,
+    },
+}
+
+
+def main() -> None:
+    current = sys.stdin.read()
+    config = parse(current) if current.strip() else document()
+
+    for section_name, settings in MANAGED_SETTINGS.items():
+        section = config.get(section_name)
+        if section is None:
+            section = table()
+            config[section_name] = section
+        for setting_name, value in settings.items():
+            section[setting_name] = value
+
+    sys.stdout.write(dumps(config))
+
+
+if __name__ == "__main__":
+    main()

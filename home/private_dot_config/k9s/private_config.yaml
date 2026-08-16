@@ -5,6 +5,7 @@ k9s:
   maxConnRetry: 5
   readOnly: false
   noExitOnCtrlC: false
+  defaultView: "v1/pods all"
   ui:
     enableMouse: false
     headless: false

@@ -3,6 +3,7 @@
 .chezmoiscripts/macos/**
 .claude/
 .config/karabiner/
+.config/k9s/
 .config/linearmouse/
 .config/opencode/
 .config/skhd/

@@ -1,30 +1,17 @@
 #!/usr/bin/env python3
 # chezmoi modify script for opencode.json
-# Deep-merges managed fields into the existing file, preserving all machine-local config.
+# Deep-merges managed settings into the existing file, preserving all machine-local config.
 
 import json
 import sys
+from typing import Any
 
 
-def deep_merge(base, override):
-    """Recursively merge override into base. Override wins on conflicts."""
-    result = dict(base)
-    for key, value in override.items():
-        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
-            result[key] = deep_merge(result[key], value)
-        else:
-            result[key] = value
-    return result
+JsonObject = dict[str, Any]
 
 
-try:
-    current = json.loads(sys.stdin.read() or "{}")
-except Exception:
-    current = {}
-
-# Fields managed by chezmoi — deeply merged, override wins on conflicts.
-# Machine-local keys (provider, unknown mcp servers, etc.) are preserved.
-managed = {
+# Settings managed by chezmoi. All other values remain machine-local.
+MANAGED_SETTINGS: JsonObject = {
     "$schema": "https://opencode.ai/config.json",
     "mcp": {
         "context7": {
@@ -40,4 +27,21 @@ managed = {
     },
 }
 
-print(json.dumps(deep_merge(current, managed), indent=2))
+
+def deep_merge(base: JsonObject, override: JsonObject) -> JsonObject:
+    """Recursively merge override into base. Override wins on conflicts."""
+    result = dict(base)
+    for key, value in override.items():
+        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = value
+    return result
+
+
+try:
+    current = json.loads(sys.stdin.read() or "{}")
+except Exception:
+    current = {}
+
+print(json.dumps(deep_merge(current, MANAGED_SETTINGS), indent=2))

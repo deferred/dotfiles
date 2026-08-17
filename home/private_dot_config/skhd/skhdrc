@@ -72,24 +72,35 @@ shift + alt - 9 : yabai -m window --space 9;
 # ctrl + alt - l : yabai -m window --warp east
 
 # application focus
+#
+# Keys are grouped by physical Colemak column: column N focuses space N.
+# Left hand covers display 1 (spaces 1-5), right hand display 2 (spaces 6-9).
+#
+#   col     1     2     3     4     5     6     7     8     9
+#   space   web   code  prod  misc1 misc2 msg   mail  music misc3
+#   top     q     w     f     -     -     j     l     -     -
+#   home    a     r     s     t     d     h     n     e     i
+#   bottom  -     x     c     -     -     k     -     -     -
+
 # homerow
 alt - a : ~/.config/skhd/focus-app.sh Firefox
 alt - r : ~/.config/skhd/focus-app.sh Alacritty
 alt - s : ~/.config/skhd/focus-app.sh Things
 alt - t : yabai -m space --focus misc1  # no default app, focus space misc1
-alt - d : ~/.config/skhd/focus-app.sh Telegram
-alt - h : ~/.config/skhd/focus-app.sh "Spark Desktop"
-alt - n : ~/.config/skhd/focus-app.sh Spotify
-alt - e : yabai -m space --focus misc2  # no default app, focus space misc2
+alt - d : yabai -m space --focus misc2  # no default app, focus space misc2
+alt - h : ~/.config/skhd/focus-app.sh Telegram
+alt - n : ~/.config/skhd/focus-app.sh "Spark Desktop"
+alt - e : ~/.config/skhd/focus-app.sh Spotify
+alt - i : yabai -m space --focus misc3  # no default app, focus space misc3
 
 # upper row
 alt - q : ~/.config/skhd/focus-app.sh Safari
 alt - w : ~/.config/skhd/focus-app.sh PyCharm
 alt - f : ~/.config/skhd/focus-app.sh "1Password"
-alt - g : ~/.config/skhd/focus-app.sh Slack
-alt - j : ~/.config/skhd/focus-app.sh "Microsoft Outlook"
+alt - j : ~/.config/skhd/focus-app.sh Slack
+alt - l : ~/.config/skhd/focus-app.sh "Microsoft Outlook"
 
 # down row
 alt - x : ~/.config/skhd/focus-app.sh GoLand
 alt - c : ~/.config/skhd/focus-app.sh Obsidian
-alt - b : ~/.config/skhd/focus-app.sh "Microsoft Teams"
+alt - k : ~/.config/skhd/focus-app.sh "Microsoft Teams"

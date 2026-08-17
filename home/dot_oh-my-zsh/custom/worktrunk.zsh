@@ -40,3 +40,4 @@ wtsd() {
 alias wtc='wt switch --no-cd --create'
 alias wtcb='wt switch --no-cd --no-verify --create'
 alias wtr='wt remove'
+alias wtp='wt step prune'

@@ -7,10 +7,10 @@ description: >
 
 # OpenSpec
 
-When working with OpenSpec:
-
 - Write artifacts short and on point, don't write filler.
 - In `tasks.md`, give a fresh agent enough context to understand each task's goal,
   requirements, constraints, and expected result, then implement it correctly.
 - Run the `gwip` zsh alias after each artifact is created and after each task
   from `tasks.md` is done.
+- Name `spec.md` dirs by capability, not by implementation detail. Not `sorrel-metallb`, but
+  `sorrel-load-balancing`. Not `sorrel-netbootxyz`, but `sorrel-pxe-boot`.

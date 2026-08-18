@@ -1,6 +1,6 @@
 ---
 description: Create a new git worktree
-agent: general
+agent: fast
 subtask: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 description: Remove a git worktree
-agent: general
+agent: fast
 subtask: true
 ---
 

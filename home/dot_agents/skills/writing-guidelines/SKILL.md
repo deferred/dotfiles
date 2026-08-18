@@ -11,6 +11,8 @@ description: >
 
 # Writing guidelines
 
+- Write the text *short* and to the point, no filler.
+
 ## Meet reader needs
 
 - State the reader and the goal before you write.

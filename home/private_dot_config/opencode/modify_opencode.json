@@ -22,6 +22,11 @@ MANAGED_SETTINGS: JsonObject = {
             "command": ["npx", "-y", "@upstash/context7-mcp"],
         }
     },
+    "agent": {
+        "fast": {
+            "mode": "subagent",
+        }
+    },
     "permission": {
         "external_directory": {
             "/tmp/**": "allow",

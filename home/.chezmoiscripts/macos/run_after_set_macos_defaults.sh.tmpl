@@ -7,6 +7,16 @@
 # F1, F2, etc. behave as standard function keys
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
+# Use Control-Space as the only input-source shortcut.
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
+	'{enabled = 1; value = {parameters = (32, 49, 262144); type = standard;};}'
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 \
+	'{enabled = 0; value = {parameters = (32, 49, 786432); type = standard;};}'
+
+# Do not preserve a separate input source for each window or document.
+defaults write com.apple.HIToolbox AppleGlobalTextInputProperties \
+	-dict TextInputGlobalPropertyPerContextInput -bool false
+
 ###############################################################################
 # Menu Bar                                                                    #
 ###############################################################################

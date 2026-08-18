@@ -11,7 +11,8 @@ description: >
 
 # Writing guidelines
 
-- Write the text *short* and to the point, no filler.
+- Write in simple B1-level English.
+- Write the text *short* and to the point. No filler.
 
 ## Meet reader needs
 

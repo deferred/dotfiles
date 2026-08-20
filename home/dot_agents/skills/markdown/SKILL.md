@@ -1,13 +1,10 @@
 ---
 name: markdown
 description: >
-  Write and revise Markdown so it is clean, scannable, and consistent. Use this
-  skill whenever you are about to produce Markdown of any kind, including
-  READMEs, docs, guides, notes, reports, issue bodies, pull request text, or
-  comments, even if the user did not explicitly ask for Markdown formatting.
+  Use this skill whenever working with Markdown files.
 ---
 
-# Markdown Style Guide
+# Markdown
 
 ## Break long lines
 

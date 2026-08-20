@@ -1,5 +1,5 @@
 ---
-name: python-guide
+name: python
 description: >
   Use this skill whenever working with Python files.
 ---

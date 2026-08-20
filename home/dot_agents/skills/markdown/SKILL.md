@@ -1,5 +1,5 @@
 ---
-name: markdown-style-guide
+name: markdown
 description: >
   Write and revise Markdown so it is clean, scannable, and consistent. Use this
   skill whenever you are about to produce Markdown of any kind, including

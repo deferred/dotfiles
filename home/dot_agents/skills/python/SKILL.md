@@ -4,7 +4,7 @@ description: >
   Use this skill whenever working with Python files.
 ---
 
-# Python Guide
+# Python
 
 - Do not use system Python for running custom code, use `uv` to create virtual environment and use it instead
 - Use `aiohttp` library to make HTTP calls

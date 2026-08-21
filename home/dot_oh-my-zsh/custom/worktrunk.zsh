@@ -42,7 +42,7 @@ alias wtcb='wt switch --no-cd --no-verify --create'
 alias wtr='wt remove'
 
 wtp() {
-  wt step prune --dry-run || return
+  wt step prune --min-age=0s --dry-run || return
 
   read -q "reply?Delete these merged worktrees and branches? [y/N] " || {
     printf '\n'
@@ -50,5 +50,5 @@ wtp() {
   }
 
   printf '\n'
-  wt step prune
+  wt step prune --min-age=0s
 }

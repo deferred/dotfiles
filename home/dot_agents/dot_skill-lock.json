@@ -1,6 +1,15 @@
 {
   "version": 3,
   "skills": {
+    "gh-stack": {
+      "source": "github/gh-stack",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/gh-stack.git",
+      "skillPath": "skills/gh-stack/SKILL.md",
+      "skillFolderHash": "c29ba25c9c07534c27f1a3253bd0ca3846c4f8c7",
+      "installedAt": "2026-08-21T12:58:53Z",
+      "updatedAt": "2026-08-21T15:43:15.727Z"
+    },
     "git-commit": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
@@ -22,15 +31,5 @@
   },
   "dismissed": {
     "findSkillsPrompt": true
-  },
-  "lastSelectedAgents": [
-    "amp",
-    "cline",
-    "codex",
-    "cursor",
-    "gemini-cli",
-    "github-copilot",
-    "kimi-cli",
-    "opencode"
-  ]
+  }
 }

@@ -40,4 +40,15 @@ wtsd() {
 alias wtc='wt switch --no-cd --create'
 alias wtcb='wt switch --no-cd --no-verify --create'
 alias wtr='wt remove'
-alias wtp='wt step prune'
+
+wtp() {
+  wt step prune --dry-run || return
+
+  read -q "reply?Delete these merged worktrees and branches? [y/N] " || {
+    printf '\n'
+    return 0
+  }
+
+  printf '\n'
+  wt step prune
+}

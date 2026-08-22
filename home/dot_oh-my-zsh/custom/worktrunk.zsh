@@ -42,6 +42,10 @@ alias wtcb='wt switch --no-cd --no-verify --create'
 alias wtr='wt remove'
 
 wtp() {
+  local candidates
+  candidates=$(wt step prune --min-age=0s --dry-run --format=json) || return
+  [[ $candidates == "[]" ]] && return 0
+
   wt step prune --min-age=0s --dry-run || return
 
   read -q "reply?Delete these merged worktrees and branches? [y/N] " || {

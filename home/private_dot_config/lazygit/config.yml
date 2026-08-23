@@ -1,6 +1,11 @@
 gui:
   nerdFontsVersion: "3"
 
+keybinding:
+  commits:
+    moveDownCommit: '<ctrl+n>'
+    moveUpCommit: '<ctrl+p>'
+
 customCommands:
   - key: "t"
     context: "commits"

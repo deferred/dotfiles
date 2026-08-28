@@ -6,6 +6,4 @@ exclude = [
   "home/private_dot_config/astronvim/README.md",
 ]
 respect_gitignore = true
-
-[MD013]
 line-length = 120

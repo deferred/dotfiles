@@ -23,6 +23,4 @@ exclude = [
 
 # Respect .gitignore files when scanning directories (default: true)
 respect-gitignore = true
-
-[MD013]
 line-length = 120

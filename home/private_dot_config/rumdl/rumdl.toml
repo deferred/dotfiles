@@ -3,6 +3,7 @@
 # .config/rumdl.toml, or pyproject.toml [tool.rumdl]) is found.
 
 [global]
+disable = ["MD041"]
 # List of file/directory patterns to exclude from linting
 exclude = [
     # Common directories to exclude

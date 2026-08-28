@@ -13,6 +13,7 @@ description: >
 
 - Write in simple B1-level English.
 - Write the text short and to the point. No filler.
+- Write in simple terms.
 - Split sentences longer than 25 words.
 - Write paragraphs of 5 sentences or less.
 - Use the active voice.

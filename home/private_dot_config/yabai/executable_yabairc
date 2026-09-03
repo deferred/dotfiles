@@ -52,14 +52,16 @@ yabai -m config --space misc2 layout bsp
 #                          SIGNALS                          #
 ###############################################################
 
-# setup spaces when display is added or removed
+# Wait for macOS to restore spaces, then run at most one reconciliation.
+reconcile_action="lockf -s -t 0 -k \"${TMPDIR:-/tmp}/yabai-reconcile.lock\" ~/.config/yabai/reconcile-spaces.sh"
+
 yabai -m signal --add \
     event=display_added \
-    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/register-rules.sh && ~/.config/yabai/apply-app-spaces.sh"
+    action="$reconcile_action"
 
 yabai -m signal --add \
     event=display_removed \
-    action="~/.config/yabai/setup-spaces.sh && ~/.config/yabai/register-rules.sh && ~/.config/yabai/apply-app-spaces.sh"
+    action="$reconcile_action"
 
 # auto-minimize Teams "Meeting compact view" popup when its title changes
 yabai -m signal --add \

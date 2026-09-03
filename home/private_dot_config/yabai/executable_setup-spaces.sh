@@ -8,17 +8,22 @@ source "$(dirname "$0")/spaces"
 source "$(dirname "$0")/lib/logging.sh"
 
 NUM_SPACES=${#YABAI_SPACE_LABELS[@]}
+SPACE_LABELS_JSON="$(printf '%s\n' "${YABAI_SPACE_LABELS[@]}" | jq -R . | jq -s .)"
 
 destroy_excess_spaces() {
 	log_info "destroying excess spaces until there are $NUM_SPACES"
-	local labels_json
-	labels_json="$(printf '%s\n' "${YABAI_SPACE_LABELS[@]}" | jq -R . | jq -s .)"
 
 	for index in $(yabai -m query --spaces |
-		jq -r --argjson labels "$labels_json" '
-			map(select(.label as $label | $labels | index($label) | not))
-			| sort_by(-.index)
-			| .[].index
+		jq -r --argjson labels "$SPACE_LABELS_JSON" '
+			sort_by(.index)
+			| reduce .[] as $space ({seen: [], excess: []};
+				if ($labels | index($space.label)) == null
+					or (.seen | index($space.label)) != null
+				then .excess += [$space.index]
+				else .seen += [$space.label]
+				end)
+			| .excess
+			| reverse[]
 		'); do
 		log_info "destroying unmanaged space $index"
 		yabai -m space --destroy "$index"
@@ -34,10 +39,34 @@ create_missing_spaces() {
 }
 
 label_spaces() {
-	log_info "labeling spaces"
-	for i in "${!YABAI_SPACE_LABELS[@]}"; do
-		local index=$((i + 1))
-		local label="${YABAI_SPACE_LABELS[$i]}"
+	log_info "labeling missing spaces"
+
+	local label
+	for label in "${YABAI_SPACE_LABELS[@]}"; do
+		local spaces
+		spaces="$(yabai -m query --spaces)"
+		if echo "$spaces" | jq -e --arg label "$label" 'any(.[]; .label == $label)' >/dev/null; then
+			log_info "preserving space labeled $label"
+			continue
+		fi
+
+		local index
+		index="$(echo "$spaces" | jq -r --argjson labels "$SPACE_LABELS_JSON" '
+			. as $spaces
+			| map(select(
+				.label == ""
+				or (.label as $label | $labels | index($label) == null)
+				or (.label as $label | [$spaces[] | select(.label == $label)] | length > 1)
+			))
+			| sort_by(.index)
+			| first
+			| .index // empty
+		')"
+		if [ -z "$index" ]; then
+			log_error "no unmanaged space available for missing label $label"
+			return 1
+		fi
+
 		log_info "labeling space $index as $label"
 		yabai -m space "$index" --label "$label"
 	done

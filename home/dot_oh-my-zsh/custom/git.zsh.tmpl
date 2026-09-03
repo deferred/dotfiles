@@ -11,7 +11,16 @@ gclb() {
   local directory=${2:-${repository:t}}
   directory=${directory%/.git}
   directory=${directory%.git}
-  git clone --bare "$repository" "$directory/.git"
+  local git_dir="$directory/.git"
+
+  git clone --bare "$repository" "$git_dir" || return
+
+  local default_branch
+  default_branch=$(git --git-dir="$git_dir" symbolic-ref --short HEAD) || return
+
+  git --git-dir="$git_dir" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' &&
+    git --git-dir="$git_dir" fetch origin &&
+    git --git-dir="$git_dir" branch --set-upstream-to="origin/$default_branch" "$default_branch"
 }
 
 {{ if eq .chezmoi.os "darwin" -}}

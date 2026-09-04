@@ -78,3 +78,6 @@ tmux kill-session -t "${_wt_source}" 2>/dev/null ||
 # never fail the hook just because tmux cleanup was not needed or did not work
 true
 """
+
+[list]
+json-schema = 2

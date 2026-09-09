@@ -1,16 +1,25 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.11"
+# dependencies = [
+#     "jsonc-edit==0.2.1",
+#     "json5",
+# ]
 # ///
 # chezmoi modify script for opencode.json
-# Deep-merges managed settings into the existing file, preserving all machine-local config.
+# Applies managed settings to the existing file, preserving machine-local config and comments.
 
-import json
 import sys
+from collections.abc import Iterator
 from typing import Any
+
+import json5
+from jsonc_edit import edit_many, edit_session
 
 
 JsonObject = dict[str, Any]
+JsonPath = list[str]
+Operation = tuple[JsonPath, Any]
 
 
 # Settings managed by chezmoi. All other values remain machine-local.
@@ -36,20 +45,43 @@ MANAGED_SETTINGS: JsonObject = {
 }
 
 
-def deep_merge(base: JsonObject, override: JsonObject) -> JsonObject:
-    """Recursively merge override into base. Override wins on conflicts."""
-    result = dict(base)
-    for key, value in override.items():
-        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
-            result[key] = deep_merge(result[key], value)
-        else:
-            result[key] = value
-    return result
+def leaf_operations(value: Any, path: JsonPath | None = None) -> Iterator[Operation]:
+    """Flatten settings into source-preserving edits for each managed leaf."""
+    current_path = path or []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            yield from leaf_operations(child, [*current_path, key])
+        return
+
+    yield current_path, value
 
 
-try:
-    current = json.loads(sys.stdin.read() or "{}")
-except Exception:
-    current = {}
+def validate_source(source: str) -> None:
+    try:
+        current = json5.loads(source)
+    except Exception as exc:
+        print(f"cannot parse opencode.json: {exc}", file=sys.stderr)
+        raise SystemExit(1) from exc
 
-print(json.dumps(deep_merge(current, MANAGED_SETTINGS), indent=2))
+    if not isinstance(current, dict):
+        print("opencode.json must contain a JSON object", file=sys.stderr)
+        raise SystemExit(1)
+
+
+def main() -> None:
+    source = sys.stdin.read() or "{}"
+    operations = list(leaf_operations(MANAGED_SETTINGS))
+    validate_source(source)
+
+    try:
+        with edit_session():
+            result = edit_many(source, operations)
+    except Exception as exc:
+        print(f"cannot edit opencode.json: {exc}", file=sys.stderr)
+        raise SystemExit(1) from exc
+
+    sys.stdout.write(result)
+
+
+if __name__ == "__main__":
+    main()

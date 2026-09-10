@@ -52,8 +52,10 @@ yabai -m config --space misc2 layout bsp
 #                          SIGNALS                          #
 ###############################################################
 
-# Wait for macOS to restore spaces, then run at most one reconciliation.
-reconcile_action="lockf -s -t 0 -k \"${TMPDIR:-/tmp}/yabai-reconcile.lock\" ~/.config/yabai/reconcile-spaces.sh"
+# Reconcile spaces after a display change. The script waits for macOS to finish
+# restoring spaces and serialises itself, queueing a rerun for events that
+# arrive while it is busy.
+reconcile_action="~/.config/yabai/reconcile-spaces.sh"
 
 yabai -m signal --add \
     event=display_added \

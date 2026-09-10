@@ -2,8 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # shellcheck source=SCRIPTDIR/lib/logging.sh
-source "$(dirname "$0")/lib/logging.sh"
+source "$script_dir/lib/logging.sh"
 
 APP_NAME="1Password"
 APP_REGEX="^1Password$"
@@ -38,5 +40,8 @@ move_1password_windows() {
 			log_warn "failed to move window $id to space $TARGET_SPACE, skipping"
 	done
 }
+
+# let the spec suite source this file without running it
+${__SOURCED__:+return}
 
 move_1password_windows "$@"

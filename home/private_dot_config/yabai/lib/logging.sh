@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 # shared logging utilities for yabai scripts
 
@@ -17,10 +16,19 @@ log_info() {
 	log "INFO" "$@"
 }
 
+# Warnings go to stderr so they never pollute the stdout of helpers whose
+# output is captured, such as yabai_json.
 log_warn() {
-	log "WARN" "$@"
+	log "WARN" "$@" >&2
 }
 
 log_error() {
 	log "ERROR" "$@" >&2
+}
+
+# Report the command that aborted the script. Without this, a failed
+# `yabai -m query` under `set -e` exits silently and leaves no trace.
+enable_error_trap() {
+	set -E
+	trap 'log_error "aborted at line $LINENO: $BASH_COMMAND (exit $?)"' ERR
 }

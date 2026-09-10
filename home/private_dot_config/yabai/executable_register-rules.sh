@@ -1,60 +1,65 @@
 #!/usr/bin/env bash
-set -euo pipefail
-IFS=$'\n\t'
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# shellcheck source=SCRIPTDIR/lib/logging.sh
-source "$script_dir/lib/logging.sh"
-# shellcheck source=SCRIPTDIR/lib/yabai.sh
-source "$script_dir/lib/yabai.sh"
+# shellcheck source=SCRIPTDIR/lib/bootstrap.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib/bootstrap.sh"
 
 # Remove all existing rules so label-to-index mappings are re-resolved
 # against the current space layout.
 remove_all_rules() {
-	local count
-	count=$(yabai_json -m rule --list | jq 'length')
+	local count index
+	count="$(yabai_json -m rule --list | jq 'length')" || return 1
+
 	log_info "removing $count existing rules"
-	for ((i = 0; i < count; i++)); do
-		yabai_try -m rule --remove 0 || true
+	for ((index = 0; index < count; index++)); do
+		yabai_soft -m rule --remove 0
 	done
 }
 
-# Every rule is added with yabai_try. A transient failure on one rule must not
+# Keep a window unmanaged. Pass a subrole to target only that kind of window.
+float_app() {
+	local app="$1" subrole="${2:-}"
+	if [ -n "$subrole" ]; then
+		yabai_soft -m rule --add app="$app" subrole="$subrole" manage=off
+	else
+		yabai_soft -m rule --add app="$app" manage=off
+	fi
+}
+
+# Send a window to a space by label. yabai resolves the label to an index at
+# registration time, which is why every display change re-registers.
+send_app() { yabai_soft -m rule --add app="$1" space="$2"; }
+
+# Every rule is added with yabai_soft. A transient failure on one rule must not
 # skip the rest, because re-registering rebuilds every label-to-index mapping.
 register_rules() {
 	log_info "registering rules"
 
-	# float non-managed apps
-	yabai_try -m rule --add app="^Calculator$" manage=off || true
-	yabai_try -m rule --add app="^Karabiner-Elements$" manage=off || true
-	yabai_try -m rule --add app="^Steam$" manage=off || true
-	yabai_try -m rule --add app="^Microsoft Teams$" subrole="AXSystemDialog" manage=off || true
-	yabai_try -m rule --add app="^Slack$" subrole="AXSystemDialog" manage=off || true
+	float_app '^Calculator$'
+	float_app '^Karabiner-Elements$'
+	float_app '^Steam$'
+	float_app '^Microsoft Teams$' 'AXSystemDialog'
+	float_app '^Slack$' 'AXSystemDialog'
 
-	# move apps to designated spaces
-	yabai_try -m rule --add app="^Safari$" space=^web || true
-	yabai_try -m rule --add app="^Firefox$" space=^web || true
-	yabai_try -m rule --add app="^Alacritty$" space=^code || true
-	yabai_try -m rule --add app="^PyCharm$" space=code || true
-	yabai_try -m rule --add app="^GoLand$" space=code || true
-	yabai_try -m rule --add app="^Obsidian$" space=^productivity || true
-	yabai_try -m rule --add app="^Things$" space=^productivity || true
-	yabai_try -m rule --add app="^Slack$" space=messaging || true
-	yabai_try -m rule --add app="^Microsoft Teams$" space=messaging || true
-	yabai_try -m rule --add app="^Telegram$" space=messaging || true
-	yabai_try -m rule --add app="^FaceTime$" space=messaging || true
-	yabai_try -m rule --add app="^Spark Desktop$" space=^mail || true
-	yabai_try -m rule --add app="^Microsoft Outlook$" space=mail || true
-	yabai_try -m rule --add app="^Spotify$" space=^music || true
+	send_app '^Safari$' '^web'
+	send_app '^Firefox$' '^web'
+	send_app '^Alacritty$' '^code'
+	send_app '^PyCharm$' 'code'
+	send_app '^GoLand$' 'code'
+	send_app '^Obsidian$' '^productivity'
+	send_app '^Things$' '^productivity'
+	send_app '^Slack$' 'messaging'
+	send_app '^Microsoft Teams$' 'messaging'
+	send_app '^Telegram$' 'messaging'
+	send_app '^FaceTime$' 'messaging'
+	send_app '^Spark Desktop$' '^mail'
+	send_app '^Microsoft Outlook$' 'mail'
+	send_app '^Spotify$' '^music'
 }
 
 # let the spec suite source this file without running it
 ${__SOURCED__:+return}
 
-enable_error_trap
-
 log_info "running register-rules"
-remove_all_rules
+remove_all_rules || log_error "could not remove existing rules, continuing"
 register_rules
 log_info "done"

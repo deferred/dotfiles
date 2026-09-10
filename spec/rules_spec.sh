@@ -118,9 +118,7 @@ End
 Describe 'register-rules.sh as a process'
 setup_process() {
 	WORK_DIR="$(mktemp -d)"
-	cp "$YABAI_SRC/executable_register-rules.sh" "$WORK_DIR/register-rules.sh"
-	cp -R "$YABAI_SRC/lib" "$WORK_DIR/lib"
-	chmod +x "$WORK_DIR/register-rules.sh"
+	install_yabai_config "$WORK_DIR"
 
 	# a yabai that rejects one rule near the top of the list
 	cat >"$WORK_DIR/yabai" <<'STUB'
@@ -258,6 +256,27 @@ The status should be success
 The result of function commands should not include 'window 2'
 The result of function commands should not include 'window 3'
 The result of function commands should not include 'window 4'
+End
+
+# The window_created signal passes one id. Same filter, narrower scope.
+Context 'when given a window id'
+It 'moves that window if it qualifies'
+When call move_1password_windows 1
+The status should be success
+The result of function commands should equal '-m window 1 --space productivity'
+End
+
+It 'ignores an id that does not qualify'
+When call move_1password_windows 2
+The status should be success
+The result of function commands should equal ''
+End
+
+It 'ignores an id belonging to another app'
+When call move_1password_windows 4
+The status should be success
+The result of function commands should equal ''
+End
 End
 End
 End

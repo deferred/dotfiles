@@ -116,12 +116,12 @@ End
 End
 End
 
-Describe 'yabai_try'
+Describe 'yabai_soft'
 Context 'when the command succeeds'
 yabai() { return 0; }
 
 It 'reports success quietly'
-When call yabai_try -m space messaging --move 6
+When call yabai_soft -m space messaging --move 6
 The status should be success
 The stderr should equal ''
 End
@@ -134,17 +134,57 @@ yabai() {
 	return 1
 }
 
-It 'reports failure without aborting the caller'
-When call yabai_try -m space messaging --move 3
-The status should be failure
+# Always succeeding is the point: callers need no `|| true`, so a single
+# rejected move cannot abort a script running under `set -e`.
+It 'warns but still reports success'
+When call yabai_soft -m space messaging --move 3
+The status should be success
 The stderr should include '[WARN]'
 The stderr should include 'yabai -m space messaging --move 3 failed'
 End
 
 It 'does not retry a non-query command'
-When call yabai_try -m space messaging --move 3
-The status should be failure
+When call yabai_soft -m space messaging --move 3
+The status should be success
 The stderr should not include 'attempt'
+End
+End
+End
+
+Describe 'spaces_table'
+Context 'when the query succeeds'
+yabai() {
+	echo '[
+			{"index":2,"label":"code","display":1},
+			{"index":1,"label":"web","display":1},
+			{"index":3,"label":"","display":2}
+		]'
+}
+
+# Label comes last because it can be empty, and `read` collapses the
+# consecutive tabs an empty middle field would produce.
+It 'prints index, display and label, sorted by index'
+When call spaces_table
+The status should be success
+The lines of output should equal 3
+The line 1 of output should equal "1${TAB}1${TAB}web"
+The line 2 of output should equal "2${TAB}1${TAB}code"
+The line 3 of output should equal "3${TAB}2${TAB}"
+End
+End
+
+Context 'when the query never parses'
+yabai() {
+	printf 'not json'
+	return 1
+}
+
+It 'fails instead of printing an empty table'
+YABAI_RETRIES=1
+When call spaces_table
+The status should be failure
+The stdout should equal ''
+The stderr should be present
 End
 End
 End

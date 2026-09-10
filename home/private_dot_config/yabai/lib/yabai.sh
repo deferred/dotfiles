@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck shell=bash
 
 # shared yabai helpers
 
@@ -28,13 +29,20 @@ yabai_json() {
 }
 
 # Run a yabai command that may legitimately fail, e.g. moving a space that
-# macOS has already moved. Log the failure and let the caller continue.
-# Usage: yabai_try -m space messaging --move 6
-yabai_try() {
-	if yabai "$@"; then
-		return 0
-	fi
+# macOS has already moved. Always succeeds, so callers need no `|| true`.
+# Usage: yabai_soft -m space messaging --move 6
+yabai_soft() {
+	yabai "$@" && return 0
 
 	log_warn "yabai $* failed"
-	return 1
+	return 0
+}
+
+# The current spaces as `index<TAB>display<TAB>label` lines, sorted by index.
+# Every caller reads this table with plain bash instead of its own jq program.
+# Label comes last because it can be empty and `read` collapses tabs.
+spaces_table() {
+	local payload
+	payload="$(yabai_json -m query --spaces)" || return 1
+	jq -r 'sort_by(.index)[] | [.index, .display, .label] | @tsv' <<<"$payload"
 }

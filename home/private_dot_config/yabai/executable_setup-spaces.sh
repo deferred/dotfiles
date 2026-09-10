@@ -1,209 +1,189 @@
 #!/usr/bin/env bash
-set -euo pipefail
-IFS=$'\n\t'
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=SCRIPTDIR/lib/bootstrap.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib/bootstrap.sh"
 
-# shellcheck source=SCRIPTDIR/spaces
-source "$script_dir/spaces"
-# shellcheck source=SCRIPTDIR/lib/logging.sh
-source "$script_dir/lib/logging.sh"
-# shellcheck source=SCRIPTDIR/lib/yabai.sh
-source "$script_dir/lib/yabai.sh"
+# The first five labels live on the lower display index, the rest on the next.
+SPACES_ON_FIRST_DISPLAY=5
 
-NUM_SPACES=${#YABAI_SPACE_LABELS[@]}
-SPACE_LABELS_JSON="$(printf '%s\n' "${YABAI_SPACE_LABELS[@]}" | jq -R . | jq -s .)"
+# Every phase reads the table once, then logs only what it changes. The final
+# layout is logged at the end, so silence means the layout was already right.
+CHANGES=0
+changed() { CHANGES=$((CHANGES + 1)); }
 
-destroy_excess_spaces() {
-	log_info "destroying excess spaces until there are $NUM_SPACES"
-
-	local spaces
-	spaces="$(yabai_json -m query --spaces)" || return 1
-
-	local index
-	for index in $(echo "$spaces" |
-		jq -r --argjson labels "$SPACE_LABELS_JSON" '
-			sort_by(.index)
-			| reduce .[] as $space ({seen: [], excess: []};
-				if ($labels | index($space.label)) == null
-					or (.seen | index($space.label)) != null
-				then .excess += [$space.index]
-				else .seen += [$space.label]
-				end)
-			| .excess
-			| reverse[]
-		'); do
-		log_info "destroying unmanaged space $index"
-		yabai_try -m space --destroy "$index" || true
-	done
-}
-
+# One create per missing space, counted locally. Re-querying yabai here used to
+# risk an endless loop whenever a create silently failed.
 create_missing_spaces() {
-	log_info "creating missing spaces until there are $NUM_SPACES"
+	read_spaces || return 1
 
-	local count
-	while :; do
-		count="$(yabai_json -m query --spaces | jq length)" || return 1
-		[ "$count" -lt "$NUM_SPACES" ] || break
-
-		log_info "creating space"
-		yabai_try -m space --create || return 1
+	local count total
+	count="$(space_count)"
+	total="${#YABAI_SPACE_LABELS[@]}"
+	while [ "$count" -lt "$total" ]; do
+		log_info "creating space $((count + 1)) of $total"
+		yabai_soft -m space --create
+		count=$((count + 1))
+		changed
 	done
 }
 
 label_spaces() {
-	log_info "labeling missing spaces"
+	read_spaces || return 1
 
-	local label spaces index
+	local label index
 	for label in "${YABAI_SPACE_LABELS[@]}"; do
-		spaces="$(yabai_json -m query --spaces)" || return 1
-		if echo "$spaces" | jq -e --arg label "$label" 'any(.[]; .label == $label)' >/dev/null; then
-			log_info "preserving space labeled $label"
-			continue
-		fi
+		[ -z "$(index_of "$label")" ] || continue
 
-		index="$(echo "$spaces" | jq -r --argjson labels "$SPACE_LABELS_JSON" '
-			. as $spaces
-			| map(select(
-				.label == ""
-				or (.label as $label | $labels | index($label) == null)
-				or (.label as $label | [$spaces[] | select(.label == $label)] | length > 1)
-			))
-			| sort_by(.index)
-			| first
-			| .index // empty
-		')"
+		index="$(first_free_space)"
 		if [ -z "$index" ]; then
 			log_error "no unmanaged space available for missing label $label"
 			return 1
 		fi
 
 		log_info "labeling space $index as $label"
-		yabai_try -m space "$index" --label "$label" || return 1
+		yabai_soft -m space "$index" --label "$label"
+		changed
+		read_spaces || return 1
 	done
 }
 
-distribute_spaces_between_displays() {
-	log_info "distributing spaces between displays"
-
-	local displays
-	displays="$(yabai_json -m query --displays)" || return 1
-
-	local num_displays
-	num_displays="$(echo "$displays" | jq 'length')"
-
-	log_info "found $num_displays displays:"
-	echo "$displays" | jq -r '.[] | "  display \(.index): \(.frame.w)x\(.frame.h)"'
-
-	if [ "$num_displays" -eq 0 ]; then
+# The lower display index first, then the next one. A single display takes both
+# halves of the label list.
+read_display_pair() {
+	local indexes
+	indexes="$(yabai_json -m query --displays | jq -r 'map(.index) | sort | .[]')" || return 1
+	if [ -z "$indexes" ]; then
 		log_error "no displays found"
 		return 1
 	fi
 
-	local first_display_idx
-	first_display_idx="$(echo "$displays" | jq -r 'map(.index) | sort | .[0]')"
-	local second_display_idx
-	if [ "$num_displays" -eq 1 ]; then
-		second_display_idx="$first_display_idx"
-	else
-		second_display_idx="$(echo "$displays" | jq -r 'map(.index) | sort | .[1]')"
-	fi
+	FIRST_DISPLAY="$(head -1 <<<"$indexes")"
+	SECOND_DISPLAY="$(sed -n '2p' <<<"$indexes")"
+	SECOND_DISPLAY="${SECOND_DISPLAY:-$FIRST_DISPLAY}"
+}
 
-	log_info "assigning spaces 1-5 to display $first_display_idx"
-	log_info "assigning spaces 6-9 to display $second_display_idx"
+distribute_spaces() {
+	read_display_pair || return 1
+	read_spaces || return 1
 
-	local i label target_display spaces current_display
+	log_info "spreading the first $SPACES_ON_FIRST_DISPLAY labels over display $FIRST_DISPLAY, the rest over display $SECOND_DISPLAY"
+
+	local i label target current
 	for i in "${!YABAI_SPACE_LABELS[@]}"; do
 		label="${YABAI_SPACE_LABELS[$i]}"
+		target="$FIRST_DISPLAY"
+		[ "$i" -lt "$SPACES_ON_FIRST_DISPLAY" ] || target="$SECOND_DISPLAY"
 
-		target_display="$first_display_idx"
-		if [ "$i" -ge 5 ]; then
-			target_display="$second_display_idx"
-		fi
-
-		spaces="$(yabai_json -m query --spaces)" || return 1
-		# Take the first match. destroy_excess_spaces removes duplicate labels,
-		# but it runs last, so two spaces can still share a label here.
-		current_display="$(echo "$spaces" |
-			jq -r --arg label "$label" 'first(.[] | select(.label == $label) | .display) // empty')"
-
-		if [ -z "$current_display" ]; then
-			log_warn "  space '$label' not found, skipping"
+		current="$(display_of_label "$label")"
+		if [ -z "$current" ]; then
+			log_warn "space '$label' not found, skipping"
 			continue
 		fi
+		[ "$current" != "$target" ] || continue
 
-		if [ "$current_display" -eq "$target_display" ]; then
-			log_info "  space '$label' already on display $target_display"
-			continue
-		fi
-
-		log_info "  moving space '$label' from display $current_display to $target_display"
-		yabai_try -m space "$label" --display "$target_display" || true
+		log_info "moving space '$label' from display $current to $target"
+		yabai_soft -m space "$label" --display "$target"
+		changed
 	done
 }
 
 reorder_spaces() {
-	log_info "reordering spaces to match intended label order"
+	read_spaces || return 1
 
-	local i label target_index spaces current_index current_display target_display
+	local i label target current
 	for i in "${!YABAI_SPACE_LABELS[@]}"; do
-		target_index=$((i + 1))
+		target=$((i + 1))
 		label="${YABAI_SPACE_LABELS[$i]}"
 
-		spaces="$(yabai_json -m query --spaces)" || return 1
-		# Take the first match; a label can still be duplicated at this point.
-		current_index="$(echo "$spaces" |
-			jq -r --arg label "$label" 'first(.[] | select(.label == $label) | .index) // empty')"
-
-		if [ -z "$current_index" ]; then
-			log_warn "  space '$label' not found, skipping"
+		current="$(index_of "$label")"
+		if [ -z "$current" ]; then
+			log_warn "space '$label' not found, skipping"
 			continue
 		fi
+		[ "$current" != "$target" ] || continue
+		crosses_displays "$label" "$current" "$target" && continue
 
-		if [ "$current_index" -eq "$target_index" ]; then
-			log_info "  space '$label' already at index $target_index"
-			continue
-		fi
-
-		# yabai refuses to move a space across displays, and that failure used
-		# to abort the whole reconciliation before any rule was re-applied.
-		current_display="$(echo "$spaces" |
-			jq -r --argjson index "$current_index" 'first(.[] | select(.index == $index) | .display) // empty')"
-		target_display="$(echo "$spaces" |
-			jq -r --argjson index "$target_index" 'first(.[] | select(.index == $index) | .display) // empty')"
-
-		if [ -n "$target_display" ] && [ "$current_display" != "$target_display" ]; then
-			log_warn "  skipping '$label': index $target_index is on display $target_display, space is on display $current_display"
-			continue
-		fi
-
-		log_info "  moving space '$label' from index $current_index to $target_index"
-		yabai_try -m space "$label" --move "$target_index" || true
+		log_info "moving space '$label' from index $current to $target"
+		yabai_soft -m space "$label" --move "$target"
+		changed
+		# a move renumbers every space after it
+		read_spaces || return 1
 	done
+}
+
+# yabai refuses to move a space across displays, and that failure used to abort
+# the whole reconciliation before any window rule was re-applied.
+crosses_displays() {
+	local label="$1" from to
+	from="$(display_of_index "$2")"
+	to="$(display_of_index "$3")"
+	if [ -z "$to" ] || [ "$from" = "$to" ]; then
+		return 1
+	fi
+
+	log_warn "skipping '$label': index $3 is on display $to, space is on display $from"
+}
+
+destroy_excess_spaces() {
+	read_spaces || return 1
+
+	local keepers index
+	keepers="$(keeper_indexes)"
+	while IFS=$'\t' read -r index _; do
+		[ -n "$index" ] || continue
+		is_keeper "$keepers" "$index" && continue
+
+		log_info "destroying unmanaged space $index"
+		yabai_soft -m space --destroy "$index"
+		changed
+	done <<<"$(reverse_table)"
 }
 
 # Purely cosmetic, so it must never fail the run. A failure here used to make
 # reconcile-spaces.sh report a bogus "setup-spaces.sh failed".
 log_layout() {
+	local index display label
+	read_spaces || TABLE=""
+
 	log_info "final layout:"
-	yabai_json -m query --spaces |
-		jq -r 'sort_by(.index)[] | "  index \(.index): \(.label) on display \(.display)"' ||
-		true
+	while IFS=$'\t' read -r index display label; do
+		[ -n "$index" ] || continue
+		log_info "  index $index: $label on display $display"
+	done <<<"$TABLE"
 }
 
+run_pass() {
+	local step status=0
+	for step in create_missing_spaces label_spaces \
+		distribute_spaces reorder_spaces destroy_excess_spaces; do
+		"$step" || status=1
+	done
+	return "$status"
+}
+
+# Repeat while the layout keeps changing. macOS shifts indexes underneath us
+# during a display change, so one pass is not always enough.
 setup_spaces() {
-	create_missing_spaces
-	label_spaces
-	distribute_spaces_between_displays
-	reorder_spaces
-	destroy_excess_spaces
+	local pass status=0 passes="${SETUP_PASSES:-3}"
+	for ((pass = 1; pass <= passes; pass++)); do
+		CHANGES=0
+		status=0
+		run_pass || status=1
+
+		[ "$CHANGES" -gt 0 ] || break
+		if [ "$pass" -lt "$passes" ]; then
+			log_info "pass $pass changed $CHANGES things, repeating"
+		else
+			log_warn "layout still changing after $passes passes, giving up"
+		fi
+	done
+
 	log_layout
+	return "$status"
 }
 
 # let the spec suite source this file without running it
 ${__SOURCED__:+return}
-
-enable_error_trap
 
 log_info "running setup-spaces"
 setup_spaces

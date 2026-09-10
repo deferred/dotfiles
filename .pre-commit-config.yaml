@@ -32,7 +32,7 @@ repos:
         name: shellcheck
         args:
           - -x
-        files: ^(home/.*\.(sh|bash|zsh)|home/.*/executable_[^/.]+|home/executable_[^/.]+)$
+        files: ^(home/.*\.(sh|bash|zsh)|home/.*/executable_[^/.]+|home/executable_[^/.]+|spec/.*\.sh)$
         exclude: ^home/dot_oh-my-zsh/custom/
 
   - repo: https://github.com/scop/pre-commit-shfmt
@@ -40,7 +40,16 @@ repos:
     hooks:
       - id: shfmt
         name: format shell
-        files: ^(home/.*\.(sh|bash|zsh)|home/.*/executable_[^/.]+|home/executable_[^/.]+)$
+        files: ^(home/.*\.(sh|bash|zsh)|home/.*/executable_[^/.]+|home/executable_[^/.]+|spec/.*\.sh)$
+
+  - repo: local
+    hooks:
+      - id: shellspec
+        name: shellspec
+        entry: shellspec
+        language: system
+        pass_filenames: false
+        files: ^(spec/|\.shellspec$|home/private_dot_config/yabai/)
 
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v2.4.0

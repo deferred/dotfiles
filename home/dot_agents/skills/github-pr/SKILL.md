@@ -1,10 +1,18 @@
 ---
 name: github-pr
 description: >
-  Use when reviewing or commenting on GitHub pull requests.
+  Use when creating, reviewing, or commenting on GitHub pull requests.
 ---
 
 # GitHub
+
+## Create pull requests
+
+- Read `references/pull-request-template.md` and use its contents when creating or updating a pull request.
+- Put the Jira key in square brackets so the GitHub for Atlassian app can turn it into a native link.
+- Do not put the Jira key in the PR title or branch name.
+- Do not repeat requirements or acceptance criteria from Jira.
+- Do not describe changes that are clear from the diff.
 
 ## Anchor comments to the code
 

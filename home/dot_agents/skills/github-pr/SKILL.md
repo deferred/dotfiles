@@ -1,8 +1,7 @@
 ---
-name: github
+name: github-pr
 description: >
-  Use this skill whenever working with GitHub: reviewing or commenting on pull requests, issues, commits, or
-  discussions, or running any `gh` command or GitHub API call.
+  Use when reviewing or commenting on GitHub pull requests.
 ---
 
 # GitHub

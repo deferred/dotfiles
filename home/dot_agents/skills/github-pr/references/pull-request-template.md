@@ -1,6 +1,14 @@
 <!-- Replace with the related Jira work item key. -->
 [ABC-123]
 
+## Summary
+
+<!--
+One to three sentences: what this changes and the problem it solves.
+Describe intent and behaviour, not files or lines.
+Use bullets only if the change has several independent parts.
+-->
+
 ## Decisions
 
 <!--

@@ -11,18 +11,25 @@ SPACES_ON_FIRST_DISPLAY=5
 CHANGES=0
 changed() { CHANGES=$((CHANGES + 1)); }
 
-# One create per missing space, counted locally. Re-querying yabai here used to
-# risk an endless loop whenever a create silently failed.
+# Add Mission Control spaces with `yabai -m space --create` until every
+# label has a space. yabai can exit 0 without adding one, so query again
+# after each call and stop if the space count did not rise.
 create_missing_spaces() {
 	read_spaces || return 1
 
-	local count total
+	local count total before
 	count="$(space_count)"
 	total="${#YABAI_SPACE_LABELS[@]}"
 	while [ "$count" -lt "$total" ]; do
 		log_info "creating space $((count + 1)) of $total"
+		before="$count"
 		yabai_soft -m space --create
-		count=$((count + 1))
+		read_spaces || return 1
+		count="$(space_count)"
+		if [ "$count" -le "$before" ]; then
+			log_error "space --create did not add a space"
+			return 1
+		fi
 		changed
 	done
 }

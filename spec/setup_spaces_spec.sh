@@ -20,6 +20,7 @@ setup() {
 			{"index":8,"label":"music","display":2},
 			{"index":9,"label":"misc3","display":2}
 		]'
+	unset YABAI_CREATE_ADDS_SPACE
 }
 cleanup() { rm -f "$COMMANDS_FILE"; }
 BeforeEach 'setup'
@@ -42,7 +43,13 @@ yabai() {
 		IFS=' '
 		echo "$*"
 	) >>"$COMMANDS_FILE"
-	return "${YABAI_MUTATION_STATUS:-0}"
+
+	local status="${YABAI_MUTATION_STATUS:-0}"
+	if [ "$status" -eq 0 ] && [ "${2:-}" = "space" ] && [ "${3:-}" = "--create" ] &&
+		[ "${YABAI_CREATE_ADDS_SPACE:-}" = 1 ]; then
+		SPACES_JSON="$(jq -c '. + [{"index": (([.[].index] | max // 0) + 1), "label": "", "display": 1}]' <<<"$SPACES_JSON")"
+	fi
+	return "$status"
 }
 
 Describe 'create_missing_spaces'
@@ -50,15 +57,30 @@ Context 'when spaces are missing'
 too_few_spaces() {
 	SPACES_JSON='[{"index":1,"label":"web","display":1}]'
 	YABAI_SPACE_LABELS=(web code)
+	YABAI_CREATE_ADDS_SPACE=1
 }
 Before 'too_few_spaces'
 
-# One create per missing space, counted locally. Re-querying yabai here used
-# to risk an endless loop whenever a create silently failed.
 It 'creates spaces until the count matches'
 When call create_missing_spaces
 The status should be success
 The output should include 'creating space 2 of 2'
+The result of function commands should equal '-m space --create'
+End
+End
+
+Context 'when create is a no-op'
+# The fake yabai accepts `space --create` but does not grow SPACES_JSON.
+create_is_noop() {
+	SPACES_JSON='[{"index":1,"label":"web","display":1}]'
+	YABAI_SPACE_LABELS=(web code)
+}
+Before 'create_is_noop'
+
+It 'stops after one attempt and reports failure'
+When call create_missing_spaces
+The status should be failure
+The stderr should include 'space --create did not add a space'
 The result of function commands should equal '-m space --create'
 End
 End

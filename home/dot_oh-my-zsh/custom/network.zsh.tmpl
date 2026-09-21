@@ -1,0 +1,13 @@
+{{ if eq .chezmoi.os "darwin" -}}
+renew-dhcp() {
+  local interface
+
+  for interface in ${(s: :)$(ifconfig -lu)}; do
+    if [[ -n $(ipconfig getpacket "$interface" 2>/dev/null) ]]; then
+      sudo ipconfig set "$interface" DHCP
+    fi
+  done
+}
+
+alias flush-dns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder'
+{{ end -}}

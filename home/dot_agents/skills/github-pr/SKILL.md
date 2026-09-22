@@ -1,7 +1,7 @@
 ---
 name: github-pr
 description: >
-  Use when creating, reviewing, or commenting on GitHub pull requests.
+  Use when creating, reviewing, commenting on, or closing GitHub pull requests.
 ---
 
 # GitHub
@@ -27,3 +27,16 @@ gh api --method POST repos/{owner}/{repo}/pulls/{number}/comments \
 ```
 
 Top-level comments are only for feedback with no location, such as a summary or a missing file.
+
+## Close pull requests
+
+Before closing an unmerged pull request, always leave a comment that explains why it is being closed.
+Include the context needed for a future reader to understand the decision. If another pull request supersedes it, link every
+superseding pull request with its full URL and explain the relationship.
+
+Do not use a vague reason such as "obsolete" without more context. If the reason or replacement is not known, ask the user
+instead of inventing it.
+
+```sh
+gh pr close {number} --comment 'Closing because <reason>. <context>. Superseded by <full PR URL>.'
+```

@@ -1,6 +1,9 @@
 gui:
   nerdFontsVersion: "3"
 
+git:
+  autoFetch: false
+
 keybinding:
   commits:
     moveDownCommit: '<ctrl+n>'

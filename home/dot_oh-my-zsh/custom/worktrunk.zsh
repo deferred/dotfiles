@@ -2,35 +2,25 @@ if command -v wt >/dev/null 2>&1; then
   eval "$(command wt config shell init zsh)"
 fi
 
-# resolve wt branch shortcuts (^, -, @) to actual branch names
-_wt_resolve_branch() {
-  case $1 in
-    ^)  wt config state default-branch ;;
-    -)  wt config state previous-branch ;;
-    @)  git rev-parse --abbrev-ref HEAD 2>/dev/null ;;
-    *)  echo "$1" ;;
-  esac
-}
-
 # switch to a worktree and the corresponding tmux session.
 #
-# wt's post-switch hook creates tmux sessions but intentionally does not call
-# tmux switch-client — that would also fire on wtc/wtcb, switching the user's
-# terminal away from the current session. instead, wts handles the tmux switch
-# here so only interactive switches move the client.
+# use wt's target values because the invoking directory may be a bare repo
+# and post-switch hooks may still be creating the tmux session
 #
-# branch shortcuts (^, -, @) are resolved before calling wt because we need the
-# actual branch name to build the tmux session identifier (repo/branch).
+# keep client switching here so wtc/wtcb do not move the current terminal
 wts() {
-  local branch
-  branch=$(_wt_resolve_branch "$1")
-  wt switch --no-cd "$@" || return
-  [[ -n $TMUX ]] || return 0
-  local repo session
-  repo=$(basename "$(dirname "$(git rev-parse --show-toplevel 2>/dev/null)")")
-  session="${repo}/${branch//[\/\\]/-}"
-  tmux has-session -t "$session" 2>/dev/null &&
+  if [[ -z $TMUX ]]; then
+    wt switch --no-cd "$@"
+    return
+  fi
+
+  wt switch --no-cd "$@" -x sh -- -c '
+    session="$(basename "$(dirname "$1")")/$2"
+    tmux has-session -t "$session" 2>/dev/null ||
+      tmux new-session -d -s "$session" -c "$3" ||
+      tmux has-session -t "$session" || exit
     tmux switch-client -t "$session"
+  ' sh '{{ repo_path }}' '{{ branch | sanitize }}' '{{ worktree_path }}'
 }
 
 wtsd() {

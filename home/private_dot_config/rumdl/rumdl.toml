@@ -6,7 +6,6 @@
 disable = ["MD041"]
 # List of file/directory patterns to exclude from linting
 exclude = [
-    # Common directories to exclude
     ".git",
     ".github",
     "node_modules",
@@ -14,14 +13,12 @@ exclude = [
     "dist",
     "build",
 
-    # Specific files or patterns
     "CHANGELOG.md",
     "LICENSE.md",
     "**/openspec-*/**",
     "**/opsx-*.md",
 ]
 
-# Respect .gitignore files when scanning directories (default: true)
 respect-gitignore = true
 line-length = 120
 

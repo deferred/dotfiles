@@ -24,3 +24,6 @@ exclude = [
 # Respect .gitignore files when scanning directories (default: true)
 respect-gitignore = true
 line-length = 120
+
+[MD013]
+reflow = true

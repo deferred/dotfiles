@@ -20,7 +20,8 @@ description: >
   For one-off runs without modifying the file, use `uv run --with <pkg> script.py`
 - Use `aiohttp` library to make HTTP calls
 - Make calls to APIs concurrently whenever possible to save time
-- Always deserialize API responses into typed objects (e.g., `@dataclass(frozen=True)` or Pydantic models)
+- Always deserialize API responses into typed objects
+  Prefer Pydantic if installed for the project, otherwise `@dataclass(frozen=True)`
 - Use `yarl` library to manipulate URLs
 - Always write type hints
 - When using try..except, avoid having bare Exception

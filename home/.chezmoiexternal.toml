@@ -4,6 +4,17 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
+{{- range $line := regexFindAll `(?m)^set -g @plugin '[^']+'` (include "private_dot_config/tmux/tmux.conf") -1 }}
+{{- $plugin := index (splitList "'" $line) 1 }}
+{{- if ne $plugin "tmux-plugins/tpm" }}
+
+[".config/tmux/plugins/{{ base $plugin }}"]
+    type = "git-repo"
+    url = "https://github.com/{{ $plugin }}.git"
+    refreshPeriod = "168h"
+{{- end }}
+{{- end }}
+
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"

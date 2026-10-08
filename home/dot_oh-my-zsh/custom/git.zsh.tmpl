@@ -23,6 +23,4 @@ gclb() {
     git --git-dir="$git_dir" branch --set-upstream-to="origin/$default_branch" "$default_branch"
 }
 
-{{ if eq .chezmoi.os "darwin" -}}
 alias gcaai='opencode run "/commit" > /dev/null 2>&1'
-{{ end -}}

@@ -1,1 +1,3 @@
-alias fman="compgen -c | fzf | xargs man"
+fman() {
+  print -rl -- ${(k)commands} | fzf | xargs man
+}

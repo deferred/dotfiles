@@ -9,6 +9,5 @@
 .config/yabai/
 .ideavimrc
 .oh-my-zsh/custom/curl.zsh
-.oh-my-zsh/custom/opencode.zsh
 Library/
 {{- end }}

@@ -25,6 +25,7 @@ Operation = tuple[JsonPath, Any]
 # Settings managed by chezmoi. All other values remain machine-local.
 MANAGED_SETTINGS: JsonObject = {
     "$schema": "https://opencode.ai/config.json",
+    "plugin": ["@ex-machina/opencode-anthropic-auth"],
     "mcp": {
         "context7": {
             "type": "local",

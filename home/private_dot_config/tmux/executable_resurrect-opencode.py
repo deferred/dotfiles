@@ -51,7 +51,10 @@ def rewrite(lines: list[str], db: sqlite3.Connection) -> list[str]:
     updated = []
     for line in lines:
         fields = line.rstrip("\n").split("\t")
-        if len(fields) != 11 or fields[0] != "pane" or fields[9] != "opencode":
+        if len(fields) != 11 or fields[0] != "pane" or fields[9] not in {
+            "opencode",
+            "nono",
+        }:
             updated.append(line)
             continue
 

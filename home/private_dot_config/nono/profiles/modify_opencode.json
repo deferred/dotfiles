@@ -1,0 +1,86 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "jsonc-edit==0.2.1",
+#     "json5",
+# ]
+# ///
+# chezmoi modify script for nono's opencode profile
+
+import sys
+from typing import Any
+
+import json5
+from jsonc_edit import edit_many, edit_session
+
+
+JsonObject = dict[str, Any]
+JsonPath = list[str]
+Operation = tuple[JsonPath, Any]
+
+
+# these grants use home-relative paths so they work on every machine
+MANAGED_PATHS: dict[str, list[str]] = {
+    "allow": [
+        "~/.config/ccmux/session-pids",
+        "~/.config/nono/profiles",
+        "~/.jsonc-edit",
+    ],
+    "read": [
+        "~/.local/share",
+        "~/.config/nono",
+        "~/.config/chezmoi",
+    ],
+}
+
+# remove read entries that duplicate read-write grants
+REMOVED_PATHS: dict[str, list[str]] = {
+    "read": ["~/.config/ccmux/session-pids"],
+}
+
+
+def parse_source(source: str) -> JsonObject:
+    value = json5.loads(source) if source.strip() else {}
+    if not isinstance(value, dict):
+        raise ValueError("nono profile must contain a JSON object")
+    return value
+
+
+def merged_paths(filesystem: JsonObject, name: str, paths: list[str]) -> list[Any]:
+    current = filesystem.get(name, [])
+    if not isinstance(current, list):
+        current = []
+
+    removed = REMOVED_PATHS.get(name, [])
+    merged = [value for value in current if value not in removed]
+    for path in paths:
+        if path not in merged:
+            merged.append(path)
+    return merged
+
+
+def path_operations(config: JsonObject) -> list[Operation]:
+    filesystem = config.get("filesystem", {})
+    if not isinstance(filesystem, dict):
+        filesystem = {}
+
+    return [
+        (["filesystem", name], merged_paths(filesystem, name, paths))
+        for name, paths in MANAGED_PATHS.items()
+    ]
+
+
+def main() -> None:
+    source = sys.stdin.read() or "{}"
+    config = parse_source(source)
+    operations = path_operations(config)
+
+    with edit_session():
+        result = edit_many(source, operations)
+
+    sys.stdout.write(result)
+
+
+if __name__ == "__main__":
+    main()

@@ -46,6 +46,7 @@ brew "ncdu"
 brew "neovim"
 brew "nnn"
 brew "node"
+brew "nono"
 brew "python"
 brew "rclone"
 brew "ripgrep"
@@ -76,6 +77,14 @@ printf '%s\n' "$BREWFILE" | brew bundle --file=/dev/stdin
 
 if ! exists claude; then
 	curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+nono pull nolabs-ai/opencode-v1
+nono_profile="${XDG_CONFIG_HOME:-$HOME/.config}/nono/profiles/opencode.json"
+if [ ! -f "$nono_profile" ]; then
+	nono profile init opencode \
+		--extends nolabs-ai/opencode-v1 \
+		--description "Local OpenCode permissions"
 fi
 
 # https://github.com/ohmyzsh/ohmyzsh#unattended-install

@@ -48,6 +48,10 @@ MANAGED_PATHS: dict[str, list[str]] = {
     ],
 }
 
+{{ if eq .chezmoi.os "darwin" -}}
+MANAGED_PATHS["allow"].append("~/.Trash")
+{{ end -}}
+
 MANAGED_GROUPS: list[str] = [
     "go_runtime",
     "go_runtime_linux",

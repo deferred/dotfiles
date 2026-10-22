@@ -28,15 +28,17 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.jsonc-edit",
     ],
     "read": [
-        "~/.local/share",
         "~/.config/nono",
         "~/.config/chezmoi",
     ],
 }
 
-# remove read entries that duplicate read-write grants
+# remove obsolete or duplicate grants
 REMOVED_PATHS: dict[str, list[str]] = {
-    "read": ["~/.config/ccmux/session-pids"],
+    "read": [
+        "~/.config/ccmux/session-pids",
+        "~/.local/share",
+    ],
 }
 
 

@@ -32,7 +32,24 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.config/chezmoi",
         "~/.config/nono",
     ],
+    # ~/.ssh is covered by deny_credentials, so each grant needs a matching bypass
+    "read_file": [
+        "~/.ssh/config",
+        "~/.ssh/known_hosts",
+    ],
+    "bypass_protection": [
+        "~/.ssh/config",
+        "~/.ssh/known_hosts",
+    ],
 }
+
+{{ if eq .chezmoi.os "darwin" -}}
+# the ssh config sets IdentityAgent to this 1Password socket, so it needs a connect grant
+ONEPASSWORD_AGENT_SOCKET = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+MANAGED_PATHS["unix_socket"] = [ONEPASSWORD_AGENT_SOCKET]
+MANAGED_PATHS["bypass_protection"].append(ONEPASSWORD_AGENT_SOCKET)
+
+{{ end -}}
 
 # remove obsolete or duplicate grants
 REMOVED_PATHS: dict[str, list[str]] = {

@@ -28,6 +28,7 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.jsonc-edit",
         "~/.local/share/gh",
         "~/.terraform.d",
+        "~/go",
     ],
     "read": [
         "~/.config/chezmoi",
@@ -46,6 +47,12 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.terraform.d",
     ],
 }
+
+MANAGED_GROUPS: list[str] = [
+    "go_runtime",
+    "go_runtime_linux",
+    "go_runtime_macos",
+]
 
 {{ if eq .chezmoi.os "darwin" -}}
 # the ssh config sets IdentityAgent to this 1Password socket, so it needs a connect grant
@@ -89,10 +96,22 @@ def path_operations(config: JsonObject) -> list[Operation]:
     if not isinstance(filesystem, dict):
         filesystem = {}
 
-    return [
+    operations = [
         (["filesystem", name], merged_paths(filesystem, name, paths))
         for name, paths in MANAGED_PATHS.items()
     ]
+
+    groups = config.get("groups", {})
+    if not isinstance(groups, dict):
+        groups = {}
+    included = groups.get("include", [])
+    if not isinstance(included, list):
+        included = []
+    for group in MANAGED_GROUPS:
+        if group not in included:
+            included.append(group)
+    operations.append((["groups", "include"], included))
+    return operations
 
 
 def main() -> None:

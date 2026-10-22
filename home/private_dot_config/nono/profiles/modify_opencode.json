@@ -26,10 +26,11 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.config/ccmux/session-pids",
         "~/.config/nono/profiles",
         "~/.jsonc-edit",
+        "~/.local/share/gh",
     ],
     "read": [
-        "~/.config/nono",
         "~/.config/chezmoi",
+        "~/.config/nono",
     ],
 }
 

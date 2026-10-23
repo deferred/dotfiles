@@ -24,6 +24,7 @@ Operation = tuple[JsonPath, Any]
 MANAGED_PATHS: dict[str, list[str]] = {
     "allow": [
         "~/.config/ccmux/session-pids",
+        "~/.config/chezmoi",
         "~/.config/nono/profiles",
         "~/.jsonc-edit",
         "~/.local/share/gh",
@@ -32,7 +33,6 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/go",
     ],
     "read": [
-        "~/.config/chezmoi",
         "~/.config/nono",
         "~/.kube",
     ],
@@ -71,6 +71,7 @@ MANAGED_PATHS["bypass_protection"].append(ONEPASSWORD_AGENT_SOCKET)
 REMOVED_PATHS: dict[str, list[str]] = {
     "read": [
         "~/.config/ccmux/session-pids",
+        "~/.config/chezmoi",
         "~/.local/share",
     ],
 }

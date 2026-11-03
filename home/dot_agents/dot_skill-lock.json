@@ -6,9 +6,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/github/gh-stack.git",
       "skillPath": "skills/gh-stack/SKILL.md",
-      "skillFolderHash": "53018dd61238961f3aae77c6d369170ab4eb06f3",
+      "skillFolderHash": "1f58c48379bc9fcab68e8a37cb41aad3ad937419",
       "installedAt": "2026-08-21T12:58:53Z",
-      "updatedAt": "2026-10-22T11:04:44.699Z"
+      "updatedAt": "2026-11-03T17:30:36.757Z"
     },
     "git-commit": {
       "source": "github/awesome-copilot",

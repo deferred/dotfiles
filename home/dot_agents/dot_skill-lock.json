@@ -8,16 +8,16 @@
       "skillPath": "skills/gh-stack/SKILL.md",
       "skillFolderHash": "1f58c48379bc9fcab68e8a37cb41aad3ad937419",
       "installedAt": "2026-08-21T12:58:53Z",
-      "updatedAt": "2026-11-03T17:30:36.757Z"
+      "updatedAt": "2026-11-03T16:09:22.180Z"
     },
     "git-commit": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
       "sourceUrl": "https://github.com/github/awesome-copilot.git",
       "skillPath": "skills/git-commit/SKILL.md",
-      "skillFolderHash": "266a4c3fbaa9f5441b5d1a96b786b6aa634c19e6",
+      "skillFolderHash": "34b3e1ac8c5cbdc3a24dfc053cad930aaddf41f6",
       "installedAt": "2026-02-10T17:25:06.054Z",
-      "updatedAt": "2026-10-22T11:04:50.509Z"
+      "updatedAt": "2026-11-06T19:57:53.274Z"
     },
     "skill-creator": {
       "source": "anthropics/claude-plugins-official",

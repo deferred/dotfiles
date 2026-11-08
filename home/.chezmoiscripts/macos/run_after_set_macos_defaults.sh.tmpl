@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# Global                                                                        #
+# Keyboard                                                                    #
 ###############################################################################
 
 # F1, F2, etc. behave as standard function keys
@@ -13,9 +13,25 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 \
 	'{enabled = 0; value = {parameters = (32, 49, 786432); type = standard;};}'
 
+# Show the Input menu in the menu bar
+defaults write com.apple.TextInputMenu visible -bool true
+
+# Do not use the Caps Lock key to switch to and from Colemak
+defaults write NSGlobalDomain TISRomanSwitchState -int 0
+
 # Do not preserve a separate input source for each window or document.
 defaults write com.apple.HIToolbox AppleGlobalTextInputProperties \
 	-dict TextInputGlobalPropertyPerContextInput -bool false
+
+# Do not correct spelling automatically
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
+
+# Do not capitalize words automatically
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
+# Do not add a period with double-space
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 ###############################################################################
 # Menu Bar                                                                    #
@@ -108,6 +124,7 @@ for app in \
 	"Dock" \
 	"Finder" \
 	"SystemUIServer" \
+	"TextInputMenuAgent" \
 	; \
 do \
 	killall "${app}" &> /dev/null

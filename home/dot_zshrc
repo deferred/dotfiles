@@ -104,6 +104,7 @@ plugins=(
   history
   httpie
   kubectl
+  zsh-hist
   thefuck
   tmux
   uv

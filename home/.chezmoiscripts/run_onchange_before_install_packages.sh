@@ -75,6 +75,8 @@ printf '%s\n' "$BREWFILE" |
 
 printf '%s\n' "$BREWFILE" | brew bundle --file=/dev/stdin
 
+uv tool install -p 3.13 serena-agent
+
 if ! exists claude; then
 	curl -fsSL https://claude.ai/install.sh | bash
 fi

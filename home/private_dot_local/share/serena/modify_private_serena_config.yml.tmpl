@@ -1,0 +1,29 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# ///
+
+import re
+import sys
+
+
+SETTINGS = {
+    "project_serena_folder_location": "'{{ .chezmoi.homeDir }}/.local/share/serena/projects/$projectFolderName/.serena'",
+    "web_dashboard_open_on_launch": "false",
+}
+
+
+def main() -> None:
+    result = sys.stdin.read()
+    for key, value in SETTINGS.items():
+        setting = f"{key}: {value}"
+        pattern = re.compile(rf"^{re.escape(key)}:.*$", re.MULTILINE)
+        result, replacements = pattern.subn(setting, result, count=1)
+        if replacements == 0:
+            separator = "" if not result or result.endswith("\n") else "\n"
+            result = f"{result}{separator}{setting}\n"
+    sys.stdout.write(result)
+
+
+if __name__ == "__main__":
+    main()

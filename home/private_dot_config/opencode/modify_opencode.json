@@ -30,6 +30,19 @@ MANAGED_SETTINGS: JsonObject = {
         "context7": {
             "type": "local",
             "command": ["npx", "-y", "@upstash/context7-mcp"],
+        },
+        "serena": {
+            "type": "local",
+            "command": [
+                "serena",
+                "start-mcp-server",
+                "--context",
+                "ide",
+                "--project-from-cwd",
+            ],
+            "environment": {
+                "SERENA_HOME": "{env:HOME}/.local/share/serena",
+            },
         }
     },
     "agent": {

@@ -27,6 +27,38 @@ wtsd() {
   wts ^
 }
 
+# create a worktree, keep its tmux session, and start opencode in window 3
+ocw() {
+  if [[ -z $1 ]]; then
+    print -u2 'usage: ocw <branch>'
+    return 1
+  fi
+
+  wt switch --no-cd --create "$@" -x sh -- -c '
+    session="$(basename "$(dirname "$1")")/$2"
+    tmux has-session -t "$session" 2>/dev/null ||
+      tmux new-session -d -s "$session" -c "$3" ||
+      tmux has-session -t "$session" || exit
+
+    # the session hook creates window 3 for a shell, so add it only when missing
+    tmux list-panes -t "$session:3" >/dev/null 2>&1 ||
+      tmux new-window -d -t "$session:3" -c "$3"
+
+    # type into a shell only, to avoid launching opencode over a running program
+    case "$(tmux display-message -p -t "$session:3" "#{pane_current_command}" 2>/dev/null)" in
+      zsh|bash|sh) tmux send-keys -t "$session:3" opencode Enter ;;
+    esac
+
+    tmux select-window -t "$session:3" 2>/dev/null || true
+
+    if [ -n "$TMUX" ]; then
+      tmux switch-client -t "$session" 2>/dev/null || true
+    else
+      tmux attach -t "$session"
+    fi
+  ' sh '{{ repo_path }}' '{{ branch | sanitize }}' '{{ worktree_path }}'
+}
+
 alias wtc='wt switch --no-cd --create'
 alias wtcb='wt switch --no-cd --no-verify --create'
 alias wtr='wt remove'

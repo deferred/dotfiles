@@ -25,7 +25,6 @@ MANAGED_PATHS: dict[str, list[str]] = {
     # write access only where tools must write; code that runs outside the sandbox stays read-only
     "allow": [
         "~/.config/ccmux/session-pids",
-        "~/.config/chezmoi",
         "~/.jsonc-edit",
         "~/.local/share/gh",
         "~/.local/share/serena",
@@ -36,6 +35,8 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/go",
     ],
     "read": [
+        # chezmoi only needs read access for source-path, managed, cat and execute-template
+        "~/.config/chezmoi",
         "~/.config/direnv",
         "~/.config/gh",
         "~/.config/nix",
@@ -76,10 +77,11 @@ REMOVED_PATHS: dict[str, list[str]] = {
     "allow": [
         # lets the agent change its own sandbox
         "~/.config/nono/profiles",
+        # holds chezmoi data and hooks that run outside the sandbox
+        "~/.config/chezmoi",
     ],
     "read": [
         "~/.config/ccmux/session-pids",
-        "~/.config/chezmoi",
         "~/.kube",
         "~/.local/share",
     ],

@@ -22,10 +22,10 @@ Operation = tuple[JsonPath, Any]
 
 # these grants use home-relative paths so they work on every machine
 MANAGED_PATHS: dict[str, list[str]] = {
+    # write access only where tools must write; code that runs outside the sandbox stays read-only
     "allow": [
         "~/.config/ccmux/session-pids",
         "~/.config/chezmoi",
-        "~/.config/nono/profiles",
         "~/.jsonc-edit",
         "~/.local/share/gh",
         "~/.local/share/serena",
@@ -73,8 +73,12 @@ MANAGED_GROUPS: list[str] = [
     "go_runtime_macos",
 ]
 
-# remove obsolete or duplicate grants
+# remove obsolete, duplicate or unsafe grants
 REMOVED_PATHS: dict[str, list[str]] = {
+    "allow": [
+        # lets the agent change its own sandbox
+        "~/.config/nono/profiles",
+    ],
     "read": [
         "~/.config/ccmux/session-pids",
         "~/.config/chezmoi",

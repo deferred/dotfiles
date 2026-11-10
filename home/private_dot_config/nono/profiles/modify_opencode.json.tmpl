@@ -30,7 +30,8 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.local/share/serena",
         "~/.local/share/zoxide",
         "~/.local/state/gh",
-        "~/go",
+        # module cache and checksum db; ~/go/bin stays read-only via go_runtime
+        "~/go/pkg",
     ],
     "read": [
         # chezmoi only needs read access for source-path, managed, cat and execute-template
@@ -85,6 +86,7 @@ REMOVED_PATHS: dict[str, list[str]] = {
         # tools and binaries here run outside the sandbox
         "~/.local/share/uv",
         "~/.terraform.d",
+        "~/go",
     ],
     "read": [
         "~/.config/ccmux/session-pids",

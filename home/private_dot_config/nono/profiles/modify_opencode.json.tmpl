@@ -30,7 +30,6 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.local/share/serena",
         "~/.local/share/zoxide",
         "~/.local/state/gh",
-        "~/.terraform.d",
         "~/go",
     ],
     "read": [
@@ -42,8 +41,8 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.config/nono",
         "~/.config/rumdl",
         "~/.config/worktrunk",
+        "~/.terraform.d/plugins",
     ],
-    # ~/.ssh is covered by deny_credentials, so each grant needs a matching bypass
     "read_file": [
         "~/.ssh/config",
         "~/.ssh/known_hosts",
@@ -51,7 +50,7 @@ MANAGED_PATHS: dict[str, list[str]] = {
     "bypass_protection": [
         "~/.ssh/config",
         "~/.ssh/known_hosts",
-        "~/.terraform.d",
+        "~/.terraform.d/plugins",
     ],
 }
 
@@ -85,6 +84,7 @@ REMOVED_PATHS: dict[str, list[str]] = {
         "~/.config/chezmoi",
         # tools and binaries here run outside the sandbox
         "~/.local/share/uv",
+        "~/.terraform.d",
     ],
     "read": [
         "~/.config/ccmux/session-pids",
@@ -93,6 +93,7 @@ REMOVED_PATHS: dict[str, list[str]] = {
     ],
     "bypass_protection": [
         "~/.kube",
+        "~/.terraform.d",
     ],
 }
 

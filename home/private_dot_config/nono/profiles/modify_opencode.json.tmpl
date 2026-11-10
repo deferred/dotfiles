@@ -67,6 +67,10 @@ MANAGED_PATHS["bypass_protection"].append(ONEPASSWORD_AGENT_SOCKET)
 
 MANAGED_GROUPS: list[str] = [
     "go_runtime",
+]
+
+# the go-build caches are already writable through the pack's user_caches_* groups
+REMOVED_GROUPS: list[str] = [
     "go_runtime_linux",
     "go_runtime_macos",
 ]
@@ -136,6 +140,7 @@ def path_operations(config: JsonObject) -> list[Operation]:
     included = groups.get("include", [])
     if not isinstance(included, list):
         included = []
+    included = [group for group in included if group not in REMOVED_GROUPS]
     for group in MANAGED_GROUPS:
         if group not in included:
             included.append(group)

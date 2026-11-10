@@ -42,7 +42,6 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.config/nono",
         "~/.config/rumdl",
         "~/.config/worktrunk",
-        "~/.kube",
     ],
     # ~/.ssh is covered by deny_credentials, so each grant needs a matching bypass
     "read_file": [
@@ -50,7 +49,6 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.ssh/known_hosts",
     ],
     "bypass_protection": [
-        "~/.kube",
         "~/.ssh/config",
         "~/.ssh/known_hosts",
         "~/.terraform.d",
@@ -82,7 +80,11 @@ REMOVED_PATHS: dict[str, list[str]] = {
     "read": [
         "~/.config/ccmux/session-pids",
         "~/.config/chezmoi",
+        "~/.kube",
         "~/.local/share",
+    ],
+    "bypass_protection": [
+        "~/.kube",
     ],
 }
 

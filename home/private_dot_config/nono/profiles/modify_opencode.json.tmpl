@@ -28,7 +28,6 @@ MANAGED_PATHS: dict[str, list[str]] = {
         "~/.jsonc-edit",
         "~/.local/share/gh",
         "~/.local/share/serena",
-        "~/.local/share/uv",
         "~/.local/share/zoxide",
         "~/.local/state/gh",
         "~/.terraform.d",
@@ -72,6 +71,11 @@ MANAGED_GROUPS: list[str] = [
     "go_runtime_macos",
 ]
 
+# uvx needs a writable tool dir, so give it a sandbox-only one instead of ~/.local/share/uv/tools
+MANAGED_ENV: dict[str, str] = {
+    "UV_TOOL_DIR": "$HOME/.cache/opencode/uv-tools",
+}
+
 # remove obsolete, duplicate or unsafe grants
 REMOVED_PATHS: dict[str, list[str]] = {
     "allow": [
@@ -79,6 +83,8 @@ REMOVED_PATHS: dict[str, list[str]] = {
         "~/.config/nono/profiles",
         # holds chezmoi data and hooks that run outside the sandbox
         "~/.config/chezmoi",
+        # tools and binaries here run outside the sandbox
+        "~/.local/share/uv",
     ],
     "read": [
         "~/.config/ccmux/session-pids",
@@ -131,6 +137,10 @@ def path_operations(config: JsonObject) -> list[Operation]:
         if group not in included:
             included.append(group)
     operations.append((["groups", "include"], included))
+
+    operations.extend(
+        (["environment", "set_vars", name], value) for name, value in MANAGED_ENV.items()
+    )
     return operations
 
 

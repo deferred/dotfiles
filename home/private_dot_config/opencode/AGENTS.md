@@ -7,6 +7,7 @@
 ## git
 
 - Always ask for approval before running `git push`
+- Before working on a branch, pull its latest remote changes.
 - Implement features in a new worktree by default. Use the current worktree only when the user explicitly asks.
 
 ## Writing Guidelines

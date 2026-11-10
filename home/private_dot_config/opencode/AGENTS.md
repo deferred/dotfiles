@@ -7,6 +7,7 @@
 ## git
 
 - Always ask for approval before running `git push`
+- Implement features in a new worktree by default. Use the current worktree only when the user explicitly asks.
 
 ## Writing Guidelines
 

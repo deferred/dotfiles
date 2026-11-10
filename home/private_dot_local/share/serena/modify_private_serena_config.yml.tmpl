@@ -13,6 +13,7 @@ import tempfile
 SETTINGS = {
     "project_serena_folder_location": "'{{ .chezmoi.homeDir }}/.local/share/serena/projects/$projectFolderName/.serena'",
     "web_dashboard_open_on_launch": "false",
+    "web_dashboard_interface": "browser",
 }
 
 def generate_default_config() -> str:

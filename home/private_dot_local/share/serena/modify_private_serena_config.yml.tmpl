@@ -3,18 +3,47 @@
 # requires-python = ">=3.11"
 # ///
 
+import os
 import re
+import shutil
+import subprocess
 import sys
-
+import tempfile
 
 SETTINGS = {
     "project_serena_folder_location": "'{{ .chezmoi.homeDir }}/.local/share/serena/projects/$projectFolderName/.serena'",
     "web_dashboard_open_on_launch": "false",
 }
 
+def generate_default_config() -> str:
+    executable = shutil.which("serena")
+    if executable is None:
+        raise FileNotFoundError("Serena is required to create its default config")
+    with tempfile.TemporaryDirectory() as home:
+        env = os.environ.copy()
+        env["SERENA_HOME"] = home
+        try:
+            subprocess.run(
+                [executable, "init"],
+                env=env,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        except subprocess.CalledProcessError as error:
+            raise RuntimeError(f"serena init failed: {error.stderr.strip()}") from error
+        config_path = os.path.join(home, "serena_config.yml")
+        with open(config_path, encoding="utf-8") as file:
+            result = file.read()
+        if not result.strip():
+            raise ValueError("serena init generated an empty config")
+        return result
+
 
 def main() -> None:
-    result = sys.stdin.read()
+    existing = sys.stdin.read()
+    result = existing if existing.strip() else generate_default_config()
+
     for key, value in SETTINGS.items():
         setting = f"{key}: {value}"
         pattern = re.compile(rf"^{re.escape(key)}:.*$", re.MULTILINE)

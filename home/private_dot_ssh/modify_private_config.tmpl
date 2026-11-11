@@ -5,22 +5,31 @@
 import sys
 
 
-current = sys.stdin.read()
+AGENT_LINE = 'IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'
 
 # Block managed by chezmoi. All other SSH configuration remains machine-local.
-MANAGED_BLOCK = '''Host *
-	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-'''
+MANAGED_BLOCK = f"Host *\n    {AGENT_LINE}\n"
+
+
+def has_agent_line(config: str) -> bool:
+    # Compare stripped lines, so a block with different indentation still counts.
+    return any(line.strip() == AGENT_LINE for line in config.splitlines())
+
+
+def add_managed_block(config: str) -> str:
+    if has_agent_line(config):
+        return config
+    if config and not config.endswith("\n"):
+        config += "\n"
+    if config:
+        config += "\n"
+    return config + MANAGED_BLOCK
+
+
+current = sys.stdin.read()
 
 {{ if eq .chezmoi.os "darwin" -}}
-if MANAGED_BLOCK in current:
-    sys.stdout.write(current)
-else:
-    if current and not current.endswith("\n"):
-        current += "\n"
-    if current:
-        current += "\n"
-    sys.stdout.write(current + MANAGED_BLOCK)
+sys.stdout.write(add_managed_block(current))
 {{ else -}}
 sys.stdout.write(current)
 {{ end -}}

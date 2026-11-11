@@ -8,7 +8,8 @@
 
 - Always ask for approval before running `git push`
 - Before working on a branch, pull its latest remote changes.
-- Implement features in a new worktree by default. Use the current worktree only when the user explicitly asks.
+- Before feature work, ask one question: work on the current branch, or create a new worktree; for a
+  new worktree, offer 2-3 branch name options in the same question.
 
 ## Writing Guidelines
 

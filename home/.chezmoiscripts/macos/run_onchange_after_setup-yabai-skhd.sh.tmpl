@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# rerun when the yabai binary changes, because the sudoers rule pins its hash
+# yabai hash: {{ with lookPath "yabai" }}{{ include . | sha256sum }}{{ end }}
+
 # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
 echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 

@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+# desktop Macs have no battery to limit
+if ! pmset -g batt | grep -q InternalBattery; then
+  exit 0
+fi
+
+# set the charge limit from System Settings > Battery > Charging, which needs Apple silicon and
+# macOS 26.4 or later; PowerUIAgent runs as root and reads these keys from root's preferences
+sudo defaults write com.apple.smartcharging.topoffprotection MCLFeatureState -int 1
+sudo defaults write com.apple.smartcharging.topoffprotection mclLimitValue -int 80
+
+# make PowerUIAgent reload the keys and register the new limit with powerd
+sudo notifyutil -p com.apple.smartcharging.defaultschanged

@@ -130,6 +130,14 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # use 1Password for AutoFill, same as the toggle in System Settings > AutoFill & Passwords
 pluginkit -e use -i com.1password.1password.autofill-extension
 
+# set up verification codes in 1Password, same as "Set Up Codes In" in System Settings > AutoFill & Passwords
+swift - <<'EOF'
+import AppKit
+let app = URL(fileURLWithPath: "/Applications/1Password.app")
+NSWorkspace.shared.setDefaultApplication(at: app, toOpenURLsWithScheme: "otpauth") { _ in exit(0) }
+RunLoop.main.run()
+EOF
+
 for app in \
 	"ControlCenter" \
 	"Dock" \

@@ -13,6 +13,10 @@ defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 \
 	'{enabled = 0; value = {parameters = (32, 49, 786432); type = standard;};}'
 
+# free Command-Space for Raycast
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 \
+	'{enabled = 0;}'
+
 # Show the Input menu in the menu bar
 defaults write com.apple.TextInputMenu visible -bool true
 

@@ -123,6 +123,13 @@ defaults write com.apple.finder ShowStatusBar -bool true
 # Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+###############################################################################
+# AutoFill                                                                    #
+###############################################################################
+
+# use 1Password for AutoFill, same as the toggle in System Settings > AutoFill & Passwords
+pluginkit -e use -i com.1password.1password.autofill-extension
+
 for app in \
 	"ControlCenter" \
 	"Dock" \

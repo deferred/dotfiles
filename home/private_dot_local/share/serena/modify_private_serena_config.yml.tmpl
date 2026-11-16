@@ -16,8 +16,21 @@ SETTINGS = {
     "web_dashboard_interface": "browser",
 }
 
+def find_serena() -> str | None:
+    if executable := shutil.which("serena"):
+        return executable
+    # uv's tool bin dir may not be on PATH yet on a fresh host
+    bin_dir = subprocess.run(
+        ["uv", "tool", "dir", "--bin"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    return shutil.which("serena", path=bin_dir)
+
+
 def generate_default_config() -> str:
-    executable = shutil.which("serena")
+    executable = find_serena()
     if executable is None:
         raise FileNotFoundError("Serena is required to create its default config")
     with tempfile.TemporaryDirectory() as home:

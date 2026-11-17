@@ -80,25 +80,9 @@ MANAGED_ENV: dict[str, str] = {
 
 # remove obsolete, duplicate or unsafe grants
 REMOVED_PATHS: dict[str, list[str]] = {
-    "allow": [
-        # lets the agent change its own sandbox
-        "~/.config/nono/profiles",
-        # holds chezmoi data and hooks that run outside the sandbox
-        "~/.config/chezmoi",
-        # tools and binaries here run outside the sandbox
-        "~/.local/share/uv",
-        "~/.terraform.d",
-        "~/go",
-    ],
-    "read": [
-        "~/.config/ccmux/session-pids",
-        "~/.kube",
-        "~/.local/share",
-    ],
-    "bypass_protection": [
-        "~/.kube",
-        "~/.terraform.d",
-    ],
+    "allow": [],
+    "read": [],
+    "bypass_protection": [],
 }
 
 

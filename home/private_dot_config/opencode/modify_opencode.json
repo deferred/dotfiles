@@ -22,6 +22,22 @@ JsonPath = list[str]
 Operation = tuple[JsonPath, Any]
 
 
+# opencode titles sessions with the first reasoning variant, which is "none" for these
+# models, so the title agent's temperature reaches the ChatGPT backend and fails with
+# 400 "Unsupported parameter: temperature"
+OPENAI_MODELS_WITHOUT_TEMPERATURE: list[str] = [
+    "gpt-5.4",
+    "gpt-5.4-mini",
+    "gpt-5.5",
+    "gpt-5.6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-6-luna",
+    "gpt-6-sol",
+    "gpt-6.1-terra",
+]
+
+
 # Settings managed by chezmoi. All other values remain machine-local.
 MANAGED_SETTINGS: JsonObject = {
     "$schema": "https://opencode.ai/config.json",
@@ -49,6 +65,14 @@ MANAGED_SETTINGS: JsonObject = {
         "fast": {
             "mode": "subagent",
         }
+    },
+    "provider": {
+        "openai": {
+            "models": {
+                model: {"temperature": False}
+                for model in OPENAI_MODELS_WITHOUT_TEMPERATURE
+            },
+        },
     },
     "permission": {
         "external_directory": {

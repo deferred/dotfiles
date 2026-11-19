@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+# install Profile Switcher in every Firefox profile from the file
+# .chezmoiexternal downloads, since AMO no longer hosts it; Firefox reads
+# user-level policies at startup, so this needs no sudo
+defaults write org.mozilla.firefox EnterprisePoliciesEnabled -bool true
+defaults write org.mozilla.firefox ExtensionSettings -dict-add profile-switcher-ff@nd.ax \
+  '{installation_mode = "normal_installed"; install_url = "file://{{ .chezmoi.homeDir | replace " " "%20" }}/Library/Application%20Support/Mozilla/profile-switcher-ff@nd.ax.xpi";}'

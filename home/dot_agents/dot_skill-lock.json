@@ -5,28 +5,31 @@
       "source": "github/gh-stack",
       "sourceType": "github",
       "sourceUrl": "https://github.com/github/gh-stack.git",
+      "commit": "80b6d6e910cc1b7eaa26b961d7721ade21084fed",
       "skillPath": "skills/gh-stack/SKILL.md",
       "skillFolderHash": "1f58c48379bc9fcab68e8a37cb41aad3ad937419",
       "installedAt": "2026-08-21T12:58:53Z",
-      "updatedAt": "2026-11-03T16:09:22.180Z"
+      "updatedAt": "2026-11-16T18:43:28.984Z"
     },
     "git-commit": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
       "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "commit": "dc0083dbe22133bfa7ce3500dee85e187e0cd47a",
       "skillPath": "skills/git-commit/SKILL.md",
       "skillFolderHash": "34b3e1ac8c5cbdc3a24dfc053cad930aaddf41f6",
       "installedAt": "2026-02-10T17:25:06.054Z",
-      "updatedAt": "2026-11-06T19:57:53.274Z"
+      "updatedAt": "2026-11-16T18:43:41.545Z"
     },
     "skill-creator": {
       "source": "anthropics/claude-plugins-official",
       "sourceType": "github",
       "sourceUrl": "https://github.com/anthropics/claude-plugins-official.git",
+      "commit": "f59aa2e6dd7d93e45910afcb7569d73b375f31f7",
       "skillPath": "plugins/skill-creator/skills/skill-creator/SKILL.md",
       "skillFolderHash": "98a510d1cfef9f82c3b1eec200229ca68725e613",
       "installedAt": "2026-02-10T17:26:32.293Z",
-      "updatedAt": "2026-10-14T10:24:34.615Z"
+      "updatedAt": "2026-11-16T18:43:44.838Z"
     }
   },
   "dismissed": {

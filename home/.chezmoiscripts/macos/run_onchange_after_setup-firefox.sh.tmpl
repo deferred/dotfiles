@@ -1,0 +1,112 @@
+#!/bin/bash
+set -euo pipefail
+
+FIREFOX_DIR="$HOME/Library/Application Support/Firefox"
+FIREFOX_BIN="${FIREFOX_BIN:-/Applications/Firefox.app/Contents/MacOS/firefox}"
+
+# Firefox Sync only carries a pref when both Macs have a matching
+# services.sync.prefs.sync.* control pref; this list syncs the toolbar and
+# vertical tabs layout
+SYNCED_PREFS=(
+  browser.uiCustomization.state
+  browser.toolbars.bookmarks.visibility
+  browser.uidensity
+  sidebar.revamp
+  sidebar.verticalTabs
+  sidebar.visibility
+  sidebar.position_start
+  sidebar.main.tools
+)
+
+###############################################################################
+# Profile Switcher                                                            #
+###############################################################################
+
+# install Profile Switcher in every Firefox profile from the file
+# .chezmoiexternal downloads, since AMO no longer hosts it; Firefox reads
+# user-level policies at startup, so this needs no sudo
+defaults write org.mozilla.firefox EnterprisePoliciesEnabled -bool true
+defaults write org.mozilla.firefox ExtensionSettings -dict-add profile-switcher-ff@nd.ax \
+  '{installation_mode = "normal_installed"; install_url = "file://{{ .chezmoi.homeDir | replace " " "%20" }}/Library/Application%20Support/Mozilla/profile-switcher-ff@nd.ax.xpi";}'
+
+###############################################################################
+# Sync layout                                                                 #
+###############################################################################
+
+# print the profile that each Firefox install created on its first start
+install_profiles() {
+  [ -f "$FIREFOX_DIR/profiles.ini" ] || return 0
+  awk -F= '
+    /^\[/ { install = ($0 ~ /^\[Install/) }
+    install && $1 == "Default" { print $2 }
+  ' "$FIREFOX_DIR/profiles.ini" | sort -u
+}
+
+profile_path() {
+  case "$1" in
+    /*) printf '%s\n' "$1" ;;
+    *) printf '%s\n' "$FIREFOX_DIR/$1" ;;
+  esac
+}
+
+# Firefox writes compatibility.ini once the new profile is set up
+profiles_ready() {
+  local profile
+  while IFS= read -r profile; do
+    [ -n "$profile" ] || continue
+    [ -f "$(profile_path "$profile")/compatibility.ini" ] && return 0
+  done <<<"$(install_profiles)"
+  return 1
+}
+
+# start Firefox headless once, so the control prefs exist before the first
+# real start; Sync would skip the layout prefs on its first sync otherwise
+create_profile() {
+  "$FIREFOX_BIN" --headless --no-remote >/dev/null 2>&1 &
+  local pid=$!
+
+  for _ in {1..30}; do
+    profiles_ready && break
+    kill -0 "$pid" 2>/dev/null || break
+    sleep 1
+  done
+
+  kill "$pid" 2>/dev/null || true
+  for _ in {1..10}; do
+    kill -0 "$pid" 2>/dev/null || break
+    sleep 1
+  done
+  kill -9 "$pid" 2>/dev/null || true
+  wait "$pid" 2>/dev/null || true
+}
+
+# fail instead of skipping, so chezmoi runs this script again on the next apply
+if [ -z "$(install_profiles)" ]; then
+  if [ ! -x "$FIREFOX_BIN" ]; then
+    echo "Firefox is not installed at $FIREFOX_BIN." >&2
+    exit 1
+  fi
+  create_profile
+fi
+
+profiles=$(install_profiles)
+if [ -z "$profiles" ]; then
+  echo "Firefox created no profile." >&2
+  exit 1
+fi
+
+while IFS= read -r profile; do
+  dir=$(profile_path "$profile")
+  [ -d "$dir" ] || continue
+  user_js="$dir/user.js"
+
+  # keep a missing final newline from joining two prefs on one line
+  if [ -s "$user_js" ] && [ -n "$(tail -c1 "$user_js")" ]; then
+    echo >>"$user_js"
+  fi
+
+  for pref in "${SYNCED_PREFS[@]}"; do
+    line="user_pref(\"services.sync.prefs.sync.$pref\", true);"
+    grep -qxF "$line" "$user_js" 2>/dev/null || printf '%s\n' "$line" >>"$user_js"
+  done
+done <<<"$profiles"

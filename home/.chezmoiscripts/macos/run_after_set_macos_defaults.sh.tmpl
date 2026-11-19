@@ -62,6 +62,21 @@ defaults write com.apple.controlcenter "NSStatusItem Preferred Position FocusMod
 defaults write com.apple.weather.menu "NSStatusItem Preferred Position Item-0" -float 408
 
 ###############################################################################
+# Displays                                                                    #
+###############################################################################
+
+# use CoreBrightness to avoid editing its root-owned preferences directly
+/usr/bin/osascript -l JavaScript <<'EOF'
+ObjC.import("Foundation");
+const framework = $.NSBundle.bundleWithPath("/System/Library/PrivateFrameworks/CoreBrightness.framework");
+if (!framework.load) throw new Error("Could not load CoreBrightness");
+
+const client = $.NSClassFromString("CBBlueLightClient").alloc.init;
+const sunsetToSunrise = 1;
+if (!client.setMode(sunsetToSunrise)) throw new Error("Could not set the Night Shift schedule");
+EOF
+
+###############################################################################
 # Dock                                                                        #
 ###############################################################################
 

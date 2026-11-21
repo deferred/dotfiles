@@ -7,15 +7,18 @@
 # F1, F2, etc. behave as standard function keys
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
+# write a symbolic hotkey with typed values; old-style defaults syntax stores strings
+symbolic_hotkey() {
+	defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
+		"<dict><key>enabled</key><$2/><key>value</key><dict><key>parameters</key><array><integer>$3</integer><integer>$4</integer><integer>$5</integer></array><key>type</key><string>standard</string></dict></dict>"
+}
+
 # Use Control-Space as the only input-source shortcut.
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
-	'{enabled = 1; value = {parameters = (32, 49, 262144); type = standard;};}'
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 \
-	'{enabled = 0; value = {parameters = (32, 49, 786432); type = standard;};}'
+symbolic_hotkey 60 true 32 49 262144
+symbolic_hotkey 61 false 32 49 786432
 
 # free Command-Space for Raycast
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 \
-	'{enabled = 0;}'
+symbolic_hotkey 64 false 32 49 1048576
 
 # Show the Input menu in the menu bar
 defaults write com.apple.TextInputMenu visible -bool true
@@ -163,5 +166,8 @@ for app in \
 do \
 	killall "${app}" &> /dev/null
 done
+
+# reload symbolic hotkeys after all preferences are written
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
 open -g "/System/Applications/Weather.app/Contents/Library/LoginItems/WeatherMenu.app" &> /dev/null

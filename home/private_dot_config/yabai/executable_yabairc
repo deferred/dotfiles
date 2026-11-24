@@ -64,6 +64,14 @@ yabai -m signal --add \
     event=display_removed \
     action="$reconcile_action"
 
+# keep focus on this space when macOS activates Finder after closing the active window
+yabai -m signal --add \
+    event=window_destroyed \
+    active=yes \
+    action="yabai -m query --windows --window >/dev/null 2>&1 || \
+        yabai -m window --focus mouse >/dev/null 2>&1 || \
+        yabai -m window --focus \$(yabai -m query --windows --space | jq '.[0].id') >/dev/null 2>&1"
+
 # auto-minimize Teams "Meeting compact view" popup when its title changes
 yabai -m signal --add \
     event=window_title_changed \

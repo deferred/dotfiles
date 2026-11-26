@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Installing Wi-Fi cycle agent' quiet "$@"
+
 # Re-bootstrap the LaunchAgent whenever the plist content changes.
 # hash: {{ includeTemplate "Library/LaunchAgents/local.wifi-cycle-on-eth.plist.tmpl" . | sha256sum }}
 

@@ -1,11 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Setting up yabai and skhd' live "$@"
+
 # rerun when the yabai binary changes, because the sudoers rule pins its hash
 # yabai hash: {{ with lookPath "yabai" }}{{ include . | sha256sum }}{{ end }}
 
 # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
-echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+yabai_bin=$(which yabai)
+yabai_hash=$(shasum -a 256 "$yabai_bin" | cut -d " " -f 1)
+echo "$(whoami) ALL=(root) NOPASSWD: sha256:$yabai_hash $yabai_bin --load-sa" | sudo tee /private/etc/sudoers.d/yabai >/dev/null
 
 yabai --start-service
 skhd --start-service

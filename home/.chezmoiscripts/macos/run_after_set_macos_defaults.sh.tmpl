@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Applying macOS defaults' quiet "$@"
+
 ###############################################################################
 # Keyboard                                                                    #
 ###############################################################################

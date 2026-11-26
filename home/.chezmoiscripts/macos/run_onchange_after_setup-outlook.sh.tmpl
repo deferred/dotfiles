@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Setting up Outlook shortcuts' quiet "$@"
+
 defaults write com.microsoft.Outlook NSUserKeyEquivalents -dict-add "Go to Folder..." "@g"

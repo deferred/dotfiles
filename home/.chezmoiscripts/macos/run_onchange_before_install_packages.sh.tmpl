@@ -3,6 +3,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Installing macOS packages' live "$@"
+
 BREWFILE=$(
 	cat <<'EOF'
 brew "asmvik/formulae/skhd"

@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Upgrading Homebrew packages' quiet "$@"
+
 if ! command -v brew >/dev/null 2>&1; then
 	for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
 		if [ -x "$brew_path" ]; then

@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Updating skills' quiet "$@"
+
 if ! command -v npx >/dev/null 2>&1; then
 	for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
 		if [ -x "$brew_path" ]; then
@@ -15,7 +18,7 @@ lock_file="$HOME/.agents/.skill-lock.json"
 
 while IFS= read -r skill && IFS= read -r source_url; do
 	if [ ! -d "$HOME/.agents/skills/$skill" ]; then
-		npx --yes skills add "$source_url" --skill "$skill" -g -y </dev/null
+		npx --yes skills add "$source_url" --skill "$skill" -g -y
 	fi
 done < <(
 	jq -r '
@@ -26,4 +29,4 @@ done < <(
 	' "$lock_file"
 )
 
-npx --yes skills update -g -y </dev/null
+npx --yes skills update -g -y

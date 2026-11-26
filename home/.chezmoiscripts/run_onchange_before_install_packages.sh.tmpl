@@ -3,6 +3,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+{{ includeTemplate "task-script.sh" | trimSuffix "\n" }}
+task_script 'Installing common packages' live "$@"
+
 exists() {
 	command -v "$1" >/dev/null 2>&1
 }
